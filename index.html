@@ -37,7 +37,7 @@
         nav {
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 10000;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
@@ -164,12 +164,13 @@
         .nav-cta {
             background: var(--primary-black);
             color: var(--white);
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .nav-cta:hover {
@@ -261,6 +262,7 @@
         @media (max-width: 768px) {
             .nav-container {
                 padding: 16px 24px;
+                position: relative;
             }
 
             .nav-links,
@@ -268,8 +270,24 @@
                 display: none;
             }
 
+            .nav-right {
+                position: absolute;
+                right: 70px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .nav-cta {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
             .mobile-menu-toggle {
                 display: block;
+                position: absolute;
+                right: 24px;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 
@@ -531,12 +549,12 @@
             }
 
             .flow-container {
-                flex-direction: column;
-                gap: 32px;
+                flex-direction: row;
+                gap: 20px;
             }
 
             .flow-arrow {
-                transform: rotate(90deg);
+                transform: rotate(0deg);
             }
 
             .icon-wrapper {
