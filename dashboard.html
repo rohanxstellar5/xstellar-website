@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - XStellar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #1a1a1a;
+            --soft-black: #2d2d2d;
+            --gray: #666666;
+            --light-gray: #f5f5f5;
+            --accent: #0066ff;
+            --white: #ffffff;
+            --error: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--light-gray);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid #e5e5e5;
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            color: var(--primary-black);
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .business-name {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .btn-logout {
+            background: none;
+            border: 1px solid #e5e5e5;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--primary-black);
+            color: var(--primary-black);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-black);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon.instagram {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .card-icon.airtable {
+            background: #FCB400;
+        }
+
+        .card-icon.slack {
+            background: #4A154B;
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .status-badge.connected {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.disconnected {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-badge.connected::before {
+            background: #22c55e;
+        }
+
+        .status-badge.disconnected::before {
+            background: #f59e0b;
+        }
+
+        .connection-info {
+            background: var(--light-gray);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .connection-info p {
+            font-size: 14px;
+            color: var(--soft-black);
+            margin-bottom: 4px;
+        }
+
+        .connection-info strong {
+            color: var(--primary-black);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-black);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--soft-black);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-black);
+            border: 2px solid #e5e5e5;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-black);
+        }
+
+        .btn-danger {
+            background: #fef2f2;
+            color: var(--error);
+            border: 1px solid #fecaca;
+        }
+
+        .btn-danger:hover {
+            background: #fee2e2;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .btn-primary.loading::after {
+            border-top-color: white;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Form in card */
+        .card-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--soft-black);
+        }
+
+        .form-input {
+            padding: 12px 14px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-black);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* Alert */
+        .alert {
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: var(--error);
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            color: var(--success);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-top: 40px;
+        }
+
+        .stats-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-black);
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-black);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-right {
+                gap: 12px;
+            }
+
+            .business-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">Xstellar.systems</a>
+            <div class="header-right">
+                <span class="business-name" id="businessName">Loading...</span>
+                <button class="btn-logout" onclick="handleLogout()">Sign Out</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Connect your integrations to start qualifying leads</p>
+
+        <div class="cards-grid">
+            <!-- Instagram Connection Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Instagram</h3>
+                        <p class="card-description">Connect your business account</p>
+                    </div>
+                </div>
+
+                <div id="igStatus">
+                    <span class="status-badge disconnected">Not Connected</span>
+                </div>
+
+                <div id="igInfo" class="connection-info" style="display: none;">
+                    <p><strong>Account:</strong> <span id="igUsername">@username</span></p>
+                    <p><strong>Connected:</strong> <span id="igConnectedAt">-</span></p>
+                </div>
+
+                <div id="igAlert" class="alert"></div>
+
+                <button id="igConnectBtn" class="btn btn-primary" onclick="connectInstagram()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Connect Instagram
+                </button>
+
+                <button id="igDisconnectBtn" class="btn btn-danger" style="display: none; margin-top: 12px;" onclick="disconnectInstagram()">
+                    Disconnect
+                </button>
+            </div>
+
+            <!-- Airtable Config Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon airtable">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3L2 8l10 5 10-5-10-5zM2 16l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Airtable</h3>
+                        <p class="card-description">Store leads in your base</p>
+                    </div>
+                </div>
+
+                <div id="airtableAlert" class="alert"></div>
+
+                <form class="card-form" onsubmit="saveAirtableConfig(event)">
+                    <div class="form-group">
+                        <label class="form-label">API Key (Personal Access Token)</label>
+                        <input type="password" id="airtable_api_key" class="form-input" placeholder="pat...">
+                        <span class="form-hint">Get it from airtable.com/create/tokens</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Base ID</label>
+                        <input type="text" id="airtable_base_id" class="form-input" placeholder="app...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Table Name</label>
+                        <input type="text" id="airtable_table_name" class="form-input" placeholder="Leads" value="Leads">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="airtableSaveBtn">
+                        Save Configuration
+                    </button>
+                </form>
+            </div>
+
+            <!-- Slack Config Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon slack">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Slack</h3>
+                        <p class="card-description">Get notified of hot leads</p>
+                    </div>
+                </div>
+
+                <div id="slackAlert" class="alert"></div>
+
+                <form class="card-form" onsubmit="saveSlackConfig(event)">
+                    <div class="form-group">
+                        <label class="form-label">Webhook URL</label>
+                        <input type="url" id="slack_webhook_url" class="form-input" placeholder="https://hooks.slack.com/services/...">
+                        <span class="form-hint">Create an incoming webhook in Slack</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="slackSaveBtn">
+                        Save Configuration
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h2 class="stats-title">Lead Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalLeads">0</div>
+                    <div class="stat-label">Total Leads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="hotLeads">0</div>
+                    <div class="stat-label">Hot Leads (A-tier)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="warmLeads">0</div>
+                    <div class="stat-label">Warm Leads (B-tier)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="coldLeads">0</div>
+                    <div class="stat-label">Cold Leads (C/D-tier)</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // API Base URL - Change this to your backend URL
+        const API_BASE = 'https://insta-dm-qualifier.onrender.com';
+        
+        let clientId = null;
+
+        // Check auth on load
+        document.addEventListener('DOMContentLoaded', function() {
+            clientId = localStorage.getItem('xstellar_client_id');
+            
+            if (!clientId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Set business name
+            const businessName = localStorage.getItem('xstellar_business');
+            document.getElementById('businessName').textContent = businessName || 'My Business';
+
+            // Load connection status
+            checkInstagramStatus();
+            loadStats();
+        });
+
+        function handleLogout() {
+            localStorage.removeItem('xstellar_client_id');
+            localStorage.removeItem('xstellar_email');
+            localStorage.removeItem('xstellar_business');
+            window.location.href = 'login.html';
+        }
+
+        function showAlert(elementId, message, type) {
+            const alert = document.getElementById(elementId);
+            alert.textContent = message;
+            alert.className = `alert alert-${type} show`;
+            setTimeout(() => {
+                alert.className = 'alert';
+            }, 5000);
+        }
+
+        async function checkInstagramStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/status/${clientId}`);
+                const data = await response.json();
+
+                if (data.connected) {
+                    document.getElementById('igStatus').innerHTML = '<span class="status-badge connected">Connected</span>';
+                    document.getElementById('igUsername').textContent = '@' + data.instagram_username;
+                    document.getElementById('igConnectedAt').textContent = new Date(data.connected_at).toLocaleDateString();
+                    document.getElementById('igInfo').style.display = 'block';
+                    document.getElementById('igConnectBtn').style.display = 'none';
+                    document.getElementById('igDisconnectBtn').style.display = 'block';
+                } else {
+                    document.getElementById('igStatus').innerHTML = '<span class="status-badge disconnected">Not Connected</span>';
+                    document.getElementById('igInfo').style.display = 'none';
+                    document.getElementById('igConnectBtn').style.display = 'block';
+                    document.getElementById('igDisconnectBtn').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Status check error:', error);
+            }
+        }
+
+        function connectInstagram() {
+            // Redirect to OAuth flow
+            window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
+        }
+
+        async function disconnectInstagram() {
+            if (!confirm('Are you sure you want to disconnect Instagram?')) return;
+
+            const btn = document.getElementById('igDisconnectBtn');
+            btn.classList.add('loading');
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/disconnect/${clientId}`, {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    showAlert('igAlert', 'Instagram disconnected successfully', 'success');
+                    checkInstagramStatus();
+                } else {
+                    showAlert('igAlert', 'Failed to disconnect', 'error');
+                }
+            } catch (error) {
+                showAlert('igAlert', 'Connection error', 'error');
+            } finally {
+                btn.classList.remove('loading');
+            }
+        }
+
+        async function saveAirtableConfig(event) {
+            event.preventDefault();
+            const btn = document.getElementById('airtableSaveBtn');
+            btn.classList.add('loading');
+
+            const config = {
+                airtable_api_key: document.getElementById('airtable_api_key').value,
+                airtable_base_id: document.getElementById('airtable_base_id').value,
+                airtable_table_name: document.getElementById('airtable_table_name').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/api/config/${clientId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+
+                if (response.ok) {
+                    showAlert('airtableAlert', 'Airtable configuration saved!', 'success');
+                } else {
+                    showAlert('airtableAlert', 'Failed to save configuration', 'error');
+                }
+            } catch (error) {
+                showAlert('airtableAlert', 'Connection error', 'error');
+            } finally {
+                btn.classList.remove('loading');
+            }
+        }
+
+        async function saveSlackConfig(event) {
+            event.preventDefault();
+            const btn = document.getElementById('slackSaveBtn');
+            btn.classList.add('loading');
+
+            const config = {
+                slack_webhook_url: document.getElementById('slack_webhook_url').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/api/config/${clientId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+
+                if (response.ok) {
+                    showAlert('slackAlert', 'Slack configuration saved!', 'success');
+                } else {
+                    showAlert('slackAlert', 'Failed to save configuration', 'error');
+                }
+            } catch (error) {
+                showAlert('slackAlert', 'Connection error', 'error');
+            } finally {
+                btn.classList.remove('loading');
+            }
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE}/api/stats/${clientId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('totalLeads').textContent = data.total || 0;
+                    document.getElementById('hotLeads').textContent = data.hot || 0;
+                    document.getElementById('warmLeads').textContent = data.warm || 0;
+                    document.getElementById('coldLeads').textContent = data.cold || 0;
+                }
+            } catch (error) {
+                console.error('Stats error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
