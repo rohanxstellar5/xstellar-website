@@ -116,6 +116,10 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
+        .card.highlight {
+            border: 2px solid var(--accent);
+        }
+
         .card-header {
             display: flex;
             align-items: center;
@@ -144,6 +148,10 @@
             background: #4A154B;
         }
 
+        .card-icon.dm-config {
+            background: linear-gradient(135deg, #0066ff 0%, #00c6ff 100%);
+        }
+
         .card-icon svg {
             width: 24px;
             height: 24px;
@@ -159,6 +167,17 @@
         .card-description {
             font-size: 14px;
             color: var(--gray);
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            text-transform: uppercase;
         }
 
         /* Status Badge */
@@ -327,9 +346,31 @@
             color: #999;
         }
 
+        .form-textarea {
+            padding: 12px 14px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--primary-black);
+        }
+
         .form-hint {
             font-size: 12px;
             color: var(--gray);
+        }
+
+        .char-count {
+            font-size: 11px;
+            color: var(--gray);
+            text-align: right;
         }
 
         /* Alert */
@@ -390,6 +431,52 @@
             font-size: 14px;
             color: var(--gray);
             margin-top: 4px;
+        }
+
+        /* Preview Box */
+        .preview-box {
+            background: #f8f9fa;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .preview-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .preview-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .preview-msg {
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            max-width: 85%;
+        }
+
+        .preview-msg.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .preview-msg.bot {
+            background: white;
+            color: var(--primary-black);
+            border: 1px solid #e5e5e5;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
         }
 
         /* Responsive */
@@ -461,6 +548,50 @@
                 <button id="igDisconnectBtn" class="btn btn-danger" style="display: none; margin-top: 12px;" onclick="disconnectInstagram()">
                     Disconnect
                 </button>
+            </div>
+
+            <!-- DM Config Card (NEW) -->
+            <div class="card highlight">
+                <div class="card-header">
+                    <div class="card-icon dm-config">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="card-title">DM Auto-Reply<span class="badge-new">New</span></h3>
+                        <p class="card-description">Customize your qualification flow</p>
+                    </div>
+                </div>
+
+                <div id="dmConfigAlert" class="alert"></div>
+
+                <form class="card-form" onsubmit="saveDMConfig(event)">
+                    <div class="form-group">
+                        <label class="form-label">Trigger Word</label>
+                        <input type="text" id="trigger_word" class="form-input" placeholder="stellar" maxlength="50">
+                        <span class="form-hint">When someone sends this word, they'll get your question</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Qualifying Question</label>
+                        <textarea id="qualifying_question" class="form-textarea" placeholder="Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?" maxlength="500" oninput="updateCharCount()"></textarea>
+                        <span class="char-count"><span id="charCount">0</span>/500</span>
+                        <span class="form-hint">This gets sent automatically when someone uses your trigger word</span>
+                    </div>
+                    
+                    <!-- Preview -->
+                    <div class="preview-box">
+                        <div class="preview-label">Preview</div>
+                        <div class="preview-flow">
+                            <div class="preview-msg user" id="previewTrigger">stellar</div>
+                            <div class="preview-msg bot" id="previewQuestion">Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="dmConfigSaveBtn">
+                        Save Configuration
+                    </button>
+                </form>
             </div>
 
             <!-- Airtable Config Card -->
@@ -571,8 +702,9 @@
             const businessName = localStorage.getItem('xstellar_business');
             document.getElementById('businessName').textContent = businessName || 'My Business';
 
-            // Load connection status
+            // Load all data
             checkInstagramStatus();
+            loadDMConfig();
             loadStats();
         });
 
@@ -591,6 +723,10 @@
                 alert.className = 'alert';
             }, 5000);
         }
+
+        // ============================================
+        // INSTAGRAM
+        // ============================================
 
         async function checkInstagramStatus() {
             try {
@@ -616,7 +752,6 @@
         }
 
         function connectInstagram() {
-            // Redirect to OAuth flow
             window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
         }
 
@@ -643,6 +778,90 @@
                 btn.classList.remove('loading');
             }
         }
+
+        // ============================================
+        // DM CONFIG (NEW)
+        // ============================================
+
+        async function loadDMConfig() {
+            try {
+                const response = await fetch(`${API_BASE}/api/dm-config/${clientId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('trigger_word').value = data.trigger_word || 'stellar';
+                    document.getElementById('qualifying_question').value = data.qualifying_question || '';
+                    updateCharCount();
+                    updatePreview();
+                }
+            } catch (error) {
+                console.error('Failed to load DM config:', error);
+            }
+        }
+
+        function updateCharCount() {
+            const textarea = document.getElementById('qualifying_question');
+            const count = textarea.value.length;
+            document.getElementById('charCount').textContent = count;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const trigger = document.getElementById('trigger_word').value || 'stellar';
+            const question = document.getElementById('qualifying_question').value || "Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?";
+            
+            document.getElementById('previewTrigger').textContent = trigger;
+            document.getElementById('previewQuestion').textContent = question;
+        }
+
+        // Live preview updates
+        document.getElementById('trigger_word')?.addEventListener('input', updatePreview);
+
+        async function saveDMConfig(event) {
+            event.preventDefault();
+            const btn = document.getElementById('dmConfigSaveBtn');
+            btn.classList.add('loading');
+
+            const config = {
+                trigger_word: document.getElementById('trigger_word').value.trim().toLowerCase(),
+                qualifying_question: document.getElementById('qualifying_question').value.trim()
+            };
+
+            // Validation
+            if (config.trigger_word.length < 2) {
+                showAlert('dmConfigAlert', 'Trigger word must be at least 2 characters', 'error');
+                btn.classList.remove('loading');
+                return;
+            }
+
+            if (config.qualifying_question.length < 10) {
+                showAlert('dmConfigAlert', 'Question is too short', 'error');
+                btn.classList.remove('loading');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/dm-config/${clientId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+
+                if (response.ok) {
+                    showAlert('dmConfigAlert', 'DM configuration saved!', 'success');
+                } else {
+                    const error = await response.json();
+                    showAlert('dmConfigAlert', error.detail || 'Failed to save configuration', 'error');
+                }
+            } catch (error) {
+                showAlert('dmConfigAlert', 'Connection error', 'error');
+            } finally {
+                btn.classList.remove('loading');
+            }
+        }
+
+        // ============================================
+        // AIRTABLE
+        // ============================================
 
         async function saveAirtableConfig(event) {
             event.preventDefault();
@@ -674,6 +893,10 @@
             }
         }
 
+        // ============================================
+        // SLACK
+        // ============================================
+
         async function saveSlackConfig(event) {
             event.preventDefault();
             const btn = document.getElementById('slackSaveBtn');
@@ -701,6 +924,10 @@
                 btn.classList.remove('loading');
             }
         }
+
+        // ============================================
+        // STATS
+        // ============================================
 
         async function loadStats() {
             try {
