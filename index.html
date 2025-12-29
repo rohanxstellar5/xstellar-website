@@ -1,977 +1,1135 @@
-<!DOCTYPE html>
-<html lang="en">
+{
+  `name`: `Xstellar Landing Page Code`,
+  `folder`: `Notes`,
+  `content`: `<!DOCTYPE html>
+<html lang=\"en\">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XStellar - AI-Powered Instagram Lead Qualification</title>
-    <meta name="description" content="Streamline your Instagram DM responses with intelligent leads. AI-powered lead scoring system that filters high-intent prospects from casual conversations.">
-    
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Xstellar.systems - AI Powered Lead Qualification for Instagram DMs</title>
+    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap\" rel=\"stylesheet\">
     <style>
+        :root {
+            --bg-white: #FFFFFF;
+            --bg-cream: #F5F5F0;
+            --bg-cream-dark: #EEEEE8;
+            --text-black: #000000;
+            --text-gray: #6B6B6B;
+            --text-light-gray: #999999;
+            --accent-orange: #D97706;
+            --border-light: #E5E5E5;
+            --shadow-soft: rgba(0, 0, 0, 0.05);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-black: #1a1a1a;
-            --soft-black: #2d2d2d;
-            --gray: #666666;
-            --light-gray: #f5f5f5;
-            --accent: #0066ff;
-            --white: #ffffff;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background: var(--white);
-            color: var(--primary-black);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-black);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Navigation */
-        nav {
-            position: sticky;
+        .nav {
+            position: fixed;
             top: 0;
-            z-index: 10000;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
         }
 
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 48px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .nav-left {
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-black);
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            position: relative;
+        }
+
+        .logo-icon::before,
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--text-black);
+            border-radius: 50%;
+        }
+
+        .logo-icon::before {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .logo-icon::after {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-black);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-btn {
+            color: var(--text-gray);
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: inherit;
+            transition: color 0.2s ease;
+        }
+
+        .nav-dropdown-btn:hover {
+            color: var(--text-black);
+        }
+
+        .dropdown-arrow {
+            font-size: 0.6rem;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.6rem 1rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            color: var(--text-black);
+            background: var(--bg-cream);
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 1rem;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: -0.4px;
-            color: var(--primary-black);
+        .btn-signin {
+            color: var(--text-gray);
             text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .logo:hover {
-            opacity: 0.7;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            color: var(--soft-black);
-            text-decoration: none;
-            font-size: 15px;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-black);
-        }
-
-        .nav-link svg {
-            width: 12px;
-            height: 12px;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-item:hover .nav-link svg {
-            transform: rotate(180deg);
-        }
-
-        /* Dropdown Menu */
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(8px);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 8px;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            margin-top: 8px;
-        }
-
-        .nav-item:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            border-radius: 8px;
-            transition: background 0.2s ease;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background: var(--light-gray);
-        }
-
-        .dropdown-item a {
-            color: var(--soft-black);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            display: block;
-        }
-
-        .dropdown-item a:hover {
-            color: var(--primary-black);
-        }
-
-        .nav-cta {
-            background: var(--primary-black);
-            color: var(--white);
-            padding: 8px 16px;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
             border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
             transition: all 0.2s ease;
-            white-space: nowrap;
         }
 
-        .nav-cta:hover {
-            background: var(--soft-black);
-            transform: translateY(-1px);
+        .btn-signin:hover {
+            border-color: var(--text-black);
+            color: var(--text-black);
         }
 
-        .sign-in {
-            color: var(--soft-black);
-            text-decoration: none;
-            font-size: 15px;
+        .btn-primary {
+            display: inline-block;
+            background: var(--text-black);
+            color: var(--bg-white);
+            padding: 0.6rem 1.25rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .sign-in:hover {
-            color: var(--primary-black);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
             border: none;
             cursor: pointer;
-            padding: 8px;
         }
 
-        .mobile-menu-toggle svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 65px;
-            left: 0;
-            right: 0;
-            background: white;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .mobile-nav-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .mobile-nav-link {
-            color: var(--soft-black);
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            display: block;
-        }
-
-        .mobile-dropdown {
-            margin-top: 12px;
-            padding-left: 16px;
-            display: none;
-        }
-
-        .mobile-dropdown.active {
-            display: block;
-        }
-
-        .mobile-dropdown a {
-            display: block;
-            padding: 8px 0;
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        /* Responsive Navigation */
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 16px 24px;
-                position: relative;
-            }
-
-            .nav-links,
-            .nav-right .sign-in {
-                display: none;
-            }
-
-            .nav-right {
-                position: absolute;
-                right: 70px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .nav-cta {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-                position: absolute;
-                right: 24px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
+        .btn-primary:hover {
+            background: #333;
         }
 
         /* Hero Section */
         .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 120px 48px 80px;
+            padding: 10rem 2rem 6rem;
             text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 72px;
+            font-size: 4rem;
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: -2px;
-            color: var(--primary-black);
-            margin-bottom: 24px;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 .highlight {
-            background: linear-gradient(120deg, #0066ff 0%, #00d4ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--accent-orange);
         }
 
-        .hero .subhead {
-            font-size: 24px;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 48px;
-            font-weight: 400;
-            line-height: 1.5;
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
         }
 
-        .cta-container {
+        .hero-buttons {
             display: flex;
-            gap: 16px;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .cta-primary {
-            background: var(--primary-black);
-            color: var(--white);
-            padding: 18px 36px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.2s ease;
+        .btn-secondary {
             display: inline-block;
-        }
-
-        .cta-primary:hover {
-            background: var(--soft-black);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .cta-secondary {
-            color: var(--primary-black);
-            padding: 18px 36px;
-            border-radius: 12px;
+            background: var(--bg-white);
+            color: var(--text-black);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
             transition: all 0.2s ease;
-            display: inline-block;
-            border: 2px solid var(--primary-black);
         }
 
-        .cta-secondary:hover {
-            background: var(--primary-black);
-            color: var(--white);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 20px 24px;
-            }
-
-            .hero {
-                padding: 80px 24px 60px;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-                letter-spacing: -1.5px;
-            }
-
-            .hero .subhead {
-                font-size: 20px;
-            }
-
-            .cta-container {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .cta-primary,
-            .cta-secondary {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero .subhead {
-                font-size: 18px;
-            }
+        .btn-secondary:hover {
+            border-color: var(--text-black);
         }
 
         /* How It Works Section */
         .how-it-works {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 120px 48px;
-            background: var(--light-gray);
+            padding: 5rem 2rem;
+            background: var(--bg-cream);
         }
 
-        .how-it-works h2 {
-            font-size: 48px;
-            font-weight: 700;
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
             text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
             letter-spacing: -1px;
-            margin-bottom: 16px;
-            color: var(--primary-black);
+            margin-bottom: 0.75rem;
         }
 
         .section-subtitle {
-            text-align: center;
-            font-size: 20px;
-            color: var(--gray);
-            margin-bottom: 80px;
+            color: var(--text-gray);
+            font-size: 1.1rem;
         }
 
         .flow-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 2rem 0;
         }
 
-        .flow-step {
+        .flow-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            text-align: center;
+            flex: 1;
         }
 
-        .icon-wrapper {
-            position: relative;
-            width: 80px;
-            height: 80px;
+        .flow-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .icon-wrapper:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        .flow-icon.instagram {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
 
-        .brand-icon {
-            width: 56px;
-            height: 56px;
+        .flow-icon.webhook {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+
+        .flow-icon.ai {
+            background: linear-gradient(135deg, #C9A87C 0%, #B8956E 100%);
+        }
+
+        .flow-icon.airtable {
+            background: linear-gradient(135deg, #FCB400 0%, #F0A000 100%);
+        }
+
+        .flow-icon.slack {
+            background: linear-gradient(135deg, #611F69 0%, #4A154B 100%);
+        }
+
+        .flow-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .flow-icon .icon-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
         }
 
         .notification-badge {
             position: absolute;
             top: -4px;
             right: -4px;
-            background: #ff3b30;
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
+            background: #EF4444;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid white;
+            font-size: 0.65rem;
+            color: white;
+            font-weight: 600;
+            border: 2px solid var(--bg-cream);
         }
 
-        .notification-badge.pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        .step-label {
-            font-size: 15px;
+        .flow-label {
+            font-size: 0.9rem;
+            color: var(--text-black);
             font-weight: 500;
-            color: var(--soft-black);
-            text-align: center;
-            max-width: 120px;
+            line-height: 1.4;
         }
 
         .flow-arrow {
-            display: flex;
-            align-items: center;
-            margin: 0 -8px;
+            color: var(--text-light-gray);
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
         }
 
-        /* Responsive for How It Works */
-        @media (max-width: 1024px) {
-            .flow-container {
-                gap: 16px;
-            }
-
-            .icon-wrapper {
-                width: 70px;
-                height: 70px;
-            }
-
-            .brand-icon {
-                width: 48px;
-                height: 48px;
-            }
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
         }
 
-        @media (max-width: 768px) {
-            .how-it-works {
-                padding: 80px 24px;
-            }
-
-            .how-it-works h2 {
-                font-size: 36px;
-            }
-
-            .section-subtitle {
-                font-size: 18px;
-                margin-bottom: 60px;
-            }
-
-            .flow-container {
-                flex-direction: row;
-                gap: 20px;
-            }
-
-            .flow-arrow {
-                transform: rotate(0deg);
-            }
-
-            .icon-wrapper {
-                width: 80px;
-                height: 80px;
-            }
-
-            .brand-icon {
-                width: 56px;
-                height: 56px;
-            }
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--primary-black);
-            color: white;
-            padding: 80px 0 32px;
-        }
-
-        .footer-container {
-            max-width: 1400px;
+        .about-container {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 48px;
+            text-align: center;
         }
 
-        .footer-top {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            padding-bottom: 48px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .about-label {
+            font-size: 0.85rem;
+            color: var(--text-light-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
         }
 
-        .footer-brand {
-            max-width: 300px;
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
         }
 
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
         }
 
-        .footer-tagline {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 15px;
-            line-height: 1.6;
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--bg-cream);
         }
 
-        .footer-links {
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 48px;
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .footer-column h4 {
-            font-size: 14px;
+        .feature-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .feature-link {
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .feature-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 2rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--text-black);
+            border-width: 2px;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-black);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
+        .pricing-tier {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .footer-column li {
-            margin-bottom: 12px;
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-gray);
+            letter-spacing: 0;
+        }
+
+        .pricing-trial {
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--text-black);
+            font-weight: 600;
+        }
+
+        .pricing-card .btn-primary {
+            width: 100%;
+            text-align: center;
+            padding: 0.85rem;
+        }
+
+        .founding-banner {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 2rem 3rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .founding-banner h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .founding-banner p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .founding-banner .price-highlight {
+            color: var(--text-black);
+            font-weight: 700;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: var(--bg-cream);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 1.75rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-black);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .author-info h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--text-light-gray);
+        }
+
+        /* FAQs Section */
+        .faqs {
+            padding: 6rem 2rem;
+        }
+
+        .faqs-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-black);
+        }
+
+        .faq-answer {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: var(--bg-white);
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-cream);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-column h4 {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-light-gray);
+            margin-bottom: 1rem;
         }
 
         .footer-column a {
-            color: rgba(255, 255, 255, 0.7);
+            display: block;
+            color: var(--text-black);
             text-decoration: none;
-            font-size: 15px;
+            font-size: 0.9rem;
+            padding: 0.35rem 0;
             transition: color 0.2s ease;
         }
 
         .footer-column a:hover {
-            color: white;
+            color: var(--text-gray);
         }
 
         .footer-bottom {
-            padding-top: 32px;
-            text-align: center;
+            border-top: 1px solid var(--border-light);
+            padding-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-light-gray);
         }
 
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
+        .footer-bottom-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
-        /* Footer Responsive */
+        .footer-bottom-links a {
+            color: var(--text-light-gray);
+            text-decoration: none;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--text-black);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
-            .footer {
-                padding: 60px 0 24px;
+            .nav-center {
+                display: none;
             }
 
-            .footer-container {
-                padding: 0 24px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .footer-top {
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .flow-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 0;
+            }
+
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
                 grid-template-columns: 1fr;
-                gap: 48px;
             }
 
-            .footer-links {
-                grid-template-columns: 1fr;
-                gap: 32px;
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="nav-left">
-                <a href="#" class="logo">Xstellar.systems</a>
-                <ul class="nav-links">
-                    <li class="nav-item">
-                        <a href="#product" class="nav-link">Product</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#how-it-works" class="nav-link">How It Works</a>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link">
-                            Pricing
-                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-item">
-                                <a href="#pricing">View Pricing</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <a href="mailto:support@xstellar.systems">Contact Sales</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link">
-                            Legal
-                            <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-item">
-                                <a href="privacy.html">Privacy Policy</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <a href="terms.html">Terms of Service</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <a href="data-deletion.html">Data Deletion</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+    <nav class=\"nav\">
+        <div class=\"nav-container\">
+            <a href=\"#\" class=\"nav-logo\">
+                <div class=\"logo-icon\"></div>
+                <span class=\"logo-text\">Xstellar.systems</span>
+            </a>
+            <div class=\"nav-center\">
+                <a href=\"#features\" class=\"nav-link\">Features</a>
+                <a href=\"#how-it-works\" class=\"nav-link\">How It Works</a>
+                <div class=\"nav-dropdown\">
+                    <button class=\"nav-dropdown-btn\">
+                        Pricing <span class=\"dropdown-arrow\">▼</span>
+                    </button>
+                    <div class=\"dropdown-menu\">
+                        <a href=\"#pricing\" class=\"dropdown-item\">Growth Plan</a>
+                        <a href=\"#pricing\" class=\"dropdown-item\">Agency Plan</a>
+                        <a href=\"#pricing\" class=\"dropdown-item\">Founding Customer</a>
+                    </div>
+                </div>
+                <div class=\"nav-dropdown\">
+                    <button class=\"nav-dropdown-btn\">
+                        Legal <span class=\"dropdown-arrow\">▼</span>
+                    </button>
+                    <div class=\"dropdown-menu\">
+                        <a href=\"privacy.html\" class=\"dropdown-item\">Privacy Policy</a>
+                        <a href=\"terms.html\" class=\"dropdown-item\">Terms of Service</a>
+                        <a href=\"data-deletion.html\" class=\"dropdown-item\">Data Deletion</a>
+                    </div>
+                </div>
             </div>
-            <div class="nav-right">
-                <a href="login.html" class="sign-in">Sign In</a>
-                <a href="signup.html" class="nav-cta">Get Started</a>
+            <div class=\"nav-right\">
+                <a href=\"login.html\" class=\"btn-signin\">Sign in</a>
+                <a href=\"signup.html\" class=\"btn-primary\">Get Started</a>
             </div>
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul class="mobile-nav-links">
-            <li class="mobile-nav-item">
-                <a href="#product" class="mobile-nav-link">Product</a>
-            </li>
-            <li class="mobile-nav-item">
-                <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
-            </li>
-            <li class="mobile-nav-item">
-                <span class="mobile-nav-link" onclick="toggleMobileDropdown('pricing')">Pricing</span>
-                <div class="mobile-dropdown" id="pricing-dropdown">
-                    <a href="#pricing">View Pricing</a>
-                    <a href="mailto:support@xstellar.systems">Contact Sales</a>
-                </div>
-            </li>
-            <li class="mobile-nav-item">
-                <span class="mobile-nav-link" onclick="toggleMobileDropdown('legal')">Legal</span>
-                <div class="mobile-dropdown" id="legal-dropdown">
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                    <a href="data-deletion.html">Data Deletion</a>
-                </div>
-            </li>
-            <li class="mobile-nav-item">
-                <a href="#" class="mobile-nav-link">Sign In</a>
-            </li>
-            <li class="mobile-nav-item">
-                <a href="mailto:support@xstellar.systems" class="mobile-nav-link">Get Started</a>
-            </li>
-        </ul>
-    </div>
-
     <!-- Hero Section -->
-    <section class="hero">
-        <h1>
-            Streamline your IG DM responses<br>
-            with <span class="highlight">intelligent leads.</span>
-        </h1>
-        
-        <p class="subhead">
-            Intelligent lead scoring system filters high-intent prospects from casual conversations.
-        </p>
-
-        <div class="cta-container">
-            <a href="signup.html" class="cta-primary">Get Started</a>
-            <a href="#how-it-works" class="cta-secondary">See How It Works</a>
+    <section class=\"hero\">
+        <h1>Streamline your IG DM responses with <span class=\"highlight\">intelligent leads.</span></h1>
+        <p>Intelligent lead scoring system filters high-intent prospects from casual conversations. Built for agencies with 75k+ followers.</p>
+        <div class=\"hero-buttons\">
+            <a href=\"signup.html\" class=\"btn-primary\">Get Started</a>
+            <a href=\"#how-it-works\" class=\"btn-secondary\">See How It Works</a>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <h2>How It Works</h2>
-        <p class="section-subtitle">Your Instagram DMs, automatically qualified and organized</p>
-        
-        <div class="flow-container">
-            <!-- Step 1: Instagram DM -->
-            <div class="flow-step">
-                <div class="icon-wrapper">
-                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="instagram-gradient" cx="30%" cy="107%" r="150%">
-                                <stop offset="0%" stop-color="#FDF497" />
-                                <stop offset="5%" stop-color="#FDF497" />
-                                <stop offset="45%" stop-color="#FD5949" />
-                                <stop offset="60%" stop-color="#D6249F" />
-                                <stop offset="90%" stop-color="#285AEB" />
-                            </radialGradient>
-                        </defs>
-                        <rect width="24" height="24" rx="5" fill="url(#instagram-gradient)"/>
-                        <path d="M12 7.5C9.52 7.5 7.5 9.52 7.5 12C7.5 14.48 9.52 16.5 12 16.5C14.48 16.5 16.5 14.48 16.5 12C16.5 9.52 14.48 7.5 12 7.5ZM12 15C10.62 15 9.5 13.88 9.5 12.5C9.5 11.12 10.62 10 12 10C13.38 10 14.5 11.12 14.5 12.5C14.5 13.88 13.38 15 12 15Z" fill="white"/>
-                        <circle cx="17" cy="7" r="1.2" fill="white"/>
-                        <path d="M16 3H8C5.24 3 3 5.24 3 8V16C3 18.76 5.24 21 8 21H16C18.76 21 21 18.76 21 16V8C21 5.24 18.76 3 16 3ZM19 16C19 17.65 17.65 19 16 19H8C6.35 19 5 17.65 5 16V8C5 6.35 6.35 5 8 5H16C17.65 5 19 6.35 19 8V16Z" fill="white"/>
-                    </svg>
-                    <div class="notification-badge">1</div>
+    <section class=\"how-it-works\" id=\"how-it-works\">
+        <div class=\"section-container\">
+            <div class=\"section-header\">
+                <h2 class=\"section-title\">How It Works</h2>
+                <p class=\"section-subtitle\">Your Instagram DMs, automatically qualified and organized</p>
+            </div>
+            <div class=\"flow-container\">
+                <div class=\"flow-item\">
+                    <div class=\"flow-icon instagram\">
+                        <svg viewBox=\"0 0 24 24\"><path d=\"M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z\"/></svg>
+                        <span class=\"notification-badge\">1</span>
+                    </div>
+                    <span class=\"flow-label\">New DM arrives</span>
                 </div>
-                <p class="step-label">New DM arrives</p>
-            </div>
-
-            <!-- Arrow -->
-            <div class="flow-arrow">
-                <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-                    <path d="M1 12H38M38 12L28 2M38 12L28 22" stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-
-            <!-- Step 2: Backend Processing -->
-            <div class="flow-step">
-                <div class="icon-wrapper">
-                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" rx="5" fill="#6366f1"/>
-                        <path d="M8 6H16M8 12H16M8 18H12" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="18" cy="18" r="2" fill="#22c55e"/>
-                    </svg>
+                <span class=\"flow-arrow\">→</span>
+                <div class=\"flow-item\">
+                    <div class=\"flow-icon webhook\">
+                        <svg viewBox=\"0 0 24 24\"><path d=\"M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z\"/></svg>
+                    </div>
+                    <span class=\"flow-label\">Webhook triggers</span>
                 </div>
-                <p class="step-label">Webhook triggers</p>
-            </div>
-
-            <!-- Arrow -->
-            <div class="flow-arrow">
-                <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-                    <path d="M1 12H38M38 12L28 2M38 12L28 22" stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-
-            <!-- Step 3: Claude AI -->
-            <div class="flow-step">
-                <div class="icon-wrapper">
-                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" rx="5" fill="#CC9B7A"/>
-                        <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">AI</text>
-                    </svg>
+                <span class=\"flow-arrow\">→</span>
+                <div class=\"flow-item\">
+                    <div class=\"flow-icon ai\">
+                        <span class=\"icon-text\">AI</span>
+                    </div>
+                    <span class=\"flow-label\">Claude analyzes & scores</span>
                 </div>
-                <p class="step-label">Claude analyzes & scores</p>
-            </div>
-
-            <!-- Arrow -->
-            <div class="flow-arrow">
-                <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-                    <path d="M1 12H38M38 12L28 2M38 12L28 22" stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-
-            <!-- Step 4: Airtable -->
-            <div class="flow-step">
-                <div class="icon-wrapper">
-                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" rx="5" fill="#FCB400"/>
-                        <path d="M12 5L6 8V16L12 19L18 16V8L12 5Z" fill="#1a1a1a"/>
-                        <path d="M12 5V19M6 8L18 16M18 8L6 16" stroke="#FCB400" stroke-width="1.5"/>
-                    </svg>
+                <span class=\"flow-arrow\">→</span>
+                <div class=\"flow-item\">
+                    <div class=\"flow-icon airtable\">
+                        <svg viewBox=\"0 0 24 24\"><path d=\"M12 3L2 8l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5\"/></svg>
+                    </div>
+                    <span class=\"flow-label\">Stored in Airtable</span>
                 </div>
-                <p class="step-label">Stored in Airtable</p>
-            </div>
-
-            <!-- Arrow -->
-            <div class="flow-arrow">
-                <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
-                    <path d="M1 12H38M38 12L28 2M38 12L28 22" stroke="#CCCCCC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-
-            <!-- Step 5: Slack Notification -->
-            <div class="flow-step">
-                <div class="icon-wrapper">
-                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="24" rx="5" fill="#4A154B"/>
-                        <path d="M8.5 9.5C8.5 8.67 7.83 8 7 8C6.17 8 5.5 8.67 5.5 9.5C5.5 10.33 6.17 11 7 11H8.5V9.5Z" fill="#E01E5A"/>
-                        <path d="M9 9.5C9 8.67 9.67 8 10.5 8C11.33 8 12 8.67 12 9.5V15.5C12 16.33 11.33 17 10.5 17C9.67 17 9 16.33 9 15.5V9.5Z" fill="#E01E5A"/>
-                        <path d="M10.5 7C11.33 7 12 6.33 12 5.5C12 4.67 11.33 4 10.5 4C9.67 4 9 4.67 9 5.5V7H10.5Z" fill="#36C5F0"/>
-                        <path d="M10.5 7.5C9.67 7.5 9 8.17 9 9C9 9.83 9.67 10.5 10.5 10.5H16.5C17.33 10.5 18 9.83 18 9C18 8.17 17.33 7.5 16.5 7.5H10.5Z" fill="#36C5F0"/>
-                        <path d="M18.5 10.5C18.5 9.67 17.83 9 17 9C16.17 9 15.5 9.67 15.5 10.5C15.5 11.33 16.17 12 17 12H18.5V10.5Z" fill="#2EB67D"/>
-                        <path d="M17 12.5C17.83 12.5 18.5 13.17 18.5 14C18.5 14.83 17.83 15.5 17 15.5C16.17 15.5 15.5 14.83 15.5 14V12.5H17Z" fill="#ECB22E"/>
-                    </svg>
-                    <div class="notification-badge pulse">!</div>
+                <span class=\"flow-arrow\">→</span>
+                <div class=\"flow-item\">
+                    <div class=\"flow-icon slack\">
+                        <svg viewBox=\"0 0 24 24\"><path d=\"M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z\"/></svg>
+                        <span class=\"notification-badge\">!</span>
+                    </div>
+                    <span class=\"flow-label\">You get notified</span>
                 </div>
-                <p class="step-label">You get notified</p>
             </div>
         </div>
     </section>
 
-    <!-- More sections to be added -->
+    <!-- About Section -->
+    <section class=\"about\" id=\"about\">
+        <div class=\"about-container\">
+            <p class=\"about-label\">About Our Services</p>
+            <h2 class=\"about-title\">Qualified leads, delivered automatically.</h2>
+            <p class=\"about-text\">Xstellar.systems transforms how digital marketing agencies handle Instagram DMs. Our AI-powered system automatically engages incoming leads, asks the right qualifying questions, and scores each prospect based on business context and intent. No more manually sifting through hundreds of messages — qualified leads flow directly into Airtable and Slack, ready for closing.</p>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <div class="footer-logo">Xstellar.systems</div>
-                    <p class="footer-tagline">AI-powered Instagram lead qualification</p>
+    <!-- Features Section -->
+    <section class=\"features\" id=\"features\">
+        <div class=\"section-container\">
+            <div class=\"section-header\">
+                <h2 class=\"section-title\">Why Xstellar?</h2>
+                <p class=\"section-subtitle\">Everything you need to convert DMs into revenue</p>
+            </div>
+            <div class=\"features-grid\">
+                <div class=\"feature-card\">
+                    <h3>Never Miss a Hot Lead</h3>
+                    <p>Every DM gets an instant response — no more losing prospects to slow reply times.</p>
+                    <a href=\"#how-it-works\" class=\"feature-link\">See how it works →</a>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Product</h4>
-                        <ul>
-                            <li><a href="#how-it-works">How It Works</a></li>
-                            <li><a href="#pricing">Pricing</a></li>
-                            <li><a href="mailto:support@xstellar.systems">Contact Sales</a></li>
-                        </ul>
+                <div class=\"feature-card\">
+                    <h3>Save Hours Every Week</h3>
+                    <p>Stop manually sorting through hundreds of messages. Our AI handles qualification automatically.</p>
+                    <a href=\"#pricing\" class=\"feature-link\">View pricing →</a>
+                </div>
+                <div class=\"feature-card\">
+                    <h3>Close More Deals</h3>
+                    <p>Only speak to leads who are ready to buy. Higher quality conversations mean higher conversion rates.</p>
+                    <a href=\"#pricing\" class=\"feature-link\">Get started →</a>
+                </div>
+                <div class=\"feature-card\">
+                    <h3>Seamless Integration</h3>
+                    <p>Qualified leads flow directly into Airtable and Slack — no extra dashboards to check.</p>
+                    <a href=\"#how-it-works\" class=\"feature-link\">Learn more →</a>
+                </div>
+                <div class=\"feature-card\">
+                    <h3>Fully Done-For-You</h3>
+                    <p>We handle setup, configuration, and optimization. Just sit back and receive qualified leads.</p>
+                    <a href=\"#pricing\" class=\"feature-link\">Get started →</a>
+                </div>
+                <div class=\"feature-card\">
+                    <h3>Custom AI Criteria</h3>
+                    <p>Define your ideal customer profile. Our AI learns what makes a lead valuable for your specific business.</p>
+                    <a href=\"#pricing\" class=\"feature-link\">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class=\"pricing\" id=\"pricing\">
+        <div class=\"section-container\">
+            <div class=\"section-header\">
+                <h2 class=\"section-title\">Simple, transparent pricing.</h2>
+                <p class=\"section-subtitle\">Start with a free guided trial. Cancel anytime.</p>
+            </div>
+            <div class=\"pricing-grid\">
+                <div class=\"pricing-card featured\">
+                    <span class=\"pricing-badge\">Popular</span>
+                    <div class=\"pricing-tier\">Growth</div>
+                    <div class=\"pricing-price\">$799<span>/month</span></div>
+                    <div class=\"pricing-trial\">7-day free guided trial</div>
+                    <ul class=\"pricing-features\">
+                        <li>Up to 2,000 conversations/month</li>
+                        <li>Advanced AI qualification</li>
+                        <li>Custom qualification criteria</li>
+                        <li>Airtable/CRM integration</li>
+                        <li>Slack notifications</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href=\"signup.html\" class=\"btn-primary\">Start Free Trial</a>
+                </div>
+                <div class=\"pricing-card\">
+                    <div class=\"pricing-tier\">Agency</div>
+                    <div class=\"pricing-price\">$1,499<span>/month</span></div>
+                    <div class=\"pricing-trial\">14-day free guided trial</div>
+                    <ul class=\"pricing-features\">
+                        <li>Unlimited conversations</li>
+                        <li>White-label options</li>
+                        <li>Custom integrations</li>
+                        <li>Dedicated onboarding</li>
+                        <li>Priority 24/7 support</li>
+                        <li>Custom AI training</li>
+                    </ul>
+                    <a href=\"signup.html\" class=\"btn-primary\">Contact Sales</a>
+                </div>
+            </div>
+            <div class=\"founding-banner\">
+                <h4>🚀 Founding Customer Deal</h4>
+                <p>Lock in <span class=\"price-highlight\">$599/month forever</span> as a founding customer. Limited spots — rate stays locked as long as you're subscribed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class=\"testimonials\" id=\"testimonials\">
+        <div class=\"section-container\">
+            <div class=\"section-header\">
+                <h2 class=\"section-title\">Early adopters love it.</h2>
+                <p class=\"section-subtitle\">Join agencies already saving hours every week</p>
+            </div>
+            <div class=\"testimonials-grid\">
+                <div class=\"testimonial-card\">
+                    <p class=\"testimonial-text\">\"We were drowning in DMs. Xstellar cut through the noise and now we only talk to people ready to buy. Game changer.\"</p>
+                    <div class=\"testimonial-author\">
+                        <div class=\"author-avatar\">JM</div>
+                        <div class=\"author-info\">
+                            <h5>Early Adopter</h5>
+                            <p>Growth Consultant</p>
+                        </div>
                     </div>
-                    <div class="footer-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="privacy.html">Privacy Policy</a></li>
-                            <li><a href="terms.html">Terms of Service</a></li>
-                            <li><a href="data-deletion.html">Data Deletion</a></li>
-                        </ul>
+                </div>
+                <div class=\"testimonial-card\">
+                    <p class=\"testimonial-text\">\"The AI scoring is surprisingly accurate. It knows which leads are serious before we even talk to them.\"</p>
+                    <div class=\"testimonial-author\">
+                        <div class=\"author-avatar\">SK</div>
+                        <div class=\"author-info\">
+                            <h5>Early Adopter</h5>
+                            <p>Digital Agency Owner</p>
+                        </div>
                     </div>
-                    <div class="footer-column">
-                        <h4>Contact</h4>
-                        <ul>
-                            <li><a href="mailto:support@xstellar.systems">support@xstellar.systems</a></li>
-                            <li><a href="https://xstellar.systems">xstellar.systems</a></li>
-                        </ul>
+                </div>
+                <div class=\"testimonial-card\">
+                    <p class=\"testimonial-text\">\"Setup took less than 48 hours and the team handled everything. Now qualified leads just appear in our Slack.\"</p>
+                    <div class=\"testimonial-author\">
+                        <div class=\"author-avatar\">RP</div>
+                        <div class=\"author-info\">
+                            <h5>Early Adopter</h5>
+                            <p>Marketing Consultant</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 XStellar Systems. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section class=\"faqs\" id=\"faqs\">
+        <div class=\"faqs-container\">
+            <div class=\"section-header\">
+                <h2 class=\"section-title\">Frequently asked questions.</h2>
+            </div>
+            <div class=\"faq-item\">
+                <h3 class=\"faq-question\">Why use Xstellar instead of handling DMs manually?</h3>
+                <p class=\"faq-answer\">Agencies with 75k+ followers receive hundreds of DMs daily. Our system filters noise instantly, so your team only sees qualified leads ready to close — saving 10+ hours per week.</p>
+            </div>
+            <div class=\"faq-item\">
+                <h3 class=\"faq-question\">What do you deliver?</h3>
+                <p class=\"faq-answer\">Qualified leads with AI scores, business context, and contact details — flowing directly into Airtable and Slack in real-time. No manual sorting required.</p>
+            </div>
+            <div class=\"faq-item\">
+                <h3 class=\"faq-question\">How quickly can we go live?</h3>
+                <p class=\"faq-answer\">Most clients are fully set up within 48-72 hours. We handle everything — configuration, testing, and integration. You just approve and start receiving leads.</p>
+            </div>
+            <div class=\"faq-item\">
+                <h3 class=\"faq-question\">What's the founding customer deal?</h3>
+                <p class=\"faq-answer\">Early clients can lock in $599/month forever (normally $799). This rate stays locked as long as you remain subscribed. Limited spots available.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class=\"cta\">
+        <h2>Try Xstellar now.</h2>
+        <a href=\"signup.html\" class=\"btn-primary\">Get Started →</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class=\"footer\">
+        <div class=\"footer-container\">
+            <div class=\"footer-grid\">
+                <div class=\"footer-brand\">
+                    <a href=\"#\" class=\"nav-logo\">
+                        <div class=\"logo-icon\"></div>
+                        <span class=\"logo-text\">Xstellar.systems</span>
+                    </a>
+                    <p>AI-powered Instagram lead qualification</p>
+                </div>
+                <div class=\"footer-column\">
+                    <h4>Product</h4>
+                    <a href=\"#features\">Features</a>
+                    <a href=\"#how-it-works\">How It Works</a>
+                    <a href=\"#pricing\">Pricing</a>
+                </div>
+                <div class=\"footer-column\">
+                    <h4>Resources</h4>
+                    <a href=\"#\">Documentation</a>
+                    <a href=\"#faqs\">FAQs</a>
+                    <a href=\"#\">Contact Sales</a>
+                </div>
+                <div class=\"footer-column\">
+                    <h4>Legal</h4>
+                    <a href=\"privacy.html\">Privacy Policy</a>
+                    <a href=\"terms.html\">Terms of Service</a>
+                    <a href=\"data-deletion.html\">Data Deletion</a>
+                </div>
+                <div class=\"footer-column\">
+                    <h4>Contact</h4>
+                    <a href=\"mailto:support@xstellar.systems\">support@xstellar.systems</a>
+                    <a href=\"https://xstellar.systems\">xstellar.systems</a>
+                </div>
+            </div>
+            <div class=\"footer-bottom\">
+                <span>© 2025 Xstellar Systems. All rights reserved.</span>
+                <div class=\"footer-bottom-links\">
+                    <a href=\"privacy.html\">Privacy</a>
+                    <a href=\"terms.html\">Terms</a>
+                </div>
             </div>
         </div>
     </footer>
-
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-
-        function toggleMobileDropdown(id) {
-            const dropdown = document.getElementById(id + '-dropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('mobileMenu');
-            const toggle = document.querySelector('.mobile-menu-toggle');
-            
-            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
-                menu.classList.remove('active');
-            }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    // Close mobile menu if open
-                    document.getElementById('mobileMenu').classList.remove('active');
-                }
-            });
-        });
-    </script>
 </body>
-</html>
+</html>`
+}
