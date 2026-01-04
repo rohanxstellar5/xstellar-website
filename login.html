@@ -319,7 +319,7 @@
                     showAlert('Login successful! Redirecting...', 'success');
                     
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'pages.html';
                     }, 1000);
                 } else {
                     showAlert(data.detail || 'Invalid email or password.', 'error');
@@ -335,7 +335,7 @@
 
         // Check if already logged in
         if (localStorage.getItem('xstellar_client_id')) {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'pages.html';
         }
     </script>
 </body>
