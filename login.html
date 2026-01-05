@@ -12,19 +12,24 @@
         }
 
         :root {
-            --primary-black: #1a1a1a;
-            --soft-black: #2d2d2d;
-            --gray: #666666;
-            --light-gray: #f5f5f5;
-            --accent: #0066ff;
-            --white: #ffffff;
-            --error: #ef4444;
-            --success: #22c55e;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --bg-hover: #222222;
+            --border-color: #2a2a2a;
+            --border-light: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--light-gray);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -34,37 +39,52 @@
 
         .auth-container {
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
         }
 
         .auth-card {
-            background: var(--white);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 48px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            padding: 48px 40px;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
-            letter-spacing: -0.5px;
-            color: var(--primary-black);
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
             text-decoration: none;
-            display: block;
-            text-align: center;
-            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         .auth-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-black);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
             text-align: center;
             margin-bottom: 8px;
+            letter-spacing: -0.3px;
         }
 
         .auth-subtitle {
-            color: var(--gray);
+            color: var(--text-secondary);
             text-align: center;
             margin-bottom: 32px;
             font-size: 15px;
@@ -78,40 +98,54 @@
             display: block;
             font-size: 14px;
             font-weight: 500;
-            color: var(--soft-black);
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .form-input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid #e5e5e5;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 15px;
+            color: var(--text-primary);
             transition: all 0.2s ease;
             outline: none;
         }
 
         .form-input:focus {
-            border-color: var(--primary-black);
+            border-color: var(--accent-blue);
+            background: var(--bg-primary);
         }
 
         .form-input::placeholder {
-            color: #999;
+            color: var(--text-muted);
         }
 
         .form-input.error {
-            border-color: var(--error);
+            border-color: var(--accent-red);
+        }
+
+        .error-message {
+            color: var(--accent-red);
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
         }
 
         .btn-primary {
             width: 100%;
-            padding: 16px;
-            background: var(--primary-black);
-            color: var(--white);
+            padding: 14px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             border: none;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -119,12 +153,12 @@
         }
 
         .btn-primary:hover {
-            background: var(--soft-black);
+            background: #e5e5e5;
             transform: translateY(-1px);
         }
 
         .btn-primary:disabled {
-            background: #ccc;
+            background: var(--text-muted);
             cursor: not-allowed;
             transform: none;
         }
@@ -143,7 +177,7 @@
             left: 50%;
             margin: -10px 0 0 -10px;
             border: 2px solid transparent;
-            border-top-color: white;
+            border-top-color: var(--bg-primary);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -156,11 +190,11 @@
             text-align: center;
             margin-top: 24px;
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-secondary);
         }
 
         .auth-footer a {
-            color: var(--primary-black);
+            color: var(--text-primary);
             font-weight: 500;
             text-decoration: none;
         }
@@ -182,31 +216,29 @@
         }
 
         .alert-error {
-            background: #fef2f2;
-            color: var(--error);
-            border: 1px solid #fecaca;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .alert-success {
-            background: #f0fdf4;
-            color: var(--success);
-            border: 1px solid #bbf7d0;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
-        .forgot-password {
+        .forgot-link {
+            display: block;
             text-align: right;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
             margin-top: -12px;
             margin-bottom: 20px;
         }
 
-        .forgot-password a {
-            color: var(--gray);
-            font-size: 13px;
-            text-decoration: none;
-        }
-
-        .forgot-password a:hover {
-            color: var(--primary-black);
+        .forgot-link:hover {
+            color: var(--text-secondary);
         }
 
         @media (max-width: 480px) {
@@ -215,7 +247,7 @@
             }
 
             .auth-title {
-                font-size: 24px;
+                font-size: 22px;
             }
         }
     </style>
@@ -223,9 +255,12 @@
 <body>
     <div class="auth-container">
         <div class="auth-card">
-            <a href="index.html" class="logo">Xstellar.systems</a>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">X</span>
+                Xstellar.systems
+            </a>
             <h1 class="auth-title">Welcome back</h1>
-            <p class="auth-subtitle">Sign in to manage your lead qualification</p>
+            <p class="auth-subtitle">Sign in to your account</p>
 
             <div id="alert" class="alert"></div>
 
@@ -240,6 +275,7 @@
                         placeholder="you@company.com"
                         required
                     >
+                    <p class="error-message" id="emailError">Please enter a valid email address</p>
                 </div>
 
                 <div class="form-group">
@@ -252,11 +288,10 @@
                         placeholder="Enter your password"
                         required
                     >
+                    <p class="error-message" id="passwordError">Password is required</p>
                 </div>
 
-                <div class="forgot-password">
-                    <a href="mailto:support@xstellar.systems">Forgot password?</a>
-                </div>
+                <a href="#" class="forgot-link">Forgot password?</a>
 
                 <button type="submit" class="btn-primary" id="submitBtn">
                     Sign In
@@ -270,7 +305,6 @@
     </div>
 
     <script>
-        // API Base URL - Change this to your backend URL
         const API_BASE = 'https://insta-dm-qualifier.onrender.com';
 
         function showAlert(message, type) {
@@ -293,6 +327,28 @@
             const email = form.email.value.trim();
             const password = form.password.value;
 
+            let hasError = false;
+
+            if (!email.includes('@')) {
+                document.getElementById('email').classList.add('error');
+                document.getElementById('emailError').classList.add('show');
+                hasError = true;
+            } else {
+                document.getElementById('email').classList.remove('error');
+                document.getElementById('emailError').classList.remove('show');
+            }
+
+            if (!password) {
+                document.getElementById('password').classList.add('error');
+                document.getElementById('passwordError').classList.add('show');
+                hasError = true;
+            } else {
+                document.getElementById('password').classList.remove('error');
+                document.getElementById('passwordError').classList.remove('show');
+            }
+
+            if (hasError) return;
+
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
 
@@ -302,19 +358,15 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
+                    body: JSON.stringify({ email, password })
                 });
 
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Store client info
                     localStorage.setItem('xstellar_client_id', data.client_id);
-                    localStorage.setItem('xstellar_email', data.email);
-                    localStorage.setItem('xstellar_business', data.business_name);
+                    localStorage.setItem('xstellar_email', email);
+                    localStorage.setItem('xstellar_business', data.business_name || 'My Business');
                     
                     showAlert('Login successful! Redirecting...', 'success');
                     
@@ -326,16 +378,11 @@
                 }
             } catch (error) {
                 console.error('Login error:', error);
-                showAlert('Connection error. Please check if the server is running.', 'error');
+                showAlert('Connection error. Please try again.', 'error');
             } finally {
                 submitBtn.classList.remove('loading');
                 submitBtn.disabled = false;
             }
-        }
-
-        // Check if already logged in
-        if (localStorage.getItem('xstellar_client_id')) {
-            window.location.href = 'dashboard.html';
         }
     </script>
 </body>
