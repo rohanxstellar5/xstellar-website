@@ -12,32 +12,40 @@
         }
 
         :root {
-            --primary-black: #1a1a1a;
-            --soft-black: #2d2d2d;
-            --gray: #666666;
-            --light-gray: #f5f5f5;
-            --accent: #0066ff;
-            --white: #ffffff;
-            --error: #ef4444;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --border: #e5e5e5;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --bg-hover: #222222;
+            --border-color: #2a2a2a;
+            --border-light: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+            --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: var(--light-gray);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
+            line-height: 1.5;
         }
 
         /* Header */
         .header {
-            background: var(--white);
-            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
             padding: 16px 24px;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
         .header-inner {
@@ -49,63 +57,79 @@
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            letter-spacing: -0.4px;
-            color: var(--primary-black);
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
         }
 
         .header-nav {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 8px;
         }
 
         .nav-link {
-            color: var(--gray);
-            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
         }
 
         .nav-link:hover {
-            color: var(--primary-black);
+            background: var(--bg-hover);
+            color: var(--text-primary);
         }
 
         .nav-link.active {
-            color: var(--primary-black);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
         }
 
         .business-name {
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-secondary);
         }
 
         .btn-logout {
-            background: none;
-            border: 1px solid var(--border);
+            background: transparent;
+            border: 1px solid var(--border-color);
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn-logout:hover {
-            border-color: var(--primary-black);
-            color: var(--primary-black);
+            border-color: var(--border-light);
+            color: var(--text-primary);
+            background: var(--bg-hover);
         }
 
         /* Main Content */
@@ -124,23 +148,24 @@
         }
 
         .page-header-text h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary-black);
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .page-header-text p {
-            color: var(--gray);
-            font-size: 16px;
+            color: var(--text-secondary);
+            font-size: 15px;
         }
 
         .btn-connect-new {
-            background: var(--primary-black);
-            color: white;
+            background: var(--text-primary);
+            color: var(--bg-primary);
             border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -151,7 +176,7 @@
         }
 
         .btn-connect-new:hover {
-            background: var(--soft-black);
+            background: #e5e5e5;
             transform: translateY(-1px);
         }
 
@@ -162,14 +187,14 @@
 
         /* System Status Bar */
         .system-status {
-            background: var(--white);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px 24px;
             margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .system-status-left {
@@ -186,11 +211,12 @@
         }
 
         .status-indicator.online {
-            background: var(--success);
+            background: var(--accent-green);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
         }
 
         .status-indicator.offline {
-            background: var(--error);
+            background: var(--accent-red);
             animation: none;
         }
 
@@ -201,11 +227,11 @@
 
         .system-status-text {
             font-size: 14px;
-            color: var(--soft-black);
+            color: var(--text-secondary);
         }
 
         .system-status-text strong {
-            color: var(--primary-black);
+            color: var(--text-primary);
         }
 
         .system-status-right {
@@ -218,35 +244,92 @@
             align-items: center;
             gap: 6px;
             font-size: 13px;
-            color: var(--gray);
+            color: var(--text-muted);
         }
 
         .status-item svg {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
         }
 
-        .status-item.ok svg {
-            color: var(--success);
+        .status-item.ok {
+            color: var(--accent-green);
         }
 
-        .status-item.error svg {
-            color: var(--error);
+        .status-item.error {
+            color: var(--accent-red);
         }
 
-        /* Page Cards Container */
-        .pages-container {
+        /* Empty State */
+        .empty-state {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .empty-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
         }
 
         /* Page Card */
         .page-card {
-            background: var(--white);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
         }
 
         .page-card-header {
@@ -254,7 +337,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .page-identity {
@@ -267,7 +350,7 @@
             width: 56px;
             height: 56px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: var(--instagram-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,7 +369,7 @@
         .page-info h3 {
             font-size: 18px;
             font-weight: 600;
-            color: var(--primary-black);
+            color: var(--text-primary);
             margin-bottom: 4px;
             display: flex;
             align-items: center;
@@ -295,7 +378,7 @@
 
         .page-info .instagram-handle {
             font-size: 14px;
-            color: var(--gray);
+            color: var(--text-muted);
         }
 
         .page-status-badges {
@@ -321,39 +404,30 @@
         }
 
         .badge-active {
-            background: #dcfce7;
-            color: #166534;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
         }
 
         .badge-active::before {
-            background: var(--success);
+            background: var(--accent-green);
         }
 
         .badge-paused {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-orange);
         }
 
         .badge-paused::before {
-            background: var(--warning);
+            background: var(--accent-orange);
         }
 
         .badge-error {
-            background: #fef2f2;
-            color: #991b1b;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
         }
 
         .badge-error::before {
-            background: var(--error);
-        }
-
-        .badge-disconnected {
-            background: var(--light-gray);
-            color: var(--gray);
-        }
-
-        .badge-disconnected::before {
-            background: var(--gray);
+            background: var(--accent-red);
         }
 
         /* Page Card Body */
@@ -361,7 +435,7 @@
             padding: 24px;
         }
 
-        /* Info Grid - Meta Required Info */
+        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -378,94 +452,65 @@
         .info-label {
             font-size: 11px;
             font-weight: 600;
-            color: var(--gray);
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .info-value {
             font-size: 14px;
-            color: var(--primary-black);
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         .info-value.mono {
             font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
             font-size: 13px;
-            background: var(--light-gray);
+            background: var(--bg-tertiary);
             padding: 6px 10px;
             border-radius: 6px;
+            border: 1px solid var(--border-color);
             display: inline-block;
         }
 
         .info-value.highlight {
-            color: var(--accent);
+            color: var(--accent-blue);
         }
 
         /* Stats Row */
         .stats-row {
-            display: flex;
-            gap: 32px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
             padding: 20px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             margin-bottom: 20px;
         }
 
         .stat-item {
             text-align: center;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
         }
 
         .stat-number {
             font-size: 28px;
             font-weight: 700;
-            color: var(--primary-black);
+            color: var(--text-primary);
         }
 
         .stat-label {
             font-size: 12px;
-            color: var(--gray);
-            margin-top: 2px;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
 
-        /* Error Box */
-        .error-box {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .error-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .error-icon {
-            width: 20px;
-            height: 20px;
-            color: var(--error);
-        }
-
-        .error-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #991b1b;
-        }
-
-        .error-message {
-            font-size: 13px;
-            color: #7f1d1d;
-            margin-bottom: 4px;
-        }
-
-        .error-time {
-            font-size: 12px;
-            color: #991b1b;
-        }
+        .stat-item:nth-child(2) .stat-number { color: var(--accent-green); }
+        .stat-item:nth-child(3) .stat-number { color: var(--accent-blue); }
+        .stat-item:nth-child(4) .stat-number { color: var(--accent-orange); }
 
         /* Action Buttons */
         .actions {
@@ -488,90 +533,42 @@
             text-decoration: none;
         }
 
-        .btn-primary {
-            background: var(--primary-black);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--soft-black);
-        }
-
         .btn-secondary {
-            background: var(--light-gray);
-            color: var(--primary-black);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
-            background: #e5e5e5;
+            background: var(--bg-hover);
+            border-color: var(--border-light);
         }
 
         .btn-outline {
-            background: none;
-            border: 2px solid var(--border);
-            color: var(--gray);
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
         }
 
         .btn-outline:hover {
-            border-color: var(--primary-black);
-            color: var(--primary-black);
+            border-color: var(--border-light);
+            color: var(--text-primary);
+            background: var(--bg-hover);
         }
 
         .btn-danger {
-            background: #fef2f2;
-            color: var(--error);
-            border: 1px solid #fecaca;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .btn-danger:hover {
-            background: #fee2e2;
+            background: rgba(239, 68, 68, 0.25);
         }
 
         .btn svg {
             width: 16px;
             height: 16px;
-        }
-
-        /* Empty State */
-        .empty-state {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 80px 40px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .empty-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--light-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-        }
-
-        .empty-icon svg {
-            width: 40px;
-            height: 40px;
-            color: var(--gray);
-        }
-
-        .empty-state h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--primary-black);
-            margin-bottom: 8px;
-        }
-
-        .empty-state p {
-            color: var(--gray);
-            font-size: 15px;
-            margin-bottom: 24px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         /* Loading State */
@@ -585,8 +582,8 @@
         .spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid var(--light-gray);
-            border-top-color: var(--primary-black);
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-blue);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -608,8 +605,8 @@
                 gap: 16px;
             }
 
-            .page-status-badges {
-                width: 100%;
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .actions {
@@ -619,20 +616,6 @@
             .btn {
                 flex: 1;
                 justify-content: center;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-row {
-                flex-wrap: wrap;
-                gap: 24px;
-            }
-
-            .stat-item {
-                flex: 1;
-                min-width: 80px;
             }
 
             .system-status {
@@ -655,7 +638,15 @@
 <body>
     <header class="header">
         <div class="header-inner">
-            <a href="index.html" class="logo">Xstellar.systems</a>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">X</span>
+                Xstellar.systems
+            </a>
+
+            <nav class="header-nav">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="pages.html" class="nav-link active">Pages</a>
+            </nav>
 
             <div class="header-right">
                 <span class="business-name" id="businessName">Loading...</span>
@@ -812,10 +803,14 @@
                                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
                         </div>
-                        <h3>Unable to Load Pages</h3>
-                        <p>There was an error connecting to the server. Please try again.</p>
-                        <button class="btn btn-primary" onclick="loadPages()">
-                            Try Again
+                        <h3>No Pages Connected</h3>
+                        <p>Connect your Facebook Page with an Instagram Business account to start qualifying DM leads automatically.</p>
+                        <button class="btn btn-primary" onclick="connectNewPage()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Connect Facebook Page
                         </button>
                     </div>
                 `;
@@ -825,24 +820,6 @@
         function renderPageCard(page) {
             const statusBadge = getStatusBadge(page.status, page.webhook_status);
             const qualificationBadge = getQualificationBadge(page.qualification_status);
-            
-            let errorBox = '';
-            if (page.error) {
-                errorBox = `
-                    <div class="error-box">
-                        <div class="error-header">
-                            <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            <span class="error-title">${page.error.title || 'Issue Detected'}</span>
-                        </div>
-                        <p class="error-message">${page.error.message}</p>
-                        <span class="error-time">Since ${formatDate(page.error.since)}</span>
-                    </div>
-                `;
-            }
 
             return `
                 <div class="page-card" data-page-id="${page.page_id}">
@@ -870,8 +847,6 @@
                         </div>
                     </div>
                     <div class="page-card-body">
-                        ${errorBox}
-                        
                         <!-- Meta Required Info -->
                         <div class="info-grid">
                             <div class="info-item">
@@ -918,13 +893,13 @@
 
                         <!-- Actions -->
                         <div class="actions">
-                            <button class="btn btn-secondary" onclick="alert('Settings coming soon')">
+                            <a href="dashboard.html" class="btn btn-secondary">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <circle cx="12" cy="12" r="3"></circle>
                                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                                 </svg>
                                 Settings
-                            </button>
+                            </a>
                             ${page.status === 'paused' 
                                 ? `<button class="btn btn-primary" onclick="resumePage('${page.page_id}')">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -963,8 +938,6 @@
                     return '<span class="badge badge-active">Active</span>';
                 case 'paused':
                     return '<span class="badge badge-paused">Paused</span>';
-                case 'disconnected':
-                    return '<span class="badge badge-disconnected">Disconnected</span>';
                 default:
                     return '<span class="badge badge-active">Active</span>';
             }
@@ -987,7 +960,6 @@
             const aiEl = document.getElementById('aiStatus');
             const airtableEl = document.getElementById('airtableStatus');
 
-            // Update indicator
             if (systemStatus.all_ok) {
                 indicator.classList.add('online');
                 indicator.classList.remove('offline');
@@ -996,7 +968,6 @@
                 indicator.classList.remove('online');
             }
 
-            // Update individual statuses
             updateStatusItem(webhookEl, systemStatus.webhook, 'Webhook');
             updateStatusItem(aiEl, systemStatus.ai, 'AI Scoring');
             updateStatusItem(airtableEl, systemStatus.airtable, 'Airtable');
@@ -1035,19 +1006,6 @@
                 day: 'numeric',
                 year: 'numeric'
             });
-        }
-
-        function formatTimeAgo(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            const now = new Date();
-            const seconds = Math.floor((now - date) / 1000);
-            
-            if (seconds < 60) return 'Just now';
-            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-            if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
-            return formatDate(dateString);
         }
 
         async function pausePage(pageId) {
