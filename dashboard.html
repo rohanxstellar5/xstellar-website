@@ -878,15 +878,51 @@
         let leadsData = [];
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Check for client_id in URL (from Google OAuth redirect)
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlClientId = urlParams.get('client_id');
+            const oauthProvider = urlParams.get('oauth');
+            
+            if (urlClientId) {
+                // Store client_id from URL in localStorage (Google OAuth flow)
+                localStorage.setItem('xstellar_client_id', urlClientId);
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+            
             clientId = localStorage.getItem('xstellar_client_id');
             if (!clientId) { window.location.href = 'login.html'; return; }
-            document.getElementById('businessName').textContent = localStorage.getItem('xstellar_business') || 'My Business';
-            loadConfig();
-            loadStats();
-            loadLeads();
-            updatePreview();
-            updateCharCount();
+            
+            // Validate client_id exists before loading data
+            validateClientId().then(isValid => {
+                if (!isValid) {
+                    showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                    setTimeout(() => {
+                        localStorage.clear();
+                        window.location.href = 'login.html';
+                    }, 3000);
+                    return;
+                }
+                
+                document.getElementById('businessName').textContent = localStorage.getItem('xstellar_business') || 'My Business';
+                loadConfig();
+                loadStats();
+                loadLeads();
+                updatePreview();
+                updateCharCount();
+            });
         });
+        
+        async function validateClientId() {
+            if (!clientId) return false;
+            try {
+                const response = await fetch(`${API_BASE}/api/config/${clientId}`);
+                return response.ok;
+            } catch (error) {
+                console.error('Client validation error:', error);
+                return false;
+            }
+        }
 
         function handleLogout() {
             localStorage.removeItem('xstellar_client_id');
@@ -902,11 +938,43 @@
             setTimeout(() => { alert.className = 'alert'; }, 5000);
         }
 
-        function connectInstagram() {
+        async function connectInstagram() {
+            if (!clientId) {
+                showAlert('Please log in first', 'error');
+                return;
+            }
+            
+            // Validate client exists before redirecting
+            const isValid = await validateClientId();
+            if (!isValid) {
+                showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }, 3000);
+                return;
+            }
+            
             window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
         }
 
-        function connectSlack() {
+        async function connectSlack() {
+            if (!clientId) {
+                showAlert('Please log in first', 'error');
+                return;
+            }
+            
+            // Validate client exists before redirecting
+            const isValid = await validateClientId();
+            if (!isValid) {
+                showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }, 3000);
+                return;
+            }
+            
             window.location.href = `${API_BASE}/auth/slack?client_id=${clientId}`;
         }
 
