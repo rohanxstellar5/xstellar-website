@@ -3,141 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setup Guide - XStellar</title>
+    <title>Setup Guide - Xstellar.systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-tertiary: #1a1a1a;
-            --bg-hover: #222222;
-            --border-color: #2a2a2a;
-            --border-light: #333333;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --accent-blue: #3b82f6;
-            --accent-green: #22c55e;
-            --accent-orange: #f59e0b;
-            --accent-red: #ef4444;
-            --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            --facebook-blue: #1877f2;
+            --bg-white: #FFFFFF;
+            --bg-cream: #F5F5F0;
+            --bg-cream-dark: #EEEEE8;
+            --text-black: #000000;
+            --text-gray: #6B6B6B;
+            --text-light-gray: #999999;
+            --accent-orange: #D97706;
+            --border-light: #E5E5E5;
+            --shadow-soft: rgba(0, 0, 0, 0.05);
+            --accent-green: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-black);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* Header */
         .header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 24px;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-inner {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-decoration: none;
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-black);
         }
 
         .logo-icon {
             width: 28px;
             height: 28px;
-            background: var(--accent-blue);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
         }
 
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-back {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            border-color: var(--text-black);
+            color: var(--text-black);
+        }
+
+        /* Main Content */
         .main {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+            padding: 3rem 2rem 4rem;
         }
 
         .page-header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 3rem;
         }
 
         .page-header h1 {
-            font-size: 32px;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
+            color: var(--text-black);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
         }
 
         .page-header p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            max-width: 500px;
+            color: var(--text-gray);
+            font-size: 1rem;
+            max-width: 600px;
             margin: 0 auto;
         }
 
+        /* Progress Bar */
         .progress-bar {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 48px;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
         }
 
         .progress-step {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
         .progress-dot {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: var(--bg-tertiary);
-            border: 2px solid var(--border-color);
+            background: var(--bg-cream);
+            border: 2px solid var(--border-light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--text-light-gray);
             transition: all 0.3s ease;
         }
 
         .progress-dot.active {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
+            background: var(--text-black);
+            border-color: var(--text-black);
+            color: var(--bg-white);
         }
 
         .progress-dot.completed {
             background: var(--accent-green);
             border-color: var(--accent-green);
-            color: white;
+            color: var(--bg-white);
         }
 
         .progress-line {
-            width: 60px;
+            width: 80px;
             height: 2px;
-            background: var(--border-color);
+            background: var(--border-light);
         }
 
         .progress-line.completed {
@@ -146,12 +179,13 @@
 
         /* Step Cards */
         .step-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 24px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
             display: none;
+            box-shadow: 0 2px 8px var(--shadow-soft);
         }
 
         .step-card.active {
@@ -165,42 +199,27 @@
         }
 
         .step-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 2rem;
         }
-
-        .step-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-
-        .step-icon.instagram { background: var(--instagram-gradient); }
-        .step-icon.facebook { background: var(--facebook-blue); }
-        .step-icon.connect { background: linear-gradient(135deg, var(--facebook-blue), #e1306c); }
 
         .step-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-black);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
 
         .step-subtitle {
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-gray);
+            font-size: 0.95rem;
         }
 
         .step-content {
-            margin-bottom: 32px;
+            margin-bottom: 2rem;
         }
 
+        /* Instruction List */
         .instruction-list {
             list-style: none;
             counter-reset: instruction;
@@ -209,24 +228,25 @@
         .instruction-item {
             counter-increment: instruction;
             display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+            padding: 1.25rem;
+            background: var(--bg-cream);
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
         }
 
         .instruction-number {
-            width: 28px;
-            height: 28px;
-            background: var(--accent-blue);
+            width: 32px;
+            height: 32px;
+            background: var(--text-black);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 0.875rem;
             font-weight: 600;
+            color: var(--bg-white);
             flex-shrink: 0;
         }
 
@@ -236,93 +256,96 @@
 
         .instruction-content strong {
             display: block;
-            margin-bottom: 4px;
-            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            color: var(--text-black);
+            font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .instruction-content p {
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-gray);
+            font-size: 0.9rem;
             margin: 0;
+            line-height: 1.5;
         }
 
         .instruction-content .path {
             display: inline-block;
-            background: var(--bg-primary);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 13px;
+            background: var(--bg-white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-family: 'Inter', monospace;
+            font-size: 0.8rem;
             color: var(--accent-orange);
-            margin-top: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid var(--border-light);
         }
 
+        /* Tip Boxes */
         .tip-box {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 20px 0;
-            display: flex;
-            gap: 12px;
+            background: var(--bg-cream);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
         }
 
         .tip-box.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-
-        .tip-icon {
-            font-size: 20px;
-            flex-shrink: 0;
+            background: #FFF4E6;
+            border-color: #FFE4B5;
         }
 
         .tip-content {
-            font-size: 14px;
-            color: var(--text-secondary);
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.6;
         }
 
         .tip-content strong {
-            color: var(--text-primary);
+            color: var(--text-black);
+            font-weight: 600;
         }
 
+        /* Buttons */
         .btn {
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
             border: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 0.5rem;
             text-decoration: none;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-primary);
+            background: var(--text-black);
+            color: var(--bg-white);
         }
 
         .btn-primary:hover {
-            background: #e5e5e5;
-            transform: translateY(-2px);
+            background: #333;
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
+            background: var(--bg-white);
+            color: var(--text-black);
+            border: 1px solid var(--border-light);
         }
 
         .btn-secondary:hover {
-            background: var(--bg-hover);
+            border-color: var(--text-black);
+            background: var(--bg-cream);
         }
 
         .btn-facebook {
-            background: var(--facebook-blue);
+            background: #1877f2;
             color: white;
         }
 
@@ -331,7 +354,7 @@
         }
 
         .btn-instagram {
-            background: var(--instagram-gradient);
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: white;
         }
 
@@ -341,17 +364,114 @@
 
         .btn-group {
             display: flex;
-            gap: 12px;
+            gap: 0.75rem;
             flex-wrap: wrap;
         }
 
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .checklist-check.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .checklist-text {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .section-header:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Help Section */
+        .help-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--bg-cream);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .help-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-black);
+        }
+
+        .help-section p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Error Banner */
+        .error-banner {
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #DC2626;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .error-banner strong {
+            color: #991B1B;
+            font-weight: 600;
+        }
+
+        /* External Links */
         .external-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            color: var(--accent-blue);
+            gap: 0.375rem;
+            color: var(--accent-orange);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .external-link:hover {
@@ -363,117 +483,27 @@
             height: 14px;
         }
 
-        /* Checklist */
-        .checklist {
-            list-style: none;
-            margin: 24px 0;
-        }
-
-        .checklist-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .checklist-item:last-child {
-            border-bottom: none;
-        }
-
-        .checklist-check {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--border-light);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .checklist-check.checked {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
-            color: white;
-        }
-
-        .checklist-text {
-            font-size: 15px;
-        }
-
-        /* Success State */
-        .success-card {
-            text-align: center;
-            padding: 48px 32px;
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(34, 197, 94, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 40px;
-        }
-
-        .success-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--accent-green);
-        }
-
-        .success-text {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 32px;
-        }
-
-        /* Help Section */
-        .help-section {
-            margin-top: 48px;
-            padding: 24px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .help-section h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .help-section p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
         @media (max-width: 640px) {
-            .main { padding: 24px 16px 60px; }
-            .page-header h1 { font-size: 26px; }
-            .step-card { padding: 24px; }
+            .main { padding: 2rem 1rem 3rem; }
+            .page-header h1 { font-size: 1.75rem; }
+            .step-card { padding: 1.5rem; }
             .btn-group { flex-direction: column; }
             .btn { width: 100%; }
-            .progress-line { width: 30px; }
+            .progress-line { width: 40px; }
+            .instruction-item { flex-direction: column; gap: 0.75rem; }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-inner">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">X</span>
-                Xstellar.systems
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <img src="assets/xstellar-logo.svg" alt="Xstellar logo">
+                </div>
+                <span class="logo-text">Xstellar.systems</span>
             </a>
-            <a href="dashboard.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Back to Dashboard</a>
+            <a href="dashboard.html" class="btn-back">Back to Dashboard</a>
         </div>
     </header>
 
@@ -498,23 +528,19 @@
             </div>
             <div class="progress-line" id="line3"></div>
             <div class="progress-step">
-                <div class="progress-dot" id="dot4">✓</div>
+                <div class="progress-dot" id="dot4">4</div>
             </div>
         </div>
 
         <!-- Step 1: Instagram Business Account -->
         <div class="step-card active" id="step1">
             <div class="step-header">
-                <div class="step-icon instagram">📸</div>
-                <div>
-                    <h2 class="step-title">Switch to Business Account</h2>
-                    <p class="step-subtitle">Instagram must be a Business or Creator account</p>
-                </div>
+                <h2 class="step-title">Switch to Business Account</h2>
+                <p class="step-subtitle">Instagram must be a Business or Creator account</p>
             </div>
 
             <div class="step-content">
                 <div class="tip-box">
-                    <span class="tip-icon">💡</span>
                     <div class="tip-content">
                         <strong>Already have a Business account?</strong> Skip to the next step. You can check in Instagram Settings → Account → Account type.
                     </div>
@@ -553,7 +579,6 @@
                 </ol>
 
                 <div class="tip-box warning">
-                    <span class="tip-icon">⚠️</span>
                     <div class="tip-content">
                         <strong>Don't see "Switch account type"?</strong> Your account might already be a Business account. Check if you see "Professional dashboard" on your profile.
                     </div>
@@ -574,16 +599,12 @@
         <!-- Step 2: Create Facebook Page -->
         <div class="step-card" id="step2">
             <div class="step-header">
-                <div class="step-icon facebook">📄</div>
-                <div>
-                    <h2 class="step-title">Create a Facebook Page</h2>
-                    <p class="step-subtitle">You need a Facebook Page to receive Instagram DMs via our system</p>
-                </div>
+                <h2 class="step-title">Create a Facebook Page</h2>
+                <p class="step-subtitle">You need a Facebook Page to receive Instagram DMs via our system</p>
             </div>
 
             <div class="step-content">
                 <div class="tip-box">
-                    <span class="tip-icon">💡</span>
                     <div class="tip-content">
                         <strong>Already have a Facebook Page?</strong> Skip to the next step. Make sure you're an <strong>Admin</strong> of the Page.
                     </div>
@@ -620,7 +641,7 @@
                     </li>
                 </ol>
 
-                <div class="btn-group" style="margin-bottom: 24px;">
+                <div class="btn-group" style="margin-bottom: 1.5rem;">
                     <a href="https://www.facebook.com/pages/create" target="_blank" class="btn btn-facebook">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         Create Facebook Page
@@ -628,7 +649,6 @@
                 </div>
 
                 <div class="tip-box warning">
-                    <span class="tip-icon">⚠️</span>
                     <div class="tip-content">
                         <strong>Important:</strong> You must be logged into Facebook with a personal account to create a Page. The Page will be managed by your personal account.
                     </div>
@@ -644,22 +664,18 @@
         <!-- Step 3: Connect Page to Instagram -->
         <div class="step-card" id="step3">
             <div class="step-header">
-                <div class="step-icon connect">🔗</div>
-                <div>
-                    <h2 class="step-title">Connect Page to Instagram</h2>
-                    <p class="step-subtitle">Link your Facebook Page to your Instagram Business account</p>
-                </div>
+                <h2 class="step-title">Connect Page to Instagram</h2>
+                <p class="step-subtitle">Link your Facebook Page to your Instagram Business account</p>
             </div>
 
             <div class="step-content">
                 <div class="tip-box">
-                    <span class="tip-icon">💡</span>
                     <div class="tip-content">
                         <strong>Already connected?</strong> If you connected your Page during Instagram Business setup, skip to the final step.
                     </div>
                 </div>
 
-                <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--text-secondary);">Option A: Connect from Instagram (Recommended)</h3>
+                <h3 class="section-header">Option A: Connect from Instagram (Recommended)</h3>
                 
                 <ol class="instruction-list">
                     <li class="instruction-item">
@@ -693,37 +709,34 @@
                     </li>
                 </ol>
 
-                <div style="border-top: 1px solid var(--border-color); margin: 32px 0; padding-top: 24px;">
-                    <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--text-secondary);">Option B: Connect from Facebook</h3>
-                    
-                    <ol class="instruction-list">
-                        <li class="instruction-item">
-                            <span class="instruction-number">1</span>
-                            <div class="instruction-content">
-                                <strong>Open Your Facebook Page</strong>
-                                <p>Go to your Facebook Page and click "Settings" (or the gear icon)</p>
-                            </div>
-                        </li>
-                        <li class="instruction-item">
-                            <span class="instruction-number">2</span>
-                            <div class="instruction-content">
-                                <strong>Find Instagram Settings</strong>
-                                <p>In the left menu, click "Linked accounts" or search for "Instagram"</p>
-                                <span class="path">Page Settings → Linked accounts → Instagram</span>
-                            </div>
-                        </li>
-                        <li class="instruction-item">
-                            <span class="instruction-number">3</span>
-                            <div class="instruction-content">
-                                <strong>Connect Instagram Account</strong>
-                                <p>Click "Connect account" and log in to your Instagram Business account</p>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
+                <h3 class="section-header">Option B: Connect from Facebook</h3>
+                
+                <ol class="instruction-list">
+                    <li class="instruction-item">
+                        <span class="instruction-number">1</span>
+                        <div class="instruction-content">
+                            <strong>Open Your Facebook Page</strong>
+                            <p>Go to your Facebook Page and click "Settings" (or the gear icon)</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">2</span>
+                        <div class="instruction-content">
+                            <strong>Find Instagram Settings</strong>
+                            <p>In the left menu, click "Linked accounts" or search for "Instagram"</p>
+                            <span class="path">Page Settings → Linked accounts → Instagram</span>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">3</span>
+                        <div class="instruction-content">
+                            <strong>Connect Instagram Account</strong>
+                            <p>Click "Connect account" and log in to your Instagram Business account</p>
+                        </div>
+                    </li>
+                </ol>
 
                 <div class="tip-box warning">
-                    <span class="tip-icon">⚠️</span>
                     <div class="tip-content">
                         <strong>Connection not working?</strong> Make sure you're using the same Facebook account that owns the Page, and that your Instagram is a Business/Creator account.
                     </div>
@@ -739,16 +752,12 @@
         <!-- Step 4: Connect to Xstellar -->
         <div class="step-card" id="step4">
             <div class="step-header">
-                <div class="step-icon" style="background: var(--accent-green);">✓</div>
-                <div>
-                    <h2 class="step-title">Ready to Connect!</h2>
-                    <p class="step-subtitle">Your Instagram is set up correctly. Let's connect it to Xstellar.</p>
-                </div>
+                <h2 class="step-title">Ready to Connect!</h2>
+                <p class="step-subtitle">Your Instagram is set up correctly. Let's connect it to Xstellar.</p>
             </div>
 
             <div class="step-content">
                 <div class="tip-box">
-                    <span class="tip-icon">✅</span>
                     <div class="tip-content">
                         <strong>Quick Checklist</strong> — Make sure you have:
                     </div>
@@ -769,17 +778,16 @@
                     </li>
                 </ul>
 
-                <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                <p style="color: var(--text-gray); margin-bottom: 1.5rem; font-size: 0.9rem;">
                     When you click "Connect Instagram", you'll be asked to:
                 </p>
-                <ol style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 24px;">
+                <ol style="color: var(--text-gray); margin-left: 1.5rem; margin-bottom: 1.5rem; font-size: 0.9rem; line-height: 1.8;">
                     <li>Log in to Facebook (if not already)</li>
                     <li>Select which Facebook Pages to share</li>
                     <li>Grant Xstellar permission to read your Instagram DMs</li>
                 </ol>
 
                 <div class="tip-box">
-                    <span class="tip-icon">🔒</span>
                     <div class="tip-content">
                         <strong>Privacy Note:</strong> Xstellar only reads messages that contain your trigger word. We never read or store any other conversations.
                     </div>
@@ -836,16 +844,16 @@
             let message = '';
             switch(errorType) {
                 case 'no_pages':
-                    message = '⚠️ <strong>No Facebook Page found.</strong> You need to create a Facebook Page and connect it to your Instagram account.';
+                    message = '<strong>No Facebook Page found.</strong> You need to create a Facebook Page and connect it to your Instagram account.';
                     break;
                 case 'no_instagram':
-                    message = '⚠️ <strong>Facebook Page not connected to Instagram.</strong> Follow the steps below to connect them.';
+                    message = '<strong>Facebook Page not connected to Instagram.</strong> Follow the steps below to connect them.';
                     break;
                 case 'oauth_denied':
-                    message = '⚠️ <strong>Connection was cancelled.</strong> Please complete all the steps below and try again.';
+                    message = '<strong>Connection was cancelled.</strong> Please complete all the steps below and try again.';
                     break;
                 default:
-                    message = '⚠️ <strong>Something went wrong.</strong> Please follow the steps below to set up correctly.';
+                    message = '<strong>Something went wrong.</strong> Please follow the steps below to set up correctly.';
             }
             
             banner.innerHTML = message;
@@ -853,27 +861,6 @@
             // Insert after page header
             const pageHeader = document.querySelector('.page-header');
             pageHeader.insertAdjacentElement('afterend', banner);
-            
-            // Add styles for the banner
-            const style = document.createElement('style');
-            style.textContent = `
-                .error-banner {
-                    background: rgba(239, 68, 68, 0.1);
-                    border: 1px solid rgba(239, 68, 68, 0.3);
-                    border-radius: 12px;
-                    padding: 16px 24px;
-                    margin-bottom: 24px;
-                    max-width: 800px;
-                    margin-left: auto;
-                    margin-right: auto;
-                    color: #fca5a5;
-                    text-align: center;
-                }
-                .error-banner strong {
-                    color: #ef4444;
-                }
-            `;
-            document.head.appendChild(style);
         }
 
         function goToStep(step) {
@@ -900,6 +887,8 @@
                     document.getElementById(`dot${i}`).classList.add('active');
                     if (i < 4) {
                         document.getElementById(`dot${i}`).textContent = i;
+                    } else {
+                        document.getElementById(`dot${i}`).textContent = '✓';
                     }
                 }
             }
@@ -932,4 +921,3 @@
     </script>
 </body>
 </html>
-
