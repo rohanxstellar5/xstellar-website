@@ -69,29 +69,12 @@
         .logo-icon {
             width: 28px;
             height: 28px;
-            position: relative;
         }
 
-        .logo-icon::before,
-        .logo-icon::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--text-black);
-            border-radius: 50%;
-        }
-
-        .logo-icon::before {
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .logo-icon::after {
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         .logo-text {
@@ -305,93 +288,77 @@
         }
 
         .flow-container {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 1.5rem;
+            padding: 2.5rem 0 0;
         }
 
         .flow-item {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex: 1;
+            align-items: flex-start;
+            text-align: left;
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+        }
+
+        .flow-step {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-light-gray);
+            margin-bottom: 0.75rem;
         }
 
         .flow-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            height: 64px;
         }
 
-        .flow-icon.instagram {
-            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-
-        .flow-icon.webhook {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        }
-
-        .flow-icon.ai {
-            background: linear-gradient(135deg, #C9A87C 0%, #B8956E 100%);
-        }
-
-        .flow-icon.airtable {
-            background: linear-gradient(135deg, #FCB400 0%, #F0A000 100%);
-        }
-
-        .flow-icon.slack {
-            background: linear-gradient(135deg, #611F69 0%, #4A154B 100%);
-        }
-
-        .flow-icon svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
-        }
-
-        .flow-icon .icon-text {
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 18px;
-            height: 18px;
-            background: #EF4444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.65rem;
-            color: white;
-            font-weight: 600;
-            border: 2px solid var(--bg-cream);
+        .flow-icon img {
+            width: auto;
+            height: 48px;
+            max-width: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .flow-label {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-black);
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.4;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-description {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.6;
         }
 
         .flow-arrow {
-            color: var(--text-light-gray);
-            font-size: 1.25rem;
-            margin-top: 1.5rem;
+            display: none;
         }
 
         /* About Section */
@@ -822,12 +789,13 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <div class="logo-icon"></div>
+                <div class="logo-icon">
+                    <img src="assets/xstellar-logo.svg" alt="Xstellar logo">
+                </div>
                 <span class="logo-text">Xstellar.systems</span>
             </a>
             <div class="nav-center">
                 <a href="#features" class="nav-link">Features</a>
-                <a href="#how-it-works" class="nav-link">How It Works</a>
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-btn">
                         Pricing <span class="dropdown-arrow">▼</span>
@@ -859,57 +827,18 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Streamline your IG DM responses with <span class="highlight">intelligent leads.</span></h1>
-        <p>Intelligent lead scoring system filters high-intent prospects from casual conversations. Built for agencies with 75k+ followers.</p>
+        <p>Intelligent lead scoring system filters high-intent prospects from casual conversations. Built for those drowning in DMs who need to identify real prospects instantly.</p>
         <div class="hero-buttons">
             <a href="signup.html" class="btn-primary">Get Started</a>
-            <a href="#how-it-works" class="btn-secondary">See How It Works</a>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
+    <!-- Value Proposition Section -->
+    <section class="how-it-works" id="value">
         <div class="section-container">
             <div class="section-header">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Your Instagram DMs, automatically qualified and organized</p>
-            </div>
-            <div class="flow-container">
-                <div class="flow-item">
-                    <div class="flow-icon instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        <span class="notification-badge">1</span>
-                    </div>
-                    <span class="flow-label">New DM arrives</span>
-                </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon webhook">
-                        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
-                    </div>
-                    <span class="flow-label">Webhook triggers</span>
-                </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon ai">
-                        <span class="icon-text">AI</span>
-                    </div>
-                    <span class="flow-label">Claude analyzes & scores</span>
-                </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon airtable">
-                        <svg viewBox="0 0 24 24"><path d="M12 3L2 8l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <span class="flow-label">Stored in Airtable</span>
-                </div>
-                <span class="flow-arrow">→</span>
-                <div class="flow-item">
-                    <div class="flow-icon slack">
-                        <svg viewBox="0 0 24 24"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
-                        <span class="notification-badge">!</span>
-                    </div>
-                    <span class="flow-label">You get notified</span>
-                </div>
+                <h2 class="section-title">A Complete Lead Qualification System</h2>
+                <p class="section-subtitle">An intelligent architecture that automatically identifies high-intent prospects from your Instagram DMs and delivers them directly to your team — ready to close.</p>
             </div>
         </div>
     </section>
@@ -934,7 +863,7 @@
                 <div class="feature-card">
                     <h3>Never Miss a Hot Lead</h3>
                     <p>Every DM gets an instant response — no more losing prospects to slow reply times.</p>
-                    <a href="#how-it-works" class="feature-link">See how it works →</a>
+                    <a href="#value" class="feature-link">Learn more →</a>
                 </div>
                 <div class="feature-card">
                     <h3>Save Hours Every Week</h3>
@@ -949,7 +878,7 @@
                 <div class="feature-card">
                     <h3>Seamless Integration</h3>
                     <p>Qualified leads flow directly into Airtable and Slack — no extra dashboards to check.</p>
-                    <a href="#how-it-works" class="feature-link">Learn more →</a>
+                    <a href="#value" class="feature-link">Learn more →</a>
                 </div>
                 <div class="feature-card">
                     <h3>Fully Done-For-You</h3>
@@ -1039,7 +968,7 @@
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"Setup took less than 48 hours and the team handled everything. Now qualified leads just appear in our Slack."</p>
+                    <p class="testimonial-text">"The team handled everything seamlessly. Now qualified leads just appear in our Slack."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">RP</div>
                         <div class="author-info">
@@ -1060,7 +989,7 @@
             </div>
             <div class="faq-item">
                 <h3 class="faq-question">Why use Xstellar instead of handling DMs manually?</h3>
-                <p class="faq-answer">Agencies with 75k+ followers receive hundreds of DMs daily. Our system filters noise instantly, so your team only sees qualified leads ready to close — saving 10+ hours per week.</p>
+                <p class="faq-answer">When you're drowning in DMs, it's impossible to identify real prospects. Our system filters noise instantly, so your team only sees qualified leads ready to close — saving 10+ hours per week.</p>
             </div>
             <div class="faq-item">
                 <h3 class="faq-question">What do you deliver?</h3>
@@ -1068,7 +997,7 @@
             </div>
             <div class="faq-item">
                 <h3 class="faq-question">How quickly can we go live?</h3>
-                <p class="faq-answer">Most clients are fully set up within 48-72 hours. We handle everything — configuration, testing, and integration. You just approve and start receiving leads.</p>
+                <p class="faq-answer">Access your system in minutes. We handle everything — configuration, testing, and integration. You just approve and start receiving leads.</p>
             </div>
             <div class="faq-item">
                 <h3 class="faq-question">What's the founding customer deal?</h3>
@@ -1089,7 +1018,9 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="nav-logo">
-                        <div class="logo-icon"></div>
+                        <div class="logo-icon">
+                            <img src="assets/xstellar-logo.svg" alt="Xstellar logo">
+                        </div>
                         <span class="logo-text">Xstellar.systems</span>
                     </a>
                     <p>AI-powered Instagram lead qualification</p>
@@ -1097,7 +1028,6 @@
                 <div class="footer-column">
                     <h4>Product</h4>
                     <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
                     <a href="#pricing">Pricing</a>
                 </div>
                 <div class="footer-column">

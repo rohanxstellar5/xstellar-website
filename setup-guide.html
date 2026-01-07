@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Guide - XStellar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --bg-hover: #222222;
+            --border-color: #2a2a2a;
+            --border-light: #333333;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --instagram-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            --facebook-blue: #1877f2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+        }
+
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .progress-dot.completed {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .progress-line {
+            width: 60px;
+            height: 2px;
+            background: var(--border-color);
+        }
+
+        .progress-line.completed {
+            background: var(--accent-green);
+        }
+
+        /* Step Cards */
+        .step-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .step-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .step-icon.instagram { background: var(--instagram-gradient); }
+        .step-icon.facebook { background: var(--facebook-blue); }
+        .step-icon.connect { background: linear-gradient(135deg, var(--facebook-blue), #e1306c); }
+
+        .step-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .step-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .step-content {
+            margin-bottom: 32px;
+        }
+
+        .instruction-list {
+            list-style: none;
+            counter-reset: instruction;
+        }
+
+        .instruction-item {
+            counter-increment: instruction;
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .instruction-number {
+            width: 28px;
+            height: 28px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .instruction-content {
+            flex: 1;
+        }
+
+        .instruction-content strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .instruction-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .instruction-content .path {
+            display: inline-block;
+            background: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--accent-orange);
+            margin-top: 8px;
+        }
+
+        .tip-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .tip-box.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .tip-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tip-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .tip-content strong {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: #e5e5e5;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+        }
+
+        .btn-facebook {
+            background: var(--facebook-blue);
+            color: white;
+        }
+
+        .btn-facebook:hover {
+            background: #1565d8;
+        }
+
+        .btn-instagram {
+            background: var(--instagram-gradient);
+            color: white;
+        }
+
+        .btn-instagram:hover {
+            opacity: 0.9;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .external-link:hover {
+            text-decoration: underline;
+        }
+
+        .external-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .checklist-check.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .checklist-text {
+            font-size: 15px;
+        }
+
+        /* Success State */
+        .success-card {
+            text-align: center;
+            padding: 48px 32px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(34, 197, 94, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent-green);
+        }
+
+        .success-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        /* Help Section */
+        .help-section {
+            margin-top: 48px;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .help-section h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .help-section p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .main { padding: 24px 16px 60px; }
+            .page-header h1 { font-size: 26px; }
+            .step-card { padding: 24px; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; }
+            .progress-line { width: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">X</span>
+                Xstellar.systems
+            </a>
+            <a href="dashboard.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="page-header">
+            <h1>Connect Your Instagram</h1>
+            <p>Follow these steps to connect your Instagram Business account to Xstellar</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-step">
+                <div class="progress-dot active" id="dot1">1</div>
+            </div>
+            <div class="progress-line" id="line1"></div>
+            <div class="progress-step">
+                <div class="progress-dot" id="dot2">2</div>
+            </div>
+            <div class="progress-line" id="line2"></div>
+            <div class="progress-step">
+                <div class="progress-dot" id="dot3">3</div>
+            </div>
+            <div class="progress-line" id="line3"></div>
+            <div class="progress-step">
+                <div class="progress-dot" id="dot4">✓</div>
+            </div>
+        </div>
+
+        <!-- Step 1: Instagram Business Account -->
+        <div class="step-card active" id="step1">
+            <div class="step-header">
+                <div class="step-icon instagram">📸</div>
+                <div>
+                    <h2 class="step-title">Switch to Business Account</h2>
+                    <p class="step-subtitle">Instagram must be a Business or Creator account</p>
+                </div>
+            </div>
+
+            <div class="step-content">
+                <div class="tip-box">
+                    <span class="tip-icon">💡</span>
+                    <div class="tip-content">
+                        <strong>Already have a Business account?</strong> Skip to the next step. You can check in Instagram Settings → Account → Account type.
+                    </div>
+                </div>
+
+                <ol class="instruction-list">
+                    <li class="instruction-item">
+                        <span class="instruction-number">1</span>
+                        <div class="instruction-content">
+                            <strong>Open Instagram App</strong>
+                            <p>Go to your profile and tap the menu (☰) in the top right</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">2</span>
+                        <div class="instruction-content">
+                            <strong>Go to Settings</strong>
+                            <p>Tap Settings and privacy → Account → Switch account type</p>
+                            <span class="path">Settings → Account → Switch account type</span>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">3</span>
+                        <div class="instruction-content">
+                            <strong>Select Business or Creator</strong>
+                            <p>Choose "Switch to professional account" and select <strong>Business</strong> (recommended) or Creator</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">4</span>
+                        <div class="instruction-content">
+                            <strong>Complete the Setup</strong>
+                            <p>Select your business category and complete the profile. You can skip connecting to Facebook for now.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="tip-box warning">
+                    <span class="tip-icon">⚠️</span>
+                    <div class="tip-content">
+                        <strong>Don't see "Switch account type"?</strong> Your account might already be a Business account. Check if you see "Professional dashboard" on your profile.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="nextStep(2)">
+                    I Have a Business Account →
+                </button>
+                <a href="https://help.instagram.com/502981923235522" target="_blank" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Instagram Help Guide
+                </a>
+            </div>
+        </div>
+
+        <!-- Step 2: Create Facebook Page -->
+        <div class="step-card" id="step2">
+            <div class="step-header">
+                <div class="step-icon facebook">📄</div>
+                <div>
+                    <h2 class="step-title">Create a Facebook Page</h2>
+                    <p class="step-subtitle">You need a Facebook Page to receive Instagram DMs via our system</p>
+                </div>
+            </div>
+
+            <div class="step-content">
+                <div class="tip-box">
+                    <span class="tip-icon">💡</span>
+                    <div class="tip-content">
+                        <strong>Already have a Facebook Page?</strong> Skip to the next step. Make sure you're an <strong>Admin</strong> of the Page.
+                    </div>
+                </div>
+
+                <ol class="instruction-list">
+                    <li class="instruction-item">
+                        <span class="instruction-number">1</span>
+                        <div class="instruction-content">
+                            <strong>Go to Facebook Pages</strong>
+                            <p>Click the button below to open Facebook Page creation</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">2</span>
+                        <div class="instruction-content">
+                            <strong>Enter Your Page Name</strong>
+                            <p>Use your business name or brand name. This can be the same as your Instagram username.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">3</span>
+                        <div class="instruction-content">
+                            <strong>Select a Category</strong>
+                            <p>Choose the category that best describes your business (e.g., "Marketing Agency", "Consulting", "Local Business")</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">4</span>
+                        <div class="instruction-content">
+                            <strong>Create the Page</strong>
+                            <p>Click "Create Page". You can skip adding profile picture and other details for now.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <div class="btn-group" style="margin-bottom: 24px;">
+                    <a href="https://www.facebook.com/pages/create" target="_blank" class="btn btn-facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        Create Facebook Page
+                    </a>
+                </div>
+
+                <div class="tip-box warning">
+                    <span class="tip-icon">⚠️</span>
+                    <div class="tip-content">
+                        <strong>Important:</strong> You must be logged into Facebook with a personal account to create a Page. The Page will be managed by your personal account.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="prevStep(1)">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">I Have a Facebook Page →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Connect Page to Instagram -->
+        <div class="step-card" id="step3">
+            <div class="step-header">
+                <div class="step-icon connect">🔗</div>
+                <div>
+                    <h2 class="step-title">Connect Page to Instagram</h2>
+                    <p class="step-subtitle">Link your Facebook Page to your Instagram Business account</p>
+                </div>
+            </div>
+
+            <div class="step-content">
+                <div class="tip-box">
+                    <span class="tip-icon">💡</span>
+                    <div class="tip-content">
+                        <strong>Already connected?</strong> If you connected your Page during Instagram Business setup, skip to the final step.
+                    </div>
+                </div>
+
+                <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--text-secondary);">Option A: Connect from Instagram (Recommended)</h3>
+                
+                <ol class="instruction-list">
+                    <li class="instruction-item">
+                        <span class="instruction-number">1</span>
+                        <div class="instruction-content">
+                            <strong>Open Instagram Settings</strong>
+                            <p>Go to your profile → Menu (☰) → Settings and privacy</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">2</span>
+                        <div class="instruction-content">
+                            <strong>Go to Account Settings</strong>
+                            <p>Tap "Account" → "Sharing to other apps" (or "Linked accounts")</p>
+                            <span class="path">Settings → Account → Sharing to other apps</span>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">3</span>
+                        <div class="instruction-content">
+                            <strong>Connect to Facebook</strong>
+                            <p>Tap "Facebook" and log in to your Facebook account</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <span class="instruction-number">4</span>
+                        <div class="instruction-content">
+                            <strong>Select Your Page</strong>
+                            <p>Choose the Facebook Page you want to connect to this Instagram account</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <div style="border-top: 1px solid var(--border-color); margin: 32px 0; padding-top: 24px;">
+                    <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--text-secondary);">Option B: Connect from Facebook</h3>
+                    
+                    <ol class="instruction-list">
+                        <li class="instruction-item">
+                            <span class="instruction-number">1</span>
+                            <div class="instruction-content">
+                                <strong>Open Your Facebook Page</strong>
+                                <p>Go to your Facebook Page and click "Settings" (or the gear icon)</p>
+                            </div>
+                        </li>
+                        <li class="instruction-item">
+                            <span class="instruction-number">2</span>
+                            <div class="instruction-content">
+                                <strong>Find Instagram Settings</strong>
+                                <p>In the left menu, click "Linked accounts" or search for "Instagram"</p>
+                                <span class="path">Page Settings → Linked accounts → Instagram</span>
+                            </div>
+                        </li>
+                        <li class="instruction-item">
+                            <span class="instruction-number">3</span>
+                            <div class="instruction-content">
+                                <strong>Connect Instagram Account</strong>
+                                <p>Click "Connect account" and log in to your Instagram Business account</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="tip-box warning">
+                    <span class="tip-icon">⚠️</span>
+                    <div class="tip-content">
+                        <strong>Connection not working?</strong> Make sure you're using the same Facebook account that owns the Page, and that your Instagram is a Business/Creator account.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+                <button class="btn btn-primary" onclick="nextStep(4)">I've Connected Them →</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Connect to Xstellar -->
+        <div class="step-card" id="step4">
+            <div class="step-header">
+                <div class="step-icon" style="background: var(--accent-green);">✓</div>
+                <div>
+                    <h2 class="step-title">Ready to Connect!</h2>
+                    <p class="step-subtitle">Your Instagram is set up correctly. Let's connect it to Xstellar.</p>
+                </div>
+            </div>
+
+            <div class="step-content">
+                <div class="tip-box">
+                    <span class="tip-icon">✅</span>
+                    <div class="tip-content">
+                        <strong>Quick Checklist</strong> — Make sure you have:
+                    </div>
+                </div>
+
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <div class="checklist-check checked" onclick="toggleCheck(this)">✓</div>
+                        <span class="checklist-text">Instagram Business or Creator account</span>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checklist-check checked" onclick="toggleCheck(this)">✓</div>
+                        <span class="checklist-text">A Facebook Page (you're an Admin)</span>
+                    </li>
+                    <li class="checklist-item">
+                        <div class="checklist-check checked" onclick="toggleCheck(this)">✓</div>
+                        <span class="checklist-text">Facebook Page connected to Instagram</span>
+                    </li>
+                </ul>
+
+                <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                    When you click "Connect Instagram", you'll be asked to:
+                </p>
+                <ol style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 24px;">
+                    <li>Log in to Facebook (if not already)</li>
+                    <li>Select which Facebook Pages to share</li>
+                    <li>Grant Xstellar permission to read your Instagram DMs</li>
+                </ol>
+
+                <div class="tip-box">
+                    <span class="tip-icon">🔒</span>
+                    <div class="tip-content">
+                        <strong>Privacy Note:</strong> Xstellar only reads messages that contain your trigger word. We never read or store any other conversations.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+                <button class="btn btn-instagram" onclick="connectInstagram()" style="flex: 1;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/><circle cx="12" cy="12" r="3.5"/></svg>
+                    Connect Instagram Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="help-section">
+            <h3>Need Help?</h3>
+            <p>If you're stuck at any step, we're here to help.</p>
+            <a href="mailto:support@xstellar.systems" class="btn btn-secondary">
+                Contact Support
+            </a>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = 'https://insta-dm-qualifier.onrender.com';
+        let currentStep = 1;
+        let clientId = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get client ID from URL or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            clientId = urlParams.get('client_id') || localStorage.getItem('xstellar_client_id');
+            
+            // Check for error redirect
+            const errorType = urlParams.get('error');
+            const startStep = urlParams.get('step');
+            
+            // Show error banner if redirected from OAuth
+            if (errorType) {
+                showErrorBanner(errorType);
+            }
+            
+            if (startStep) {
+                goToStep(parseInt(startStep));
+            }
+        });
+
+        function showErrorBanner(errorType) {
+            const banner = document.createElement('div');
+            banner.className = 'error-banner';
+            
+            let message = '';
+            switch(errorType) {
+                case 'no_pages':
+                    message = '⚠️ <strong>No Facebook Page found.</strong> You need to create a Facebook Page and connect it to your Instagram account.';
+                    break;
+                case 'no_instagram':
+                    message = '⚠️ <strong>Facebook Page not connected to Instagram.</strong> Follow the steps below to connect them.';
+                    break;
+                case 'oauth_denied':
+                    message = '⚠️ <strong>Connection was cancelled.</strong> Please complete all the steps below and try again.';
+                    break;
+                default:
+                    message = '⚠️ <strong>Something went wrong.</strong> Please follow the steps below to set up correctly.';
+            }
+            
+            banner.innerHTML = message;
+            
+            // Insert after page header
+            const pageHeader = document.querySelector('.page-header');
+            pageHeader.insertAdjacentElement('afterend', banner);
+            
+            // Add styles for the banner
+            const style = document.createElement('style');
+            style.textContent = `
+                .error-banner {
+                    background: rgba(239, 68, 68, 0.1);
+                    border: 1px solid rgba(239, 68, 68, 0.3);
+                    border-radius: 12px;
+                    padding: 16px 24px;
+                    margin-bottom: 24px;
+                    max-width: 800px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    color: #fca5a5;
+                    text-align: center;
+                }
+                .error-banner strong {
+                    color: #ef4444;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function goToStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`step${i}`).classList.remove('active');
+                document.getElementById(`dot${i}`).classList.remove('active', 'completed');
+                if (i < 4) {
+                    document.getElementById(`line${i}`).classList.remove('completed');
+                }
+            }
+
+            // Show current step and update progress
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            for (let i = 1; i <= step; i++) {
+                if (i < step) {
+                    document.getElementById(`dot${i}`).classList.add('completed');
+                    document.getElementById(`dot${i}`).textContent = '✓';
+                    if (i < 4) {
+                        document.getElementById(`line${i}`).classList.add('completed');
+                    }
+                } else {
+                    document.getElementById(`dot${i}`).classList.add('active');
+                    if (i < 4) {
+                        document.getElementById(`dot${i}`).textContent = i;
+                    }
+                }
+            }
+
+            currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStep(step) {
+            goToStep(step);
+        }
+
+        function prevStep(step) {
+            goToStep(step);
+        }
+
+        function toggleCheck(el) {
+            el.classList.toggle('checked');
+            el.textContent = el.classList.contains('checked') ? '✓' : '';
+        }
+
+        function connectInstagram() {
+            if (!clientId) {
+                alert('Please log in first');
+                window.location.href = 'login.html';
+                return;
+            }
+            window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
+        }
+    </script>
+</body>
+</html>
+
