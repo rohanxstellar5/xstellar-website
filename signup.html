@@ -251,6 +251,35 @@
         .strength-medium { width: 66%; background: #f59e0b; }
         .strength-strong { width: 100%; background: var(--accent-green); }
 
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: var(--text-black);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            border-color: var(--text-black);
+        }
+
+        .btn-secondary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary.loading {
+            position: relative;
+            color: transparent;
+        }
+
         @media (max-width: 480px) {
             .auth-card {
                 padding: 32px 24px;
@@ -276,6 +305,7 @@
 
             <div id="alert" class="alert"></div>
 
+            <!-- Signup Form (shown by default) -->
             <form id="signupForm" onsubmit="handleSignup(event)">
                 <div class="form-group">
                     <label class="form-label" for="business_name">Business Name</label>
@@ -337,6 +367,43 @@
                     Create Account
                 </button>
             </form>
+
+            <!-- Email Verification Form (hidden by default) -->
+            <div id="verificationSection" style="display: none;">
+                <h1 class="auth-title">Verify your email</h1>
+                <p class="auth-subtitle">We sent a verification code to <strong id="verificationEmail"></strong></p>
+                
+                <form id="verificationForm" onsubmit="handleVerification(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="verification_code">Verification Code</label>
+                        <input 
+                            type="text" 
+                            id="verification_code" 
+                            name="verification_code" 
+                            class="form-input" 
+                            placeholder="Enter 6-digit code"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            required
+                            autocomplete="off"
+                            style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;"
+                        >
+                    </div>
+
+                    <button type="submit" id="verifyBtn" class="btn-primary">
+                        <span class="btn-text">Verify Email</span>
+                    </button>
+                </form>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <p style="color: var(--text-gray); font-size: 0.875rem; margin-bottom: 12px;">
+                        Didn't receive the code?
+                    </p>
+                    <button type="button" onclick="resendVerificationCode()" id="resendBtn" class="btn-secondary" style="width: 100%;">
+                        <span class="btn-text">Resend Code</span>
+                    </button>
+                </div>
+            </div>
 
             <p class="auth-footer">
                 Already have an account? <a href="login.html">Sign in</a>
@@ -443,15 +510,20 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    localStorage.setItem('xstellar_client_id', data.client_id);
-                    localStorage.setItem('xstellar_email', email);
-                    localStorage.setItem('xstellar_business', business_name);
-                    
-                    showAlert('Account created! Redirecting...', 'success');
-                    
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
+                    // Check if email verification was sent
+                    if (data.verification_sent) {
+                        // Store client info for verification
+                        localStorage.setItem('xstellar_client_id', data.client_id);
+                        localStorage.setItem('xstellar_email', email);
+                        localStorage.setItem('xstellar_business', business_name);
+                        localStorage.setItem('xstellar_pending_verification', 'true');
+                        
+                        // Show verification UI
+                        showVerificationUI(data.client_id);
+                    } else {
+                        // This shouldn't happen if backend is working correctly
+                        showAlert('Account created but verification email failed. Please contact support.', 'error');
+                    }
                 } else {
                     showAlert(data.detail || 'Signup failed. Please try again.', 'error');
                 }
@@ -463,6 +535,114 @@
                 submitBtn.disabled = false;
             }
         }
+
+        function showVerificationUI(clientId) {
+            // Hide signup form
+            document.getElementById('signupForm').style.display = 'none';
+            // Show verification section
+            document.getElementById('verificationSection').style.display = 'block';
+            // Set email in verification message
+            const email = localStorage.getItem('xstellar_email');
+            document.getElementById('verificationEmail').textContent = email;
+            // Focus on verification code input
+            setTimeout(() => {
+                document.getElementById('verification_code').focus();
+            }, 100);
+        }
+
+        async function handleVerification(event) {
+            event.preventDefault();
+            hideAlert();
+
+            const verifyBtn = document.getElementById('verifyBtn');
+            const code = document.getElementById('verification_code').value.trim();
+            const clientId = parseInt(localStorage.getItem('xstellar_client_id'));
+
+            if (!code || code.length !== 6) {
+                showAlert('Please enter a valid 6-digit code', 'error');
+                return;
+            }
+
+            verifyBtn.classList.add('loading');
+            verifyBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/verify-email`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        client_id: clientId,
+                        code: code
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Remove pending verification flag
+                    localStorage.removeItem('xstellar_pending_verification');
+                    showAlert('Email verified successfully! Redirecting...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    showAlert(data.detail || 'Verification failed. Please check your code and try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Verification error:', error);
+                showAlert('Connection error. Please try again.', 'error');
+            } finally {
+                verifyBtn.classList.remove('loading');
+                verifyBtn.disabled = false;
+            }
+        }
+
+        async function resendVerificationCode() {
+            const resendBtn = document.getElementById('resendBtn');
+            const clientId = parseInt(localStorage.getItem('xstellar_client_id'));
+
+            resendBtn.classList.add('loading');
+            resendBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/resend-verification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        client_id: clientId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showAlert('Verification code sent! Please check your email.', 'success');
+                } else {
+                    showAlert(data.detail || 'Failed to resend code. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Resend error:', error);
+                showAlert('Connection error. Please try again.', 'error');
+            } finally {
+                resendBtn.classList.remove('loading');
+                resendBtn.disabled = false;
+            }
+        }
+
+        // Check if user is on verification step (page reload)
+        window.addEventListener('DOMContentLoaded', () => {
+            const pendingVerification = localStorage.getItem('xstellar_pending_verification');
+            const clientId = localStorage.getItem('xstellar_client_id');
+            
+            if (pendingVerification === 'true' && clientId) {
+                showVerificationUI(parseInt(clientId));
+            }
+        });
     </script>
 </body>
 </html>
