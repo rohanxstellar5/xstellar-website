@@ -449,9 +449,9 @@
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto 3rem;
         }
 
@@ -507,7 +507,60 @@
             color: var(--accent-orange);
             font-size: 0.85rem;
             font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: var(--bg-cream);
+            border-radius: 8px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .billing-toggle-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .billing-toggle-btn.active {
+            background: var(--bg-white);
+            color: var(--text-black);
+            box-shadow: 0 2px 8px var(--shadow-soft);
+        }
+
+        .pricing-savings {
+            font-size: 0.75rem;
+            color: var(--accent-orange);
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        .pricing-yearly {
+            display: none;
+        }
+
+        .pricing-yearly.show {
+            display: block;
+        }
+
+        .pricing-monthly.hide {
+            display: none;
         }
 
         .pricing-features {
@@ -737,6 +790,10 @@
                 grid-template-columns: 1fr 1fr;
             }
 
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr 1fr 1fr;
             }
@@ -767,7 +824,10 @@
             }
 
             .features-grid,
-            .testimonials-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
             .pricing-grid {
                 grid-template-columns: 1fr;
             }
@@ -801,8 +861,9 @@
                         Pricing <span class="dropdown-arrow">▼</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#pricing" class="dropdown-item">Growth Plan</a>
+                        <a href="#pricing" class="dropdown-item">Pro Plan</a>
                         <a href="#pricing" class="dropdown-item">Agency Plan</a>
+                        <a href="#pricing" class="dropdown-item">Enterprise Plan</a>
                         <a href="#pricing" class="dropdown-item">Founding Customer</a>
                     </div>
                 </div>
@@ -901,14 +962,20 @@
                 <h2 class="section-title">Simple, transparent pricing.</h2>
                 <p class="section-subtitle">Start with a free guided trial. Cancel anytime.</p>
             </div>
+            <div class="pricing-billing-toggle">
+                <button class="billing-toggle-btn active" data-billing="monthly">Monthly</button>
+                <button class="billing-toggle-btn" data-billing="yearly">Yearly <span style="color: var(--accent-orange);">Save 8-10%</span></button>
+            </div>
             <div class="pricing-grid">
                 <div class="pricing-card featured">
                     <span class="pricing-badge">Popular</span>
-                    <div class="pricing-tier">Growth</div>
-                    <div class="pricing-price">$799<span>/month</span></div>
+                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-price pricing-monthly">$799<span>/month</span></div>
+                    <div class="pricing-price pricing-yearly" style="display: none;">$7,990<span>/year</span></div>
+                    <div class="pricing-savings pricing-yearly" style="display: none; margin-top: 0.25rem;">Save $598 per year</div>
                     <div class="pricing-trial">7-day free guided trial</div>
                     <ul class="pricing-features">
-                        <li>Up to 2,000 conversations/month</li>
+                        <li>Up to 5,000 conversations/month</li>
                         <li>Advanced AI qualification</li>
                         <li>Custom qualification criteria</li>
                         <li>Airtable/CRM integration</li>
@@ -919,15 +986,32 @@
                 </div>
                 <div class="pricing-card">
                     <div class="pricing-tier">Agency</div>
-                    <div class="pricing-price">$1,499<span>/month</span></div>
+                    <div class="pricing-price pricing-monthly">$1,499<span>/month</span></div>
+                    <div class="pricing-price pricing-yearly" style="display: none;">$14,990<span>/year</span></div>
+                    <div class="pricing-savings pricing-yearly" style="display: none; margin-top: 0.25rem;">Save $1,798 per year</div>
                     <div class="pricing-trial">14-day free guided trial</div>
                     <ul class="pricing-features">
-                        <li>Unlimited conversations</li>
+                        <li>Up to 20,000 conversations/month</li>
                         <li>White-label options</li>
                         <li>Custom integrations</li>
                         <li>Dedicated onboarding</li>
                         <li>Priority 24/7 support</li>
                         <li>Custom AI training</li>
+                    </ul>
+                    <a href="signup.html" class="btn-primary">Contact Sales</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">Contact Sales</div>
+                    <div class="pricing-trial">Custom solutions</div>
+                    <ul class="pricing-features">
+                        <li>Custom conversation limits</li>
+                        <li>Multiple Instagram accounts</li>
+                        <li>Custom AI models</li>
+                        <li>Dedicated account manager</li>
+                        <li>SLA guarantees</li>
+                        <li>White-label branding</li>
+                        <li>Advanced analytics & reporting</li>
                     </ul>
                     <a href="signup.html" class="btn-primary">Contact Sales</a>
                 </div>
@@ -1057,5 +1141,37 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Billing toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const monthlyBtn = document.querySelector('[data-billing="monthly"]');
+            const yearlyBtn = document.querySelector('[data-billing="yearly"]');
+            const monthlyPrices = document.querySelectorAll('.pricing-monthly');
+            const yearlyPrices = document.querySelectorAll('.pricing-yearly');
+            const yearlySavings = document.querySelectorAll('.pricing-savings.pricing-yearly');
+
+            function switchToMonthly() {
+                monthlyBtn.classList.add('active');
+                yearlyBtn.classList.remove('active');
+                monthlyPrices.forEach(el => el.style.display = 'block');
+                yearlyPrices.forEach(el => el.style.display = 'none');
+                yearlySavings.forEach(el => el.style.display = 'none');
+            }
+
+            function switchToYearly() {
+                monthlyBtn.classList.remove('active');
+                yearlyBtn.classList.add('active');
+                monthlyPrices.forEach(el => el.style.display = 'none');
+                yearlyPrices.forEach(el => el.style.display = 'block');
+                yearlySavings.forEach(el => el.style.display = 'block');
+            }
+
+            if (monthlyBtn && yearlyBtn) {
+                monthlyBtn.addEventListener('click', switchToMonthly);
+                yearlyBtn.addEventListener('click', switchToYearly);
+            }
+        });
+    </script>
 </body>
 </html>
