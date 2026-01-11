@@ -653,6 +653,10 @@
                 if (response.ok) {
                     // Remove pending verification flag
                     localStorage.removeItem('xstellar_pending_verification');
+                    // Store JWT so user can access protected endpoints immediately
+                    if (data.access_token) {
+                        localStorage.setItem('xstellar_access_token', data.access_token);
+                    }
                     showAlert('Email verified successfully! Redirecting...', 'success');
                     
                     setTimeout(() => {

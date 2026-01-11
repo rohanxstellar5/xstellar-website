@@ -874,6 +874,15 @@
 
     <script>
         const API_BASE = 'https://insta-dm-qualifier.onrender.com';
+        const getToken = () => localStorage.getItem('xstellar_access_token');
+        const authHeaders = () => {
+            const t = getToken();
+            return t ? { 'Authorization': `Bearer ${t}` } : {};
+        };
+        const apiFetch = (path, options = {}) => {
+            const headers = { ...(options.headers || {}), ...authHeaders() };
+            return fetch(`${API_BASE}${path}`, { ...options, headers });
+        };
         let clientId = null;
         let leadsData = [];
 
@@ -891,7 +900,7 @@
             }
             
             clientId = localStorage.getItem('xstellar_client_id');
-            if (!clientId) { window.location.href = 'login.html'; return; }
+            if (!clientId || !getToken()) { window.location.href = 'login.html'; return; }
             
             // Validate client_id exists before loading data
             validateClientId().then(isValid => {
@@ -916,7 +925,7 @@
         async function validateClientId() {
             if (!clientId) return false;
             try {
-                const response = await fetch(`${API_BASE}/api/config/${clientId}`);
+                const response = await apiFetch(`/api/config/${clientId}`);
                 return response.ok;
             } catch (error) {
                 console.error('Client validation error:', error);
@@ -928,6 +937,7 @@
             localStorage.removeItem('xstellar_client_id');
             localStorage.removeItem('xstellar_email');
             localStorage.removeItem('xstellar_business');
+            localStorage.removeItem('xstellar_access_token');
             window.location.href = 'login.html';
         }
 
@@ -989,7 +999,7 @@
 
         async function loadConfig() {
             try {
-                const response = await fetch(`${API_BASE}/api/config/${clientId}`);
+                const response = await apiFetch(`/api/config/${clientId}`);
                 if (response.ok) {
                     const config = await response.json();
                     if (config.trigger_word) document.getElementById('trigger_word').value = config.trigger_word;
@@ -1004,7 +1014,7 @@
 
         async function loadStats() {
             try {
-                const response = await fetch(`${API_BASE}/api/stats/${clientId}`);
+                const response = await apiFetch(`/api/stats/${clientId}`);
                 if (response.ok) {
                     const stats = await response.json();
                     document.getElementById('statTotal').textContent = stats.total || 0;
@@ -1017,7 +1027,7 @@
 
         async function loadLeads() {
             try {
-                const response = await fetch(`${API_BASE}/api/leads/${clientId}`);
+                const response = await apiFetch(`/api/leads/${clientId}`);
                 if (response.ok) {
                     const data = await response.json();
                     leadsData = data.leads || [];
@@ -1156,7 +1166,7 @@
             const btn = document.getElementById('saveDmBtn');
             btn.classList.add('loading');
             try {
-                const response = await fetch(`${API_BASE}/api/config/${clientId}/dm`, {
+                const response = await apiFetch(`/api/dm-config/${clientId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ trigger_word: document.getElementById('trigger_word').value, qualifying_question: document.getElementById('qualifying_question').value })

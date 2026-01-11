@@ -445,6 +445,9 @@
                     localStorage.setItem('xstellar_client_id', data.client_id);
                     localStorage.setItem('xstellar_email', email);
                     localStorage.setItem('xstellar_business', data.business_name || 'My Business');
+                    if (data.access_token) {
+                        localStorage.setItem('xstellar_access_token', data.access_token);
+                    }
                     
                     showAlert('Login successful! Redirecting...', 'success');
                     
