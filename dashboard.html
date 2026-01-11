@@ -891,11 +891,26 @@
             const urlParams = new URLSearchParams(window.location.search);
             const urlClientId = urlParams.get('client_id');
             const oauthProvider = urlParams.get('oauth');
+            const urlToken = urlParams.get('token');
+            const urlEmail = urlParams.get('email');
+            const urlBusiness = urlParams.get('business');
             
             if (urlClientId) {
                 // Store client_id from URL in localStorage (Google OAuth flow)
                 localStorage.setItem('xstellar_client_id', urlClientId);
-                // Clean up URL
+            }
+            if (urlToken) {
+                localStorage.setItem('xstellar_access_token', urlToken);
+            }
+            if (urlEmail) {
+                localStorage.setItem('xstellar_email', urlEmail);
+            }
+            if (urlBusiness) {
+                localStorage.setItem('xstellar_business', urlBusiness);
+            }
+
+            // Clean up URL (remove token and other OAuth params from address bar/history)
+            if (urlClientId || oauthProvider || urlToken || urlEmail || urlBusiness) {
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
             
