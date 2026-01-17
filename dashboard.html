@@ -1001,6 +1001,15 @@
                         <textarea id="qualifying_question" class="form-input" oninput="updatePreview(); updateCharCount();">Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?</textarea>
                         <div class="char-count"><span id="charCount">125</span>/500</div>
                     </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            Acknowledgment Message (Optional)
+                            <span class="badge-new" style="margin-left: 8px;">NEW</span>
+                        </label>
+                        <textarea id="acknowledgment_message" class="form-input" oninput="updateAckCharCount();" placeholder="Thanks for your interest! Our team will review and get back to you shortly." rows="3" maxlength="1000"></textarea>
+                        <span class="form-hint">Sent automatically after scoring your lead's response. Leave blank to disable.</span>
+                        <div class="char-count"><span id="ackCharCount">0</span>/1000</div>
+                    </div>
                     <div class="preview-box">
                         <div class="preview-label">Preview</div>
                         <div class="preview-message">
@@ -1184,6 +1193,7 @@
                 loadLeads();
                 updatePreview();
                 updateCharCount();
+                updateAckCharCount();
             });
         });
         
@@ -1243,6 +1253,10 @@
             document.getElementById('charCount').textContent = document.getElementById('qualifying_question').value.length;
         }
 
+        function updateAckCharCount() {
+            document.getElementById('ackCharCount').textContent = document.getElementById('acknowledgment_message').value.length;
+        }
+
         async function loadConfig() {
             try {
                 const response = await apiFetch(`/api/config/${clientId}`);
@@ -1253,6 +1267,15 @@
                     if (config.instagram_connected) updateInstagramStatus(true, config.instagram_username);
                     updatePreview();
                     updateCharCount();
+                }
+                // Load acknowledgment config
+                const ackResponse = await apiFetch(`/api/acknowledgment-config/${clientId}`);
+                if (ackResponse.ok) {
+                    const ackData = await ackResponse.json();
+                    if (ackData.acknowledgment_message) {
+                        document.getElementById('acknowledgment_message').value = ackData.acknowledgment_message;
+                    }
+                    updateAckCharCount();
                 }
             } catch (error) { console.error('Error loading config:', error); }
         }
@@ -1557,13 +1580,29 @@
             const btn = document.getElementById('saveDmBtn');
             btn.classList.add('loading');
             try {
+                // Save DM config
                 const response = await apiFetch(`/api/dm-config/${clientId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ trigger_word: document.getElementById('trigger_word').value, qualifying_question: document.getElementById('qualifying_question').value })
                 });
-                showAlert(response.ok ? 'DM configuration saved!' : 'Failed to save configuration', response.ok ? 'success' : 'error');
-            } catch (error) { showAlert('Connection error', 'error'); }
+                
+                // Save acknowledgment config
+                const ackMessage = document.getElementById('acknowledgment_message').value.trim();
+                const ackResponse = await apiFetch(`/api/acknowledgment-config/${clientId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ acknowledgment_message: ackMessage || null })
+                });
+                
+                if (response.ok && ackResponse.ok) {
+                    showAlert('DM configuration saved!', 'success');
+                } else {
+                    showAlert('Failed to save configuration', 'error');
+                }
+            } catch (error) { 
+                showAlert('Connection error', 'error'); 
+            }
             finally { btn.classList.remove('loading'); }
         }
 
