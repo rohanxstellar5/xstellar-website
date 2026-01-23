@@ -243,6 +243,7 @@
         .card-icon.instagram { background: var(--instagram-gradient); }
         .card-icon.dm { background: var(--accent-blue); }
         .card-icon.slack { background: #4a154b; }
+        .card-icon.calendly { background: #0069ff; }
         .card-icon svg { width: 22px; height: 22px; fill: white; }
 
         .card-title-group h3 {
@@ -1020,6 +1021,42 @@
                     <button type="submit" class="btn btn-primary" style="margin-top: 20px;" id="saveDmBtn">Save Configuration</button>
                 </form>
             </div>
+
+            <!-- Calendly Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon calendly">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg>
+                    </div>
+                    <div class="card-title-group">
+                        <h3>Calendly</h3>
+                        <p>Connect your booking calendar</p>
+                    </div>
+                </div>
+                <span class="status-badge not-connected" id="calendlyBadge">Not Connected</span>
+                <div id="calendlyConnectedInfo" style="display: none;"></div>
+                <div id="calendlyEventSelection" style="display: none; margin-top: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Event Type</label>
+                        <select id="calendlyEventSelect" class="form-input">
+                            <option value="">Loading event types...</option>
+                        </select>
+                        <span class="form-hint">Select which event type to use for auto-booking qualified leads (score 90+)</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="saveCalendlyEvent()" id="saveEventBtn" style="margin-top: 12px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        Save Event Selection
+                    </button>
+                </div>
+                <button class="btn btn-primary" id="connectCalendlyBtn" onclick="connectCalendly()" style="margin-top: 16px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Connect Calendly
+                </button>
+                <button class="btn btn-secondary" id="disconnectCalendlyBtn" onclick="disconnectCalendly()" style="display: none; margin-top: 12px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                    Disconnect
+                </button>
+            </div>
         </div>
 
         <!-- Leads Section -->
@@ -1191,6 +1228,7 @@
                 loadConfig();
                 loadStats();
                 loadLeads();
+                loadCalendlyStatus();
                 updatePreview();
                 updateCharCount();
                 updateAckCharCount();
@@ -1615,6 +1653,252 @@
         document.getElementById('leadModal').addEventListener('click', (e) => {
             if (e.target.id === 'leadModal') closeModal();
         });
+
+        // ============================================
+        // CALENDLY INTEGRATION
+        // ============================================
+
+        let currentCalendlyEvent = null;
+
+        async function loadCalendlyStatus() {
+            try {
+                const response = await apiFetch('/settings/calendly');
+                if (response.ok) {
+                    const data = await response.json();
+                    currentCalendlyEvent = {
+                        name: data.event_name,
+                        url: data.booking_url
+                    };
+                    updateCalendlyStatus(data.connected, data.event_name, data.booking_url);
+                    
+                    // If connected, fetch and load event types
+                    if (data.connected) {
+                        await fetchCalendlyEvents(data.event_name);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading Calendly status:', error);
+            }
+        }
+
+        function updateCalendlyStatus(connected, eventName, bookingUrl) {
+            const badge = document.getElementById('calendlyBadge');
+            const connectBtn = document.getElementById('connectCalendlyBtn');
+            const disconnectBtn = document.getElementById('disconnectCalendlyBtn');
+            const connectedInfo = document.getElementById('calendlyConnectedInfo');
+            const eventSelection = document.getElementById('calendlyEventSelection');
+            
+            if (connected) {
+                badge.className = 'status-badge connected';
+                badge.textContent = 'Connected';
+                
+                // Show connected info
+                connectedInfo.style.display = 'block';
+                connectedInfo.innerHTML = `
+                    <div class="connected-info">
+                        <div class="connected-avatar" style="background: #0069ff;">C</div>
+                        <div style="flex: 1;">
+                            <div class="connected-name">Calendly Account</div>
+                            ${eventName ? `
+                                <div class="connected-handle">${escapeHtml(eventName)}</div>
+                                ${bookingUrl ? `<a href="${escapeHtml(bookingUrl)}" target="_blank" style="font-size: 12px; color: var(--accent-blue); text-decoration: none; margin-top: 4px; display: inline-block;">View booking link →</a>` : ''}
+                            ` : '<div class="connected-handle" style="color: var(--accent-orange);">No event selected</div>'}
+                        </div>
+                    </div>
+                `;
+                
+                // Show event selection if not already selected, or allow changing
+                if (!eventName) {
+                    eventSelection.style.display = 'block';
+                } else {
+                    // Allow changing event selection
+                    eventSelection.style.display = 'block';
+                    const eventSelect = document.getElementById('calendlyEventSelect');
+                    if (eventSelect) {
+                        // Fetch events to populate dropdown with current selection
+                        fetchCalendlyEvents(eventName);
+                    }
+                }
+                
+                connectBtn.style.display = 'none';
+                disconnectBtn.style.display = 'block';
+            } else {
+                badge.className = 'status-badge not-connected';
+                badge.textContent = 'Not Connected';
+                connectedInfo.style.display = 'none';
+                eventSelection.style.display = 'none';
+                connectBtn.style.display = 'block';
+                disconnectBtn.style.display = 'none';
+            }
+        }
+
+        async function connectCalendly() {
+            if (!clientId) {
+                showAlert('Please log in first', 'error');
+                return;
+            }
+            
+            // Validate client exists before redirecting
+            const isValid = await validateClientId();
+            if (!isValid) {
+                showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }, 3000);
+                return;
+            }
+            
+            // Redirect to Calendly OAuth
+            window.location.href = `${API_BASE}/auth/calendly`;
+        }
+
+        async function fetchCalendlyEvents(selectedEventName = null) {
+            const eventSelect = document.getElementById('calendlyEventSelect');
+            const saveBtn = document.getElementById('saveEventBtn');
+            
+            try {
+                eventSelect.innerHTML = '<option value="">Loading event types...</option>';
+                eventSelect.disabled = true;
+                saveBtn.disabled = true;
+                
+                const response = await apiFetch('/api/calendly/events');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const events = data.events || [];
+                    
+                    if (events.length === 0) {
+                        eventSelect.innerHTML = '<option value="">No event types found</option>';
+                        showAlert('No active event types found in your Calendly account. Please create an event type first.', 'error');
+                    } else {
+                        eventSelect.innerHTML = '<option value="">Select an event type...</option>';
+                        events.forEach(event => {
+                            const option = document.createElement('option');
+                            option.value = event.uri;
+                            option.dataset.name = event.name;
+                            option.dataset.url = event.scheduling_url;
+                            option.textContent = `${event.name}${event.duration ? ` (${event.duration} min)` : ''}`;
+                            
+                            // Pre-select if this matches the currently saved event
+                            if (selectedEventName && event.name === selectedEventName) {
+                                option.selected = true;
+                            }
+                            
+                            eventSelect.appendChild(option);
+                        });
+                        eventSelect.disabled = false;
+                        saveBtn.disabled = false;
+                    }
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    eventSelect.innerHTML = '<option value="">Error loading events</option>';
+                    
+                    // If Calendly not connected, don't show error (user might not have connected yet)
+                    if (response.status !== 404) {
+                        showAlert(errorData.detail || 'Failed to fetch event types', 'error');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching Calendly events:', error);
+                eventSelect.innerHTML = '<option value="">Error loading events</option>';
+                // Don't show error for network issues if status check failed
+            } finally {
+                eventSelect.disabled = false;
+                saveBtn.disabled = false;
+            }
+        }
+
+        async function saveCalendlyEvent() {
+            const eventSelect = document.getElementById('calendlyEventSelect');
+            const saveBtn = document.getElementById('saveEventBtn');
+            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+            
+            if (!selectedOption || !selectedOption.value) {
+                showAlert('Please select an event type', 'error');
+                return;
+            }
+            
+            const eventUri = selectedOption.value;
+            const eventName = selectedOption.dataset.name;
+            const bookingUrl = selectedOption.dataset.url;
+            
+            saveBtn.classList.add('loading');
+            saveBtn.disabled = true;
+            
+            try {
+                const response = await apiFetch('/auth/calendly/select-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event_uri: eventUri,
+                        event_name: eventName,
+                        booking_url: bookingUrl
+                    })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showAlert(`Event type "${result.event_name}" saved successfully!`, 'success');
+                    // Reload status to update UI
+                    await loadCalendlyStatus();
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    showAlert(errorData.detail || 'Failed to save event selection', 'error');
+                }
+            } catch (error) {
+                console.error('Error saving Calendly event:', error);
+                showAlert('Connection error', 'error');
+            } finally {
+                saveBtn.classList.remove('loading');
+                saveBtn.disabled = false;
+            }
+        }
+
+        async function disconnectCalendly() {
+            if (!confirm('Are you sure you want to disconnect Calendly? This will remove your booking calendar integration.')) {
+                return;
+            }
+            
+            const disconnectBtn = document.getElementById('disconnectCalendlyBtn');
+            disconnectBtn.classList.add('loading');
+            disconnectBtn.disabled = true;
+            
+            try {
+                const response = await apiFetch('/settings/calendly', {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showAlert('Calendly disconnected successfully', 'success');
+                    // Update UI
+                    currentCalendlyEvent = null;
+                    updateCalendlyStatus(false, null, null);
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    showAlert(errorData.detail || 'Failed to disconnect Calendly', 'error');
+                }
+            } catch (error) {
+                console.error('Error disconnecting Calendly:', error);
+                showAlert('Connection error', 'error');
+            } finally {
+                disconnectBtn.classList.remove('loading');
+                disconnectBtn.disabled = false;
+            }
+        }
+
+        // Check if we're returning from Calendly OAuth callback
+        // The callback redirects to a selection page, but if user comes back to dashboard,
+        // we should reload the status
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('calendly') === 'connected') {
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            // Reload status after a short delay to ensure backend has processed
+            setTimeout(() => {
+                loadCalendlyStatus();
+            }, 1000);
+        }
     </script>
 </body>
 </html>
