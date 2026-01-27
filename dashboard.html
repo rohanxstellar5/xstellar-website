@@ -1749,8 +1749,30 @@
                 return;
             }
             
-            // Redirect to Calendly OAuth
-            window.location.href = `${API_BASE}/auth/calendly`;
+            // Get JWT token
+            const token = getToken();
+            if (!token) {
+                showAlert('Authentication required. Please log in again.', 'error');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // NEW ROOT CAUSE FIX: 
+            // Fetch the OAuth URL via authenticated API instead of direct navigation with token
+            try {
+                const response = await apiFetch('/auth/calendly/url');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.url) {
+                        window.location.href = data.url;
+                        return;
+                    }
+                }
+                throw new Error('Failed to get Calendly URL');
+            } catch (error) {
+                console.error('Calendly redirect error:', error);
+                showAlert('Failed to start Calendly connection. Please try again.', 'error');
+            }
         }
 
         async function fetchCalendlyEvents(selectedEventName = null) {
