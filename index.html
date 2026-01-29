@@ -962,35 +962,32 @@
         <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Contact sales for pricing.</h2>
-                <p class="section-subtitle">Tell us a bit about your DM volume and we’ll send a tailored quote.</p>
+                <p class="section-subtitle">Get a custom quote for your business.</p>
             </div>
-            <div class="pricing-grid" style="grid-template-columns: 1fr; max-width: 700px;">
-                <div class="pricing-card featured" style="padding: 2rem;">
-                    <div class="pricing-tier" style="margin-bottom: 0.5rem;">Pricing Request</div>
-                    <p style="color: var(--text-gray); margin-bottom: 1.25rem;">
-                        Share the details below and we’ll respond with pricing and next steps.
+            <div class="pricing-grid" style="grid-template-columns: 1fr; max-width: 600px;">
+                <div class="pricing-card featured" style="padding: 2.5rem;">
+                    <div class="pricing-tier" style="margin-bottom: 0.5rem; font-size: 1.5rem;">Contact Sales</div>
+                    <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                        Share a few details and we'll respond with a custom plan.
                     </p>
 
-                    <form id="contactSalesForm" style="display: grid; gap: 12px;">
+                    <form id="contactSalesForm" style="display: grid; gap: 16px;">
                         <input id="cs_name" type="text" placeholder="Name" required
-                            style="padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.95rem;">
-                        <input id="cs_email" type="email" placeholder="Email" required
-                            style="padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.95rem;">
-                        <input id="cs_business" type="text" placeholder="Business / Brand" required
-                            style="padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.95rem;">
-                        <input id="cs_dm_volume" type="text" placeholder="Approx. monthly DM volume (e.g. 2,000)"
-                            style="padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.95rem;">
-                        <textarea id="cs_message" rows="5" placeholder="Anything else we should know?"
-                            style="padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 0.95rem; resize: vertical;"></textarea>
+                            style="padding: 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 1rem; width: 100%;">
+                        <input id="cs_email" type="email" placeholder="Work Email" required
+                            style="padding: 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 1rem; width: 100%;">
+                        <input id="cs_handle" type="text" placeholder="Instagram Handle (e.g. @yourbrand)" required
+                            style="padding: 14px; border-radius: 8px; border: 1px solid var(--border-light); font-size: 1rem; width: 100%;">
 
-                        <button type="submit" class="btn-primary" style="width: 100%;">Email Sales</button>
-                        <a href="signup.html" class="btn-secondary" style="text-align:center;">Or start with Google sign-in</a>
+                        <button type="submit" class="btn-primary"
+                            style="width: 100%; padding: 14px; margin-top: 8px;">Get a Custom Quote</button>
                     </form>
 
-                    <p style="color: var(--text-light-gray); font-size: 0.85rem; margin-top: 1rem;">
-                        Prefer email? Send us a note at
-                        <a href="mailto:support@xstellar.systems,rohan@xstellar.systems?subject=Pricing%20Request%20-%20Xstellar"
-                            style="color: var(--text-black); text-decoration: none; font-weight: 600;">support@xstellar.systems</a>.
+                    <p
+                        style="color: var(--text-light-gray); font-size: 0.85rem; margin-top: 1.5rem; text-align: center;">
+                        Prefer email? Reach out at
+                        <a href="mailto:support@xstellar.systems"
+                            style="color: var(--text-black); text-decoration: none; font-weight: 600;">support@xstellar.systems</a>
                     </p>
                 </div>
             </div>
@@ -1100,7 +1097,7 @@
                     <h4>Resources</h4>
                     <a href="#">Documentation</a>
                     <a href="#faqs">FAQs</a>
-                    <a href="mailto:support@xstellar.systems,rohan@xstellar.systems?subject=Contact Sales Inquiry">Contact
+                    <a href="mailto:support@xstellar.systems?subject=Contact Sales Inquiry">Contact
                         Sales</a>
                 </div>
                 <div class="footer-column">
@@ -1135,20 +1132,16 @@
 
                 const name = document.getElementById('cs_name').value.trim();
                 const email = document.getElementById('cs_email').value.trim();
-                const business = document.getElementById('cs_business').value.trim();
-                const dmVolume = document.getElementById('cs_dm_volume').value.trim();
-                const message = document.getElementById('cs_message').value.trim();
+                const handle = document.getElementById('cs_handle').value.trim();
 
-                const subject = encodeURIComponent(`Pricing Request - ${business || 'Xstellar'}`);
+                const subject = encodeURIComponent(`Quote Request - ${handle}`);
                 const body = encodeURIComponent(
                     `Name: ${name}\n` +
                     `Email: ${email}\n` +
-                    `Business: ${business}\n` +
-                    `Monthly DM volume: ${dmVolume || '—'}\n\n` +
-                    `${message || ''}`
+                    `Instagram Handle: ${handle}\n`
                 );
 
-                window.location.href = `mailto:support@xstellar.systems,rohan@xstellar.systems?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:support@xstellar.systems?subject=${subject}&body=${body}`;
             });
         });
     </script>

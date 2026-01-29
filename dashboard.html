@@ -1061,7 +1061,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon instagram">
-                        <img src="assets/instagram.webp" alt="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white"></path>
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white"></rect>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="3"></line>
+                        </svg>
                     </div>
                     <div class="card-title-group">
                         <h3>Instagram</h3>
@@ -1085,7 +1089,12 @@
             <!-- Trigger Word Config -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon dm"><img src="assets/webhook.svg" alt="Trigger"></div>
+                    <div class="card-icon dm" style="background: linear-gradient(135deg, #FFD700, #FFA500);">
+                        <!-- Lightning Bolt Icon -->
+                        <svg viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
+                        </svg>
+                    </div>
                     <div class="card-title-group">
                         <h3>Trigger Word</h3>
                         <p>Start qualification when a lead sends this</p>
@@ -1105,8 +1114,19 @@
             <!-- Calendly Card -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon calendly">
-                        <img src="assets/calendly.svg" alt="Calendly">
+                    <div class="card-icon calendly" style="background: white; border: 1px solid #e5e7eb;">
+                        <!-- Original Calendly 'C' Logo -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
+                                fill="#006bff" />
+                            <path
+                                d="M12 7C9.24 7 7 9.24 7 12C7 14.76 9.24 17 12 17C14.76 17 17 14.76 17 12C17 9.24 14.76 7 12 7ZM12 15C10.35 15 9 13.65 9 12C9 10.35 10.35 9 12 9C13.65 9 15 10.35 15 12C15 13.65 13.65 15 12 15Z"
+                                fill="#006bff" />
+                            <path
+                                d="M16.5 12C16.5 14.48 14.48 16.5 12 16.5C9.52 16.5 7.5 14.48 7.5 12C7.5 9.52 9.52 7.5 12 7.5C14.48 7.5 16.5 9.52 16.5 12Z"
+                                fill="#006bff" fill-opacity="0.2" />
+                        </svg>
                     </div>
                     <div class="card-title-group">
                         <h3>Calendly</h3>
@@ -1134,24 +1154,48 @@
             </div>
 
             <!-- ICP Config -->
-            <div class="card">
+            <div class="card" style="grid-column: span 2;">
                 <div class="card-header">
-                    <div class="card-icon dm"><img src="assets/ai-icon.svg" alt="ICP"></div>
                     <div class="card-title-group">
-                        <h3>ICP</h3>
-                        <p>Define what a “qualified lead” looks like</p>
+                        <h3>Ideal Customer Profile (ICP)</h3>
+                        <p>Teach the AI how to score your leads</p>
                     </div>
                 </div>
                 <form id="icpConfigForm" onsubmit="saveIcpConfig(event)">
-                    <div class="form-group">
-                        <label class="form-label">ICP Configuration (JSON)</label>
-                        <textarea id="icp_json" class="form-input" rows="10"
-                            placeholder='{"industry": ["..."], "company_size": "...", "budget": "..."}'></textarea>
-                        <span class="form-hint">Must be valid JSON. This is used by the AI scorer.</span>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label class="form-label" style="color: var(--accent-orange); font-weight: 700;">Hot Leads
+                                (Auto-qualify)</label>
+                            <input type="text" id="icp_hot" class="form-input"
+                                placeholder="e.g. Founder, CEO, Agency Owner">
+                            <span class="form-hint">Roles that are an instant "YES"</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Warm Leads (Manual review)</label>
+                            <input type="text" id="icp_warm" class="form-input"
+                                placeholder="e.g. Freelancer, Consultant, Coach">
+                            <span class="form-hint">Good leads, but maybe not perfect</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cold Leads (Polite exit)</label>
+                            <input type="text" id="icp_cold" class="form-input"
+                                placeholder="e.g. Student, Employee, Job seeker">
+                            <span class="form-hint">Roles you want to politely decline</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Industries (Optional)</label>
+                            <input type="text" id="icp_industries" class="form-input"
+                                placeholder="e.g. SaaS, E-commerce, Coachella">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label class="form-label">Auto-Disqualify (Optional)</label>
+                            <input type="text" id="icp_disqualify" class="form-input"
+                                placeholder="e.g. Competitor, Job seeker, Vendor">
+                            <span class="form-hint">Keywords that immediately stop the conversation</span>
+                        </div>
                     </div>
-                    <div class="btn-row">
-                        <button type="button" class="btn btn-secondary" onclick="loadDefaultIcp()">Load Default</button>
-                        <button type="submit" class="btn btn-primary" id="saveIcpBtn">Save ICP</button>
+                    <div class="btn-row" style="margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary" id="saveIcpBtn">Save ICP Settings</button>
                     </div>
                 </form>
             </div>
@@ -1171,7 +1215,6 @@
         };
 
         let clientId = null;
-        let defaultIcpConfig = null;
 
         // Theme management
         function initTheme() {
@@ -1372,9 +1415,14 @@
                     document.getElementById('trigger_word').value = data.trigger_word;
                 }
 
-                defaultIcpConfig = data.icp_config_default || null;
-                const icp = data.icp_config || null;
-                document.getElementById('icp_json').value = icp ? JSON.stringify(icp, null, 2) : '';
+                const icp = data.icp_config || {};
+                // Populate Structured Fields
+                if (icp.hot_roles) document.getElementById('icp_hot').value = icp.hot_roles.join(', ');
+                if (icp.warm_roles) document.getElementById('icp_warm').value = icp.warm_roles.join(', ');
+                if (icp.cold_roles) document.getElementById('icp_cold').value = icp.cold_roles.join(', ');
+                if (icp.target_industries) document.getElementById('icp_industries').value = icp.target_industries.join(', ');
+                if (icp.disqualifiers) document.getElementById('icp_disqualify').value = icp.disqualifiers.join(', ');
+
             } catch (e) {
                 console.error('Error loading DM config:', e);
             }
@@ -1413,30 +1461,26 @@
             }
         }
 
-        function loadDefaultIcp() {
-            if (!defaultIcpConfig) {
-                showAlert('No default ICP available from the server yet.', 'error');
-                return;
-            }
-            document.getElementById('icp_json').value = JSON.stringify(defaultIcpConfig, null, 2);
-        }
-
         async function saveIcpConfig(event) {
             event.preventDefault();
             const btn = document.getElementById('saveIcpBtn');
-            const raw = (document.getElementById('icp_json').value || '').trim();
 
-            let parsed = null;
-            if (!raw) {
-                showAlert('Paste a JSON ICP config or click “Load Default”.', 'error');
-                return;
-            }
-            try {
-                parsed = JSON.parse(raw);
-            } catch (e) {
-                showAlert('ICP config must be valid JSON.', 'error');
-                return;
-            }
+            // Gather values from structured form
+            const hotStr = document.getElementById('icp_hot').value.trim();
+            const warmStr = document.getElementById('icp_warm').value.trim();
+            const coldStr = document.getElementById('icp_cold').value.trim();
+            const indStr = document.getElementById('icp_industries').value.trim();
+            const disqStr = document.getElementById('icp_disqualify').value.trim();
+
+            const split = (s) => s.split(',').map(x => x.trim()).filter(x => x.length > 0);
+
+            const icpConfig = {
+                hot_roles: split(hotStr),
+                warm_roles: split(warmStr),
+                cold_roles: split(coldStr),
+                target_industries: split(indStr),
+                disqualifiers: split(disqStr)
+            };
 
             btn.classList.add('loading');
             btn.disabled = true;
@@ -1444,10 +1488,10 @@
                 const response = await apiFetch(`/api/dm-config/${clientId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ icp_config: parsed })
+                    body: JSON.stringify({ icp_config: icpConfig })
                 });
                 if (response.ok) {
-                    showAlert('ICP saved.', 'success');
+                    showAlert('ICP settings saved successfully.', 'success');
                 } else {
                     const err = await response.json().catch(() => ({}));
                     showAlert(err.detail || 'Failed to save ICP.', 'error');
