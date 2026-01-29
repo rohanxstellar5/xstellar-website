@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - XStellar</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --bg-primary: #0a0a0a;
@@ -191,9 +196,17 @@
             color: var(--text-primary);
         }
 
-        .stat-value.hot { color: var(--accent-orange); }
-        .stat-value.warm { color: var(--accent-blue); }
-        .stat-value.cold { color: var(--text-muted); }
+        .stat-value.hot {
+            color: var(--accent-orange);
+        }
+
+        .stat-value.warm {
+            color: var(--accent-blue);
+        }
+
+        .stat-value.cold {
+            color: var(--text-muted);
+        }
 
         /* Cards Grid */
         .cards-grid {
@@ -204,13 +217,23 @@
         }
 
         @media (max-width: 1024px) {
-            .cards-grid { grid-template-columns: repeat(2, 1fr); }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
-            .cards-grid { grid-template-columns: 1fr; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .card {
@@ -221,7 +244,9 @@
             transition: border-color 0.2s;
         }
 
-        .card:hover { border-color: var(--border-light); }
+        .card:hover {
+            border-color: var(--border-light);
+        }
 
         .card-header {
             display: flex;
@@ -240,11 +265,45 @@
             flex-shrink: 0;
         }
 
-        .card-icon.instagram { background: var(--instagram-gradient); }
-        .card-icon.dm { background: var(--accent-blue); }
-        .card-icon.slack { background: #4a154b; }
-        .card-icon.calendly { background: #0069ff; }
-        .card-icon svg { width: 22px; height: 22px; fill: white; }
+        .card-icon.instagram {
+            background: var(--instagram-gradient);
+        }
+
+        .card-icon.dm {
+            background: var(--accent-blue);
+        }
+
+        .card-icon.slack {
+            background: #4a154b;
+        }
+
+        .card-icon.calendly {
+            background: #0069ff;
+        }
+
+        .card-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        .card-icon img {
+            width: 22px;
+            height: 22px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .btn-row .btn {
+            width: auto;
+            flex: 1;
+        }
 
         .card-title-group h3 {
             font-size: 16px;
@@ -293,15 +352,23 @@
             background: rgba(34, 197, 94, 0.15);
             color: var(--accent-green);
         }
-        .status-badge.connected::before { background: var(--accent-green); }
+
+        .status-badge.connected::before {
+            background: var(--accent-green);
+        }
 
         .status-badge.not-connected {
             background: rgba(245, 158, 11, 0.15);
             color: var(--accent-orange);
         }
-        .status-badge.not-connected::before { background: var(--accent-orange); }
 
-        .form-group { margin-bottom: 16px; }
+        .status-badge.not-connected::before {
+            background: var(--accent-orange);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
 
         .form-label {
             display: block;
@@ -328,7 +395,9 @@
             background: var(--bg-primary);
         }
 
-        .form-input::placeholder { color: var(--text-muted); }
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
 
         textarea.form-input {
             resize: vertical;
@@ -450,7 +519,10 @@
             background: #611f69;
         }
 
-        .btn svg { width: 18px; height: 18px; }
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
 
         .alert {
             padding: 14px 16px;
@@ -478,7 +550,10 @@
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        .btn.loading { pointer-events: none; opacity: 0.7; }
+        .btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
 
         .btn.loading::after {
             content: '';
@@ -490,7 +565,11 @@
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         .connected-info {
             display: flex;
@@ -518,8 +597,16 @@
             background: #4a154b;
         }
 
-        .connected-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-        .connected-handle { font-size: 13px; color: var(--text-muted); }
+        .connected-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .connected-handle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
 
         /* Leads Section */
         .section-title {
@@ -627,8 +714,13 @@
             cursor: pointer;
         }
 
-        .lead-row:last-child { border-bottom: none; }
-        .lead-row:hover { background: var(--bg-tertiary); }
+        .lead-row:last-child {
+            border-bottom: none;
+        }
+
+        .lead-row:hover {
+            background: var(--bg-tertiary);
+        }
 
         .tier-badge {
             display: inline-flex;
@@ -641,21 +733,27 @@
             font-size: 14px;
         }
 
-        .tier-badge.tier-s { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .tier-badge.tier-a { 
-            background: rgba(239, 68, 68, 0.15); 
-            color: #EF4444; 
+        .tier-badge.tier-s {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .tier-badge.tier-a {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
-        .tier-badge.tier-b { 
-            background: rgba(245, 158, 11, 0.15); 
-            color: #F59E0B; 
+
+        .tier-badge.tier-b {
+            background: rgba(245, 158, 11, 0.15);
+            color: #F59E0B;
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
+
         .tier-badge.tier-c,
-        .tier-badge.tier-d { 
-            background: rgba(107, 114, 128, 0.15); 
-            color: #6B7280; 
+        .tier-badge.tier-d {
+            background: rgba(107, 114, 128, 0.15);
+            color: #6B7280;
             border: 1px solid rgba(107, 114, 128, 0.3);
         }
 
@@ -811,7 +909,9 @@
             padding: 20px;
         }
 
-        .modal-overlay.show { display: flex; }
+        .modal-overlay.show {
+            display: flex;
+        }
 
         .modal {
             background: var(--bg-secondary);
@@ -844,7 +944,9 @@
             padding: 4px;
         }
 
-        .modal-close:hover { color: var(--text-primary); }
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
 
         .modal-body {
             padding: 24px;
@@ -880,14 +982,20 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .filter-group {
                 width: 100%;
             }
+
             .filter-select,
             .filter-search {
                 width: 100%;
             }
-            .leads-header { display: none; }
+
+            .leads-header {
+                display: none;
+            }
+
             .lead-row {
                 grid-template-columns: 1fr;
                 gap: 12px;
@@ -895,12 +1003,21 @@
         }
 
         @media (max-width: 640px) {
-            .main { padding: 24px 16px; }
-            .page-header h1 { font-size: 24px; }
-            .card { padding: 20px; }
+            .main {
+                padding: 24px 16px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
+
 <body>
     <header class="header">
         <div class="header-inner">
@@ -933,30 +1050,10 @@
     <main class="main">
         <div class="page-header">
             <h1>Dashboard</h1>
-            <p>Manage your lead qualification system</p>
+            <p>Connect integrations and configure your system</p>
         </div>
 
         <div id="alert" class="alert"></div>
-
-        <!-- Stats Row -->
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-label">Total Leads</div>
-                <div class="stat-value" id="statTotal">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Hot (S/A Tier)</div>
-                <div class="stat-value hot" id="statHot">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Warm (B Tier)</div>
-                <div class="stat-value warm" id="statWarm">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Cold (C/D Tier)</div>
-                <div class="stat-value cold" id="statCold">0</div>
-            </div>
-        </div>
 
         <!-- Integration Cards -->
         <div class="cards-grid">
@@ -964,7 +1061,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        <img src="assets/instagram.webp" alt="Instagram">
                     </div>
                     <div class="card-title-group">
                         <h3>Instagram</h3>
@@ -974,51 +1071,34 @@
                 <span class="status-badge not-connected" id="instagramBadge">Not Connected</span>
                 <div id="connectedAccount" style="display: none;"></div>
                 <button class="btn btn-primary" id="connectInstagramBtn" onclick="connectInstagram()">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
                     Connect Instagram
                 </button>
-                <a href="setup-guide.html" class="help-link" id="instagramHelpLink">Need help connecting? Follow our setup guide →</a>
+                <a href="setup-guide.html" class="help-link" id="instagramHelpLink">Need help connecting? Follow our
+                    setup guide →</a>
             </div>
 
-            <!-- DM Auto-Reply Card -->
+            <!-- Trigger Word Config -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon dm">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    </div>
+                    <div class="card-icon dm"><img src="assets/webhook.svg" alt="Trigger"></div>
                     <div class="card-title-group">
-                        <h3>DM Auto-Reply</h3>
-                        <p>Customize your qualification flow</p>
+                        <h3>Trigger Word</h3>
+                        <p>Start qualification when a lead sends this</p>
                     </div>
                 </div>
-                <form id="dmConfigForm" onsubmit="saveDmConfig(event)">
+                <form id="triggerConfigForm" onsubmit="saveTriggerWord(event)">
                     <div class="form-group">
                         <label class="form-label">Trigger Word</label>
                         <input type="text" id="trigger_word" class="form-input" placeholder="stellar" value="stellar">
-                        <span class="form-hint">When someone sends this word, they'll get your question</span>
+                        <span class="form-hint">Only messages containing this word will start the flow.</span>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Qualifying Question</label>
-                        <textarea id="qualifying_question" class="form-input" oninput="updatePreview(); updateCharCount();">Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?</textarea>
-                        <div class="char-count"><span id="charCount">125</span>/500</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">
-                            Acknowledgment Message (Optional)
-                            <span class="badge-new" style="margin-left: 8px;">NEW</span>
-                        </label>
-                        <textarea id="acknowledgment_message" class="form-input" oninput="updateAckCharCount();" placeholder="Thanks for your interest! Our team will review and get back to you shortly." rows="3" maxlength="1000"></textarea>
-                        <span class="form-hint">Sent automatically after scoring your lead's response. Leave blank to disable.</span>
-                        <div class="char-count"><span id="ackCharCount">0</span>/1000</div>
-                    </div>
-                    <div class="preview-box">
-                        <div class="preview-label">Preview</div>
-                        <div class="preview-message">
-                            <div class="preview-bubble user" id="previewTrigger">stellar</div>
-                            <div class="preview-bubble bot" id="previewQuestion">Hey thanks for reaching out! Quick questions - are you a business owner/founder, and what's your biggest challenge right now?</div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;" id="saveDmBtn">Save Configuration</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;" id="saveTriggerBtn">Save
+                        Trigger Word</button>
                 </form>
             </div>
 
@@ -1026,7 +1106,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon calendly">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg>
+                        <img src="assets/calendly.svg" alt="Calendly">
                     </div>
                     <div class="card-title-group">
                         <h3>Calendly</h3>
@@ -1035,111 +1115,48 @@
                 </div>
                 <span class="status-badge not-connected" id="calendlyBadge">Not Connected</span>
                 <div id="calendlyConnectedInfo" style="display: none;"></div>
-                <div id="calendlyEventSelection" style="display: none; margin-top: 16px;">
-                    <div class="form-group">
-                        <label class="form-label">Event Type</label>
-                        <select id="calendlyEventSelect" class="form-input">
-                            <option value="">Loading event types...</option>
-                        </select>
-                        <span class="form-hint">Select which event type to use for auto-booking qualified leads (score 90+)</span>
-                    </div>
-                    <button class="btn btn-secondary" onclick="saveCalendlyEvent()" id="saveEventBtn" style="margin-top: 12px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                        Save Event Selection
-                    </button>
-                </div>
-                <button class="btn btn-primary" id="connectCalendlyBtn" onclick="connectCalendly()" style="margin-top: 16px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <button class="btn btn-primary" id="connectCalendlyBtn" onclick="connectCalendly()"
+                    style="margin-top: 16px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
                     Connect Calendly
                 </button>
-                <button class="btn btn-secondary" id="disconnectCalendlyBtn" onclick="disconnectCalendly()" style="display: none; margin-top: 12px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                <button class="btn btn-secondary" id="disconnectCalendlyBtn" onclick="disconnectCalendly()"
+                    style="display: none; margin-top: 12px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
                     Disconnect
                 </button>
             </div>
-        </div>
 
-        <!-- Leads Section -->
-        <div class="section-title">
-            <span>Your Instagram Leads</span>
-            <button class="btn btn-secondary btn-small" onclick="loadLeads()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                Refresh
-            </button>
-        </div>
-
-        <!-- Filter/Sort Bar -->
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label class="filter-label">Tier:</label>
-                <select class="filter-select" id="tierFilter" onchange="applyFilters()">
-                    <option value="">All Tiers</option>
-                    <option value="A">A-Tier</option>
-                    <option value="B">B-Tier</option>
-                    <option value="C">C/D-Tier</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Timeline:</label>
-                <select class="filter-select" id="timelineFilter" onchange="applyFilters()">
-                    <option value="all">All time</option>
-                    <option value="24h">Last 24 hours</option>
-                    <option value="7d">Last 7 days</option>
-                    <option value="30d">Last 30 days</option>
-                </select>
-            </div>
-            <div class="filter-group" style="flex: 1;">
-                <input type="text" class="filter-search" id="searchInput" placeholder="Search by name or message..." oninput="applyFilters()">
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Sort:</label>
-                <select class="filter-select" id="sortSelect" onchange="applyFilters()">
-                    <option value="latest">Latest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="score_desc">Highest score</option>
-                    <option value="score_asc">Lowest score</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="leads-table" id="leadsTable">
-            <div class="leads-header">
-                <div>Lead</div>
-                <div>Message</div>
-                <div>Tier</div>
-                <div>Score</div>
-                <div>Signals</div>
-                <div>Received</div>
-            </div>
-            <div id="leadsBody">
-                <div class="empty-state">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7m16 0v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5m16 0h-2.586a1 1 0 0 0-.707.293l-2.414 2.414a1 1 0 0 1-.707.293h-3.172a1 1 0 0 1-.707-.293l-2.414-2.414A1 1 0 0 0 6.586 13H4"></path>
-                    </svg>
-                    <h3>No leads yet</h3>
-                    <p>Leads will appear here once your system starts receiving DMs</p>
+            <!-- ICP Config -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon dm"><img src="assets/ai-icon.svg" alt="ICP"></div>
+                    <div class="card-title-group">
+                        <h3>ICP</h3>
+                        <p>Define what a “qualified lead” looks like</p>
+                    </div>
                 </div>
+                <form id="icpConfigForm" onsubmit="saveIcpConfig(event)">
+                    <div class="form-group">
+                        <label class="form-label">ICP Configuration (JSON)</label>
+                        <textarea id="icp_json" class="form-input" rows="10"
+                            placeholder='{"industry": ["..."], "company_size": "...", "budget": "..."}'></textarea>
+                        <span class="form-hint">Must be valid JSON. This is used by the AI scorer.</span>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-secondary" onclick="loadDefaultIcp()">Load Default</button>
+                        <button type="submit" class="btn btn-primary" id="saveIcpBtn">Save ICP</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
-
-        <!-- Lead Detail Modal -->
-        <div class="modal-overlay" id="leadModal">
-            <div class="modal">
-                <div class="modal-header">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <h3 id="modalTitle">Lead Details</h3>
-                        <span id="modalTierBadge" class="tier-badge"></span>
-                    </div>
-                    <button class="modal-close" onclick="closeModal()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <!-- Content populated by JS -->
-                </div>
-            </div>
-        </div>
 
     <script>
         const API_BASE = 'https://insta-dm-qualifier.onrender.com';
@@ -1152,9 +1169,9 @@
             const headers = { ...(options.headers || {}), ...authHeaders() };
             return fetch(`${API_BASE}${path}`, { ...options, headers });
         };
+
         let clientId = null;
-        let leadsData = [];
-        let filteredLeads = [];
+        let defaultIcpConfig = null;
 
         // Theme management
         function initTheme() {
@@ -1181,60 +1198,52 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initTheme();
-            // Check for client_id in URL (from Google OAuth redirect)
+
+            // Persist OAuth redirect params (Google/Instagram flows pass context via URL)
             const urlParams = new URLSearchParams(window.location.search);
             const urlClientId = urlParams.get('client_id');
             const oauthProvider = urlParams.get('oauth');
             const urlToken = urlParams.get('token');
             const urlEmail = urlParams.get('email');
             const urlBusiness = urlParams.get('business');
-            
-            if (urlClientId) {
-                // Store client_id from URL in localStorage (Google OAuth flow)
-                localStorage.setItem('xstellar_client_id', urlClientId);
-            }
-            if (urlToken) {
-                localStorage.setItem('xstellar_access_token', urlToken);
-            }
-            if (urlEmail) {
-                localStorage.setItem('xstellar_email', urlEmail);
-            }
-            if (urlBusiness) {
-                localStorage.setItem('xstellar_business', urlBusiness);
-            }
 
-            // Clean up URL (remove token and other OAuth params from address bar/history)
+            if (urlClientId) localStorage.setItem('xstellar_client_id', urlClientId);
+            if (urlToken) localStorage.setItem('xstellar_access_token', urlToken);
+            if (urlEmail) localStorage.setItem('xstellar_email', urlEmail);
+            if (urlBusiness) localStorage.setItem('xstellar_business', urlBusiness);
+
+            // Clean up URL
             if (urlClientId || oauthProvider || urlToken || urlEmail || urlBusiness) {
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
-            
+
             clientId = localStorage.getItem('xstellar_client_id');
-            if (!clientId || !getToken()) { window.location.href = 'login.html'; return; }
-            
-            // Validate client_id exists before loading data
-            validateClientId().then(isValid => {
+            if (!clientId || !getToken()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            validateClientId().then(async (isValid) => {
                 if (!isValid) {
-                    showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                    showAlert('Your account was not found. Please sign in again.', 'error');
                     setTimeout(() => {
                         localStorage.clear();
                         window.location.href = 'login.html';
-                    }, 3000);
+                    }, 2500);
                     return;
                 }
-                
-                document.getElementById('businessName').textContent = localStorage.getItem('xstellar_business') || 'My Business';
-                loadConfig();
-                loadStats();
-                loadLeads();
-                loadCalendlyStatus();
-                updatePreview();
-                updateCharCount();
-                updateAckCharCount();
+
+                document.getElementById('businessName').textContent =
+                    localStorage.getItem('xstellar_business') || 'My Business';
+
+                await loadIntegrationStatus();
+                await loadDmConfig();
+                await loadCalendlyStatus();
             });
         });
-        
+
         async function validateClientId() {
             if (!clientId) return false;
             try {
@@ -1256,319 +1265,14 @@
 
         function showAlert(message, type) {
             const alert = document.getElementById('alert');
-            alert.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${type === 'success' ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>' : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>'}</svg> ${message}`;
+            alert.innerHTML =
+                `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">` +
+                (type === 'success'
+                    ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+                    : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>') +
+                `</svg> ${escapeHtml(message)}`;
             alert.className = `alert alert-${type} show`;
             setTimeout(() => { alert.className = 'alert'; }, 5000);
-        }
-
-        async function connectInstagram() {
-            if (!clientId) {
-                showAlert('Please log in first', 'error');
-                return;
-            }
-            
-            // Validate client exists before redirecting
-            const isValid = await validateClientId();
-            if (!isValid) {
-                showAlert('Your account was not found. Please sign up or log in again.', 'error');
-                setTimeout(() => {
-                    localStorage.clear();
-                    window.location.href = 'login.html';
-                }, 3000);
-                return;
-            }
-            
-            window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
-        }
-
-
-        function updatePreview() {
-            document.getElementById('previewTrigger').textContent = document.getElementById('trigger_word').value || 'stellar';
-            document.getElementById('previewQuestion').textContent = document.getElementById('qualifying_question').value || 'Your question here...';
-        }
-
-        function updateCharCount() {
-            document.getElementById('charCount').textContent = document.getElementById('qualifying_question').value.length;
-        }
-
-        function updateAckCharCount() {
-            document.getElementById('ackCharCount').textContent = document.getElementById('acknowledgment_message').value.length;
-        }
-
-        async function loadConfig() {
-            try {
-                const response = await apiFetch(`/api/config/${clientId}`);
-                if (response.ok) {
-                    const config = await response.json();
-                    if (config.trigger_word) document.getElementById('trigger_word').value = config.trigger_word;
-                    if (config.qualifying_question) document.getElementById('qualifying_question').value = config.qualifying_question;
-                    if (config.instagram_connected) updateInstagramStatus(true, config.instagram_username);
-                    updatePreview();
-                    updateCharCount();
-                }
-                // Load acknowledgment config
-                const ackResponse = await apiFetch(`/api/acknowledgment-config/${clientId}`);
-                if (ackResponse.ok) {
-                    const ackData = await ackResponse.json();
-                    if (ackData.acknowledgment_message) {
-                        document.getElementById('acknowledgment_message').value = ackData.acknowledgment_message;
-                    }
-                    updateAckCharCount();
-                }
-            } catch (error) { console.error('Error loading config:', error); }
-        }
-
-        async function loadStats() {
-            try {
-                const response = await apiFetch(`/api/stats/${clientId}`);
-                if (response.ok) {
-                    const stats = await response.json();
-                    document.getElementById('statTotal').textContent = stats.total || 0;
-                    document.getElementById('statHot').textContent = stats.hot || 0;
-                    document.getElementById('statWarm').textContent = stats.warm || 0;
-                    document.getElementById('statCold').textContent = stats.cold || 0;
-                }
-            } catch (error) { console.error('Error loading stats:', error); }
-        }
-
-        async function loadLeads() {
-            try {
-                const response = await apiFetch(`/api/leads/${clientId}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    leadsData = data.leads || [];
-                    applyFilters();
-                }
-            } catch (error) { console.error('Error loading leads:', error); }
-        }
-
-        function applyFilters() {
-            const tierFilter = document.getElementById('tierFilter').value;
-            const timelineFilter = document.getElementById('timelineFilter').value;
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const sortOption = document.getElementById('sortSelect').value;
-
-            filteredLeads = [...leadsData];
-
-            // Filter by tier
-            if (tierFilter) {
-                if (tierFilter === 'C') {
-                    filteredLeads = filteredLeads.filter(lead => lead.tier === 'C' || lead.tier === 'D');
-                } else {
-                    filteredLeads = filteredLeads.filter(lead => lead.tier === tierFilter);
-                }
-            }
-
-            // Filter by timeline
-            if (timelineFilter !== 'all') {
-                const now = new Date();
-                const cutoff = new Date();
-                if (timelineFilter === '24h') {
-                    cutoff.setHours(now.getHours() - 24);
-                } else if (timelineFilter === '7d') {
-                    cutoff.setDate(now.getDate() - 7);
-                } else if (timelineFilter === '30d') {
-                    cutoff.setDate(now.getDate() - 30);
-                }
-                filteredLeads = filteredLeads.filter(lead => {
-                    if (!lead.processed_at) return false;
-                    const leadDate = new Date(lead.processed_at);
-                    return leadDate >= cutoff;
-                });
-            }
-
-            // Search filter
-            if (searchQuery) {
-                filteredLeads = filteredLeads.filter(lead => {
-                    const name = (lead.name || '').toLowerCase();
-                    const handle = (lead.ig_handle || '').toLowerCase();
-                    const message = (lead.message || lead.message_preview || lead.reasoning || '').toLowerCase();
-                    return name.includes(searchQuery) || handle.includes(searchQuery) || message.includes(searchQuery);
-                });
-            }
-
-            // Sort
-            filteredLeads.sort((a, b) => {
-                if (sortOption === 'latest') {
-                    return new Date(b.processed_at || 0) - new Date(a.processed_at || 0);
-                } else if (sortOption === 'oldest') {
-                    return new Date(a.processed_at || 0) - new Date(b.processed_at || 0);
-                } else if (sortOption === 'score_desc') {
-                    return (b.score || 0) - (a.score || 0);
-                } else if (sortOption === 'score_asc') {
-                    return (a.score || 0) - (b.score || 0);
-                }
-                return 0;
-            });
-
-            renderLeads(filteredLeads);
-        }
-
-        function extractSignals(lead) {
-            const signals = [];
-            const reasoning = (lead.reasoning || '').toLowerCase();
-            const message = (lead.message || lead.message_preview || '').toLowerCase();
-            const combined = reasoning + ' ' + message;
-
-            if (combined.includes('budget') || combined.includes('$') || combined.includes('price') || combined.includes('cost')) {
-                signals.push('Budget');
-            }
-            if (combined.includes('owner') || combined.includes('founder') || combined.includes('ceo') || combined.includes('decision')) {
-                signals.push('Decision Maker');
-            }
-            if (combined.includes('urgent') || combined.includes('asap') || combined.includes('soon') || combined.includes('immediately')) {
-                signals.push('Urgent Timeline');
-            }
-            if (combined.includes('call') || combined.includes('meeting') || combined.includes('demo')) {
-                signals.push('Meeting Request');
-            }
-
-            return signals.length > 0 ? signals : null;
-        }
-
-        function parseScoringReasons(lead) {
-            const reasoning = lead.reasoning || '';
-            if (!reasoning) return ['No reasoning available'];
-
-            // Try to split by sentences or bullet points
-            let reasons = [];
-            if (reasoning.includes('\n')) {
-                reasons = reasoning.split('\n').filter(r => r.trim());
-            } else if (reasoning.includes('. ')) {
-                reasons = reasoning.split('. ').filter(r => r.trim()).map(r => r.endsWith('.') ? r : r + '.');
-            } else {
-                reasons = [reasoning];
-            }
-
-            return reasons.length > 0 ? reasons : [reasoning];
-        }
-
-        function renderLeads(leads) {
-            const container = document.getElementById('leadsBody');
-            
-            if (!leads || leads.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7m16 0v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5m16 0h-2.586a1 1 0 0 0-.707.293l-2.414 2.414a1 1 0 0 1-.707.293h-3.172a1 1 0 0 1-.707-.293l-2.414-2.414A1 1 0 0 0 6.586 13H4"></path>
-                        </svg>
-                        <h3>No leads found</h3>
-                        <p>Try adjusting your filters or check back later</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = leads.map((lead, index) => {
-                const leadIndex = filteredLeads.indexOf(lead);
-                const name = lead.name || 'Unknown';
-                const handle = lead.ig_handle || 'N/A';
-                const message = (lead.message || lead.message_preview || '').substring(0, 60);
-                const signals = extractSignals(lead);
-                const tier = (lead.tier || 'D').toLowerCase();
-
-                return `
-                    <div class="lead-row" onclick="viewLead(${leadIndex})">
-                        <div class="lead-info">
-                            <div class="lead-name">${escapeHtml(name)}</div>
-                            <div class="lead-handle">${escapeHtml(handle)}</div>
-                        </div>
-                        <div class="lead-message">${escapeHtml(message)}${message.length >= 60 ? '...' : ''}</div>
-                        <div><span class="tier-badge tier-${tier}">${lead.tier || '?'}</span></div>
-                        <div class="lead-score">${lead.score || 0}/100</div>
-                        <div class="signal-tags">
-                            ${signals ? signals.map(s => `<span class="signal-tag">${escapeHtml(s)}</span>`).join('') : '<span class="signal-tag" style="opacity: 0.5;">—</span>'}
-                        </div>
-                        <div class="lead-time">${formatTime(lead.processed_at || lead.received_at)}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function viewLead(index) {
-            const lead = filteredLeads[index];
-            if (!lead) return;
-
-            const name = lead.name || 'Unknown';
-            const handle = lead.ig_handle || null;
-            const tier = (lead.tier || 'D').toLowerCase();
-            const signals = extractSignals(lead);
-            const scoringReasons = parseScoringReasons(lead);
-            const fullMessage = lead.message || lead.message_preview || 'No message available';
-            const igThreadId = lead.ig_thread_id || null;
-            const slackMessageUrl = lead.slack_message_url || null;
-            const receivedAt = lead.received_at || lead.processed_at;
-
-            // Update modal title
-            document.getElementById('modalTitle').textContent = handle || name;
-            document.getElementById('modalTierBadge').textContent = lead.tier || '?';
-            document.getElementById('modalTierBadge').className = `tier-badge tier-${tier}`;
-            
-            document.getElementById('modalBody').innerHTML = `
-                <div class="detail-row">
-                    <div class="detail-label">Name</div>
-                    <div class="detail-value">
-                        <strong>${escapeHtml(name)}</strong>
-                        ${handle ? `<span style="color: var(--text-secondary); margin-left: 8px;">${escapeHtml(handle)}</span>` : ''}
-                        <span style="color: var(--text-muted); margin-left: 12px; font-size: 13px;">${formatTime(receivedAt)}</span>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">FULL MESSAGE</div>
-                    <div class="detail-value message">${escapeHtml(fullMessage)}</div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">WHY THIS SCORE (${lead.score || 0}/100)</div>
-                    <ul class="scoring-reasons">
-                        ${scoringReasons.map(reason => `<li>${escapeHtml(reason)}</li>`).join('')}
-                    </ul>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-label">SIGNALS</div>
-                    <div class="signal-tags">
-                        ${signals ? signals.map(s => `<span class="signal-tag">${escapeHtml(s)}</span>`).join('') : '<span style="color: var(--text-muted);">No signals detected</span>'}
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    ${slackMessageUrl ? `
-                    <a href="${escapeHtml(slackMessageUrl)}" target="_blank" class="btn btn-secondary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        View in Slack
-                    </a>
-                    ` : `
-                    <button class="btn btn-secondary" disabled>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        View in Slack
-                    </button>
-                    `}
-                    ${igThreadId ? `
-                    <a href="https://www.instagram.com/direct/t/${escapeHtml(igThreadId)}" target="_blank" class="btn btn-primary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Open IG Chat
-                    </a>
-                    ` : `
-                    <button class="btn btn-primary" disabled>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Open IG Chat
-                    </button>
-                    `}
-                    <button class="btn btn-secondary" onclick="archiveLead(${index})">
-                        Archive
-                    </button>
-                </div>
-            `;
-            
-            document.getElementById('leadModal').classList.add('show');
-        }
-
-        function archiveLead(index) {
-            // Placeholder for archive functionality
-            showAlert('Archive functionality coming soon', 'success');
-            closeModal();
-        }
-
-        function closeModal() {
-            document.getElementById('leadModal').classList.remove('show');
         }
 
         function escapeHtml(text) {
@@ -1578,21 +1282,24 @@
             return div.innerHTML;
         }
 
-        function formatTime(timestamp, full = false) {
-            if (!timestamp) return 'Unknown';
-            const date = new Date(timestamp);
-            if (full) {
-                return date.toLocaleString();
+        // =========================
+        // Instagram
+        // =========================
+        async function loadIntegrationStatus() {
+            try {
+                const response = await apiFetch(`/api/config/${clientId}`);
+                if (!response.ok) return;
+                const config = await response.json();
+
+                // Trigger word (also available via dm-config, but this keeps it fast)
+                if (config.trigger_word) {
+                    document.getElementById('trigger_word').value = config.trigger_word;
+                }
+
+                updateInstagramStatus(Boolean(config.instagram_connected), config.instagram_username);
+            } catch (e) {
+                console.error('Error loading integration status:', e);
             }
-            const now = new Date();
-            const diff = now - date;
-            const mins = Math.floor(diff / 60000);
-            const hours = Math.floor(diff / 3600000);
-            const days = Math.floor(diff / 86400000);
-            
-            if (mins < 60) return `${mins}m ago`;
-            if (hours < 24) return `${hours}h ago`;
-            return `${days}d ago`;
         }
 
         function updateInstagramStatus(connected, username) {
@@ -1600,84 +1307,171 @@
             const btn = document.getElementById('connectInstagramBtn');
             const connectedDiv = document.getElementById('connectedAccount');
             const helpLink = document.getElementById('instagramHelpLink');
+
             if (connected) {
                 badge.className = 'status-badge connected';
                 badge.textContent = 'Connected';
                 connectedDiv.style.display = 'block';
-                connectedDiv.innerHTML = `<div class="connected-info"><div class="connected-avatar">${username ? username.charAt(0).toUpperCase() : 'U'}</div><div><div class="connected-name">${username || 'Instagram Account'}</div><div class="connected-handle">@${username || 'connected'}</div></div></div>`;
-                btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Reconnect`;
+                connectedDiv.innerHTML =
+                    `<div class="connected-info">` +
+                    `<div class="connected-avatar">${(username || 'I').charAt(0).toUpperCase()}</div>` +
+                    `<div>` +
+                    `<div class="connected-name">${escapeHtml(username || 'Instagram Account')}</div>` +
+                    `<div class="connected-handle">@${escapeHtml(username || 'connected')}</div>` +
+                    `</div>` +
+                    `</div>`;
+                btn.innerHTML =
+                    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">` +
+                    `<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>` +
+                    `<polyline points="22 4 12 14.01 9 11.01"></polyline>` +
+                    `</svg> Reconnect`;
                 btn.className = 'btn btn-secondary';
-                // Hide help link when connected
                 if (helpLink) helpLink.style.display = 'none';
+            } else {
+                badge.className = 'status-badge not-connected';
+                badge.textContent = 'Not Connected';
+                connectedDiv.style.display = 'none';
+                btn.innerHTML =
+                    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">` +
+                    `<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>` +
+                    `<polyline points="15 3 21 3 21 9"></polyline>` +
+                    `<line x1="10" y1="14" x2="21" y2="3"></line>` +
+                    `</svg> Connect Instagram`;
+                btn.className = 'btn btn-primary';
+                if (helpLink) helpLink.style.display = 'block';
             }
         }
 
+        async function connectInstagram() {
+            if (!clientId) {
+                showAlert('Please log in first', 'error');
+                return;
+            }
+            const isValid = await validateClientId();
+            if (!isValid) {
+                showAlert('Your account was not found. Please sign in again.', 'error');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = 'login.html';
+                }, 2500);
+                return;
+            }
+            window.location.href = `${API_BASE}/auth/instagram?client_id=${clientId}`;
+        }
 
-        async function saveDmConfig(event) {
-            event.preventDefault();
-            const btn = document.getElementById('saveDmBtn');
-            btn.classList.add('loading');
+        // =========================
+        // Trigger Word + ICP
+        // =========================
+        async function loadDmConfig() {
             try {
-                // Save DM config
+                const response = await apiFetch(`/api/dm-config/${clientId}`);
+                if (!response.ok) return;
+                const data = await response.json();
+
+                if (data.trigger_word) {
+                    document.getElementById('trigger_word').value = data.trigger_word;
+                }
+
+                defaultIcpConfig = data.icp_config_default || null;
+                const icp = data.icp_config || null;
+                document.getElementById('icp_json').value = icp ? JSON.stringify(icp, null, 2) : '';
+            } catch (e) {
+                console.error('Error loading DM config:', e);
+            }
+        }
+
+        async function saveTriggerWord(event) {
+            event.preventDefault();
+            const btn = document.getElementById('saveTriggerBtn');
+            const triggerWord = (document.getElementById('trigger_word').value || '').trim().toLowerCase();
+
+            if (!triggerWord || triggerWord.length < 2) {
+                showAlert('Trigger word must be at least 2 characters.', 'error');
+                return;
+            }
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+            try {
                 const response = await apiFetch(`/api/dm-config/${clientId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ trigger_word: document.getElementById('trigger_word').value, qualifying_question: document.getElementById('qualifying_question').value })
+                    body: JSON.stringify({ trigger_word: triggerWord })
                 });
-                
-                // Save acknowledgment config
-                const ackMessage = document.getElementById('acknowledgment_message').value.trim();
-                const ackResponse = await apiFetch(`/api/acknowledgment-config/${clientId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ acknowledgment_message: ackMessage || null })
-                });
-                
-                if (response.ok && ackResponse.ok) {
-                    showAlert('DM configuration saved!', 'success');
+                if (response.ok) {
+                    showAlert('Trigger word saved.', 'success');
                 } else {
-                    showAlert('Failed to save configuration', 'error');
+                    const err = await response.json().catch(() => ({}));
+                    showAlert(err.detail || 'Failed to save trigger word.', 'error');
                 }
-            } catch (error) { 
-                showAlert('Connection error', 'error'); 
+            } catch (e) {
+                console.error('Save trigger word error:', e);
+                showAlert('Connection error.', 'error');
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
             }
-            finally { btn.classList.remove('loading'); }
         }
 
-        // Close modal on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        function loadDefaultIcp() {
+            if (!defaultIcpConfig) {
+                showAlert('No default ICP available from the server yet.', 'error');
+                return;
+            }
+            document.getElementById('icp_json').value = JSON.stringify(defaultIcpConfig, null, 2);
+        }
 
-        // Close modal on overlay click
-        document.getElementById('leadModal').addEventListener('click', (e) => {
-            if (e.target.id === 'leadModal') closeModal();
-        });
+        async function saveIcpConfig(event) {
+            event.preventDefault();
+            const btn = document.getElementById('saveIcpBtn');
+            const raw = (document.getElementById('icp_json').value || '').trim();
 
-        // ============================================
-        // CALENDLY INTEGRATION
-        // ============================================
+            let parsed = null;
+            if (!raw) {
+                showAlert('Paste a JSON ICP config or click “Load Default”.', 'error');
+                return;
+            }
+            try {
+                parsed = JSON.parse(raw);
+            } catch (e) {
+                showAlert('ICP config must be valid JSON.', 'error');
+                return;
+            }
 
-        let currentCalendlyEvent = null;
+            btn.classList.add('loading');
+            btn.disabled = true;
+            try {
+                const response = await apiFetch(`/api/dm-config/${clientId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ icp_config: parsed })
+                });
+                if (response.ok) {
+                    showAlert('ICP saved.', 'success');
+                } else {
+                    const err = await response.json().catch(() => ({}));
+                    showAlert(err.detail || 'Failed to save ICP.', 'error');
+                }
+            } catch (e) {
+                console.error('Save ICP error:', e);
+                showAlert('Connection error.', 'error');
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        }
 
+        // =========================
+        // Calendly
+        // =========================
         async function loadCalendlyStatus() {
             try {
                 const response = await apiFetch('/settings/calendly');
-                if (response.ok) {
-                    const data = await response.json();
-                    currentCalendlyEvent = {
-                        name: data.event_name,
-                        url: data.booking_url
-                    };
-                    updateCalendlyStatus(data.connected, data.event_name, data.booking_url);
-                    
-                    // If connected, fetch and load event types
-                    if (data.connected) {
-                        await fetchCalendlyEvents(data.event_name);
-                    }
-                }
-            } catch (error) {
-                console.error('Error loading Calendly status:', error);
+                if (!response.ok) return;
+                const data = await response.json();
+                updateCalendlyStatus(Boolean(data.connected), data.event_name, data.booking_url);
+            } catch (e) {
+                console.error('Error loading Calendly status:', e);
             }
         }
 
@@ -1686,47 +1480,30 @@
             const connectBtn = document.getElementById('connectCalendlyBtn');
             const disconnectBtn = document.getElementById('disconnectCalendlyBtn');
             const connectedInfo = document.getElementById('calendlyConnectedInfo');
-            const eventSelection = document.getElementById('calendlyEventSelection');
-            
+
             if (connected) {
                 badge.className = 'status-badge connected';
                 badge.textContent = 'Connected';
-                
-                // Show connected info
+
                 connectedInfo.style.display = 'block';
-                connectedInfo.innerHTML = `
-                    <div class="connected-info">
-                        <div class="connected-avatar" style="background: #0069ff;">C</div>
-                        <div style="flex: 1;">
-                            <div class="connected-name">Calendly Account</div>
-                            ${eventName ? `
-                                <div class="connected-handle">${escapeHtml(eventName)}</div>
-                                ${bookingUrl ? `<a href="${escapeHtml(bookingUrl)}" target="_blank" style="font-size: 12px; color: var(--accent-blue); text-decoration: none; margin-top: 4px; display: inline-block;">View booking link →</a>` : ''}
-                            ` : '<div class="connected-handle" style="color: var(--accent-orange);">No event selected</div>'}
-                        </div>
-                    </div>
-                `;
-                
-                // Show event selection if not already selected, or allow changing
-                if (!eventName) {
-                    eventSelection.style.display = 'block';
-                } else {
-                    // Allow changing event selection
-                    eventSelection.style.display = 'block';
-                    const eventSelect = document.getElementById('calendlyEventSelect');
-                    if (eventSelect) {
-                        // Fetch events to populate dropdown with current selection
-                        fetchCalendlyEvents(eventName);
-                    }
-                }
-                
+                connectedInfo.innerHTML =
+                    `<div class="connected-info">` +
+                    `<div class="connected-avatar" style="background:#0069ff; display:flex; align-items:center; justify-content:center;">` +
+                    `<img src="assets/calendly.svg" alt="Calendly" style="width:18px;height:18px;" />` +
+                    `</div>` +
+                    `<div style="flex: 1;">` +
+                    `<div class="connected-name">Calendly Connected</div>` +
+                    (eventName ? `<div class="connected-handle">${escapeHtml(eventName)}</div>` : `<div class="connected-handle" style="color: var(--text-muted);">Event not selected</div>`) +
+                    (bookingUrl ? `<a href="${escapeHtml(bookingUrl)}" target="_blank" style="font-size: 12px; color: var(--accent-blue); text-decoration: none; margin-top: 4px; display: inline-block;">View booking link →</a>` : '') +
+                    `</div>` +
+                    `</div>`;
+
                 connectBtn.style.display = 'none';
                 disconnectBtn.style.display = 'block';
             } else {
                 badge.className = 'status-badge not-connected';
                 badge.textContent = 'Not Connected';
                 connectedInfo.style.display = 'none';
-                eventSelection.style.display = 'none';
                 connectBtn.style.display = 'block';
                 disconnectBtn.style.display = 'none';
             }
@@ -1737,28 +1514,17 @@
                 showAlert('Please log in first', 'error');
                 return;
             }
-            
-            // Validate client exists before redirecting
+
             const isValid = await validateClientId();
             if (!isValid) {
-                showAlert('Your account was not found. Please sign up or log in again.', 'error');
+                showAlert('Your account was not found. Please sign in again.', 'error');
                 setTimeout(() => {
                     localStorage.clear();
                     window.location.href = 'login.html';
-                }, 3000);
+                }, 2500);
                 return;
             }
-            
-            // Get JWT token
-            const token = getToken();
-            if (!token) {
-                showAlert('Authentication required. Please log in again.', 'error');
-                window.location.href = 'login.html';
-                return;
-            }
-            
-            // NEW ROOT CAUSE FIX: 
-            // Fetch the OAuth URL via authenticated API instead of direct navigation with token
+
             try {
                 const response = await apiFetch('/auth/calendly/url');
                 if (response.ok) {
@@ -1768,159 +1534,38 @@
                         return;
                     }
                 }
-                throw new Error('Failed to get Calendly URL');
-            } catch (error) {
-                console.error('Calendly redirect error:', error);
+                throw new Error('Missing Calendly OAuth URL');
+            } catch (e) {
+                console.error('Calendly redirect error:', e);
                 showAlert('Failed to start Calendly connection. Please try again.', 'error');
             }
         }
 
-        async function fetchCalendlyEvents(selectedEventName = null) {
-            const eventSelect = document.getElementById('calendlyEventSelect');
-            const saveBtn = document.getElementById('saveEventBtn');
-            
-            try {
-                eventSelect.innerHTML = '<option value="">Loading event types...</option>';
-                eventSelect.disabled = true;
-                saveBtn.disabled = true;
-                
-                const response = await apiFetch('/api/calendly/events');
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    const events = data.events || [];
-                    
-                    if (events.length === 0) {
-                        eventSelect.innerHTML = '<option value="">No event types found</option>';
-                        showAlert('No active event types found in your Calendly account. Please create an event type first.', 'error');
-                    } else {
-                        eventSelect.innerHTML = '<option value="">Select an event type...</option>';
-                        events.forEach(event => {
-                            const option = document.createElement('option');
-                            option.value = event.uri;
-                            option.dataset.name = event.name;
-                            option.dataset.url = event.scheduling_url;
-                            option.textContent = `${event.name}${event.duration ? ` (${event.duration} min)` : ''}`;
-                            
-                            // Pre-select if this matches the currently saved event
-                            if (selectedEventName && event.name === selectedEventName) {
-                                option.selected = true;
-                            }
-                            
-                            eventSelect.appendChild(option);
-                        });
-                        eventSelect.disabled = false;
-                        saveBtn.disabled = false;
-                    }
-                } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    eventSelect.innerHTML = '<option value="">Error loading events</option>';
-                    
-                    // If Calendly not connected, don't show error (user might not have connected yet)
-                    if (response.status !== 404) {
-                        showAlert(errorData.detail || 'Failed to fetch event types', 'error');
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching Calendly events:', error);
-                eventSelect.innerHTML = '<option value="">Error loading events</option>';
-                // Don't show error for network issues if status check failed
-            } finally {
-                eventSelect.disabled = false;
-                saveBtn.disabled = false;
-            }
-        }
-
-        async function saveCalendlyEvent() {
-            const eventSelect = document.getElementById('calendlyEventSelect');
-            const saveBtn = document.getElementById('saveEventBtn');
-            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
-            
-            if (!selectedOption || !selectedOption.value) {
-                showAlert('Please select an event type', 'error');
-                return;
-            }
-            
-            const eventUri = selectedOption.value;
-            const eventName = selectedOption.dataset.name;
-            const bookingUrl = selectedOption.dataset.url;
-            
-            saveBtn.classList.add('loading');
-            saveBtn.disabled = true;
-            
-            try {
-                const response = await apiFetch('/auth/calendly/select-event', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        event_uri: eventUri,
-                        event_name: eventName,
-                        booking_url: bookingUrl
-                    })
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    showAlert(`Event type "${result.event_name}" saved successfully!`, 'success');
-                    // Reload status to update UI
-                    await loadCalendlyStatus();
-                } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    showAlert(errorData.detail || 'Failed to save event selection', 'error');
-                }
-            } catch (error) {
-                console.error('Error saving Calendly event:', error);
-                showAlert('Connection error', 'error');
-            } finally {
-                saveBtn.classList.remove('loading');
-                saveBtn.disabled = false;
-            }
-        }
-
         async function disconnectCalendly() {
-            if (!confirm('Are you sure you want to disconnect Calendly? This will remove your booking calendar integration.')) {
-                return;
-            }
-            
+            if (!confirm('Disconnect Calendly?')) return;
+
             const disconnectBtn = document.getElementById('disconnectCalendlyBtn');
             disconnectBtn.classList.add('loading');
             disconnectBtn.disabled = true;
-            
+
             try {
-                const response = await apiFetch('/settings/calendly', {
-                    method: 'DELETE'
-                });
-                
+                const response = await apiFetch('/settings/calendly', { method: 'DELETE' });
                 if (response.ok) {
-                    showAlert('Calendly disconnected successfully', 'success');
-                    // Update UI
-                    currentCalendlyEvent = null;
+                    showAlert('Calendly disconnected.', 'success');
                     updateCalendlyStatus(false, null, null);
                 } else {
-                    const errorData = await response.json().catch(() => ({}));
-                    showAlert(errorData.detail || 'Failed to disconnect Calendly', 'error');
+                    const err = await response.json().catch(() => ({}));
+                    showAlert(err.detail || 'Failed to disconnect Calendly.', 'error');
                 }
-            } catch (error) {
-                console.error('Error disconnecting Calendly:', error);
-                showAlert('Connection error', 'error');
+            } catch (e) {
+                console.error('Disconnect Calendly error:', e);
+                showAlert('Connection error.', 'error');
             } finally {
                 disconnectBtn.classList.remove('loading');
                 disconnectBtn.disabled = false;
             }
         }
-
-        // Check if we're returning from Calendly OAuth callback
-        // The callback redirects to a selection page, but if user comes back to dashboard,
-        // we should reload the status
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('calendly') === 'connected') {
-            // Clean up URL
-            window.history.replaceState({}, document.title, window.location.pathname);
-            // Reload status after a short delay to ensure backend has processed
-            setTimeout(() => {
-                loadCalendlyStatus();
-            }, 1000);
-        }
     </script>
 </body>
+
 </html>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Xstellar.systems</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-white: #FFFFFF;
@@ -188,7 +190,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .auth-footer {
@@ -247,9 +251,20 @@
             border-radius: 2px;
         }
 
-        .strength-weak { width: 33%; background: var(--accent-red); }
-        .strength-medium { width: 66%; background: #f59e0b; }
-        .strength-strong { width: 100%; background: var(--accent-green); }
+        .strength-weak {
+            width: 33%;
+            background: var(--accent-red);
+        }
+
+        .strength-medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+
+        .strength-strong {
+            width: 100%;
+            background: var(--accent-green);
+        }
 
         .btn-secondary {
             width: 100%;
@@ -341,6 +356,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="auth-container">
         <div class="auth-card">
@@ -358,117 +374,21 @@
             <!-- Google OAuth Button (Primary) -->
             <button type="button" onclick="startGoogleOAuth()" class="btn-google" id="googleSignupBtn">
                 <svg width="18" height="18" viewBox="0 0 18 18" style="margin-right: 12px;">
-                    <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
-                    <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
-                    <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.348 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
-                    <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"/>
+                    <path fill="#4285F4"
+                        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" />
+                    <path fill="#34A853"
+                        d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" />
+                    <path fill="#FBBC05"
+                        d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.348 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z" />
+                    <path fill="#EA4335"
+                        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z" />
                 </svg>
                 Continue with Google
             </button>
 
-            <div class="divider">
-                <span>or</span>
-            </div>
-
-            <!-- Email/Password Signup Form (Secondary) -->
-            <form id="signupForm" onsubmit="handleSignup(event)">
-                <div class="form-group">
-                    <label class="form-label" for="business_name">Business Name</label>
-                    <input 
-                        type="text" 
-                        id="business_name" 
-                        name="business_name" 
-                        class="form-input" 
-                        placeholder="Your company or brand name"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="email">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        class="form-input" 
-                        placeholder="you@company.com"
-                        required
-                    >
-                    <p class="error-message" id="emailError">Please enter a valid email address</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="form-input" 
-                        placeholder="Create a strong password"
-                        required
-                        minlength="8"
-                        oninput="checkPasswordStrength(this.value)"
-                    >
-                    <div class="password-strength">
-                        <div id="strengthBar" class="password-strength-bar"></div>
-                    </div>
-                    <p class="error-message" id="passwordError">Password must be at least 8 characters</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="confirm_password">Confirm Password</label>
-                    <input 
-                        type="password" 
-                        id="confirm_password" 
-                        name="confirm_password" 
-                        class="form-input" 
-                        placeholder="Confirm your password"
-                        required
-                    >
-                    <p class="error-message" id="confirmError">Passwords do not match</p>
-                </div>
-
-                <button type="submit" class="btn-primary" id="submitBtn">
-                    Create Account
-                </button>
-            </form>
-
-            <!-- Email Verification Form (hidden by default) -->
-            <div id="verificationSection" style="display: none;">
-                <h1 class="auth-title">Verify your email</h1>
-                <p class="auth-subtitle">We sent a verification code to <strong id="verificationEmail"></strong></p>
-                
-                <form id="verificationForm" onsubmit="handleVerification(event)">
-                    <div class="form-group">
-                        <label class="form-label" for="verification_code">Verification Code</label>
-                        <input 
-                            type="text" 
-                            id="verification_code" 
-                            name="verification_code" 
-                            class="form-input" 
-                            placeholder="Enter 6-digit code"
-                            maxlength="6"
-                            pattern="[0-9]{6}"
-                            required
-                            autocomplete="off"
-                            style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;"
-                        >
-                    </div>
-
-                    <button type="submit" id="verifyBtn" class="btn-primary">
-                        <span class="btn-text">Verify Email</span>
-                    </button>
-                </form>
-
-                <div style="margin-top: 20px; text-align: center;">
-                    <p style="color: var(--text-gray); font-size: 0.875rem; margin-bottom: 12px;">
-                        Didn't receive the code?
-                    </p>
-                    <button type="button" onclick="resendVerificationCode()" id="resendBtn" class="btn-secondary" style="width: 100%;">
-                        <span class="btn-text">Resend Code</span>
-                    </button>
-                </div>
-            </div>
+            <p style="color: var(--text-gray); font-size: 0.9rem; text-align: center; line-height: 1.6;">
+                We use Google sign-in only. You’ll be redirected back to your dashboard after authentication.
+            </p>
 
             <p class="auth-footer">
                 Already have an account? <a href="login.html">Sign in</a>
@@ -478,30 +398,6 @@
 
     <script>
         const API_BASE = 'https://insta-dm-qualifier.onrender.com';
-
-        function checkPasswordStrength(password) {
-            const bar = document.getElementById('strengthBar');
-            bar.className = 'password-strength-bar';
-            
-            if (password.length === 0) {
-                bar.style.width = '0%';
-                return;
-            }
-            
-            let strength = 0;
-            if (password.length >= 8) strength++;
-            if (/[A-Z]/.test(password)) strength++;
-            if (/[0-9]/.test(password)) strength++;
-            if (/[^A-Za-z0-9]/.test(password)) strength++;
-
-            if (strength <= 1) {
-                bar.classList.add('strength-weak');
-            } else if (strength <= 2) {
-                bar.classList.add('strength-medium');
-            } else {
-                bar.classList.add('strength-strong');
-            }
-        }
 
         function showAlert(message, type) {
             const alert = document.getElementById('alert');
@@ -517,206 +413,7 @@
             // Redirect to backend Google OAuth endpoint
             window.location.href = `${API_BASE}/auth/google`;
         }
-
-        async function handleSignup(event) {
-            event.preventDefault();
-            hideAlert();
-
-            const form = event.target;
-            const submitBtn = document.getElementById('submitBtn');
-            
-            const business_name = form.business_name.value.trim();
-            const email = form.email.value.trim();
-            const password = form.password.value;
-            const confirm_password = form.confirm_password.value;
-
-            let hasError = false;
-
-            if (!email.includes('@')) {
-                document.getElementById('email').classList.add('error');
-                document.getElementById('emailError').classList.add('show');
-                hasError = true;
-            } else {
-                document.getElementById('email').classList.remove('error');
-                document.getElementById('emailError').classList.remove('show');
-            }
-
-            if (password.length < 8) {
-                document.getElementById('password').classList.add('error');
-                document.getElementById('passwordError').classList.add('show');
-                hasError = true;
-            } else {
-                document.getElementById('password').classList.remove('error');
-                document.getElementById('passwordError').classList.remove('show');
-            }
-
-            if (password !== confirm_password) {
-                document.getElementById('confirm_password').classList.add('error');
-                document.getElementById('confirmError').classList.add('show');
-                hasError = true;
-            } else {
-                document.getElementById('confirm_password').classList.remove('error');
-                document.getElementById('confirmError').classList.remove('show');
-            }
-
-            if (hasError) return;
-
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/signup`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        business_name,
-                        email,
-                        password
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // Check if email verification was sent
-                    if (data.verification_sent) {
-                        // Store client info for verification
-                        localStorage.setItem('xstellar_client_id', data.client_id);
-                        localStorage.setItem('xstellar_email', email);
-                        localStorage.setItem('xstellar_business', business_name);
-                        localStorage.setItem('xstellar_pending_verification', 'true');
-                        
-                        // Show verification UI
-                        showVerificationUI(data.client_id);
-                    } else {
-                        // This shouldn't happen if backend is working correctly
-                        showAlert('Account created but verification email failed. Please contact support.', 'error');
-                    }
-                } else {
-                    showAlert(data.detail || 'Signup failed. Please try again.', 'error');
-                }
-            } catch (error) {
-                console.error('Signup error:', error);
-                showAlert('Connection error. Please check if the server is running.', 'error');
-            } finally {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-            }
-        }
-
-        function showVerificationUI(clientId) {
-            // Hide signup form
-            document.getElementById('signupForm').style.display = 'none';
-            // Show verification section
-            document.getElementById('verificationSection').style.display = 'block';
-            // Set email in verification message
-            const email = localStorage.getItem('xstellar_email');
-            document.getElementById('verificationEmail').textContent = email;
-            // Focus on verification code input
-            setTimeout(() => {
-                document.getElementById('verification_code').focus();
-            }, 100);
-        }
-
-        async function handleVerification(event) {
-            event.preventDefault();
-            hideAlert();
-
-            const verifyBtn = document.getElementById('verifyBtn');
-            const code = document.getElementById('verification_code').value.trim();
-            const clientId = parseInt(localStorage.getItem('xstellar_client_id'));
-
-            if (!code || code.length !== 6) {
-                showAlert('Please enter a valid 6-digit code', 'error');
-                return;
-            }
-
-            verifyBtn.classList.add('loading');
-            verifyBtn.disabled = true;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/verify-email`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        client_id: clientId,
-                        code: code
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // Remove pending verification flag
-                    localStorage.removeItem('xstellar_pending_verification');
-                    // Store JWT so user can access protected endpoints immediately
-                    if (data.access_token) {
-                        localStorage.setItem('xstellar_access_token', data.access_token);
-                    }
-                    showAlert('Email verified successfully! Redirecting...', 'success');
-                    
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 1000);
-                } else {
-                    showAlert(data.detail || 'Verification failed. Please check your code and try again.', 'error');
-                }
-            } catch (error) {
-                console.error('Verification error:', error);
-                showAlert('Connection error. Please try again.', 'error');
-            } finally {
-                verifyBtn.classList.remove('loading');
-                verifyBtn.disabled = false;
-            }
-        }
-
-        async function resendVerificationCode() {
-            const resendBtn = document.getElementById('resendBtn');
-            const clientId = parseInt(localStorage.getItem('xstellar_client_id'));
-
-            resendBtn.classList.add('loading');
-            resendBtn.disabled = true;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/resend-verification`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        client_id: clientId
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    showAlert('Verification code sent! Please check your email.', 'success');
-                } else {
-                    showAlert(data.detail || 'Failed to resend code. Please try again.', 'error');
-                }
-            } catch (error) {
-                console.error('Resend error:', error);
-                showAlert('Connection error. Please try again.', 'error');
-            } finally {
-                resendBtn.classList.remove('loading');
-                resendBtn.disabled = false;
-            }
-        }
-
-        // Check if user is on verification step (page reload)
-        window.addEventListener('DOMContentLoaded', () => {
-            const pendingVerification = localStorage.getItem('xstellar_pending_verification');
-            const clientId = localStorage.getItem('xstellar_client_id');
-            
-            if (pendingVerification === 'true' && clientId) {
-                showVerificationUI(parseInt(clientId));
-            }
-        });
     </script>
 </body>
+
 </html>
