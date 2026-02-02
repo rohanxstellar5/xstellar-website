@@ -1220,6 +1220,12 @@
                                 <span class="form-hint">One per line. Max 1 used per conversation to build credibility.</span>
                             </div>
                         </div>
+                        <div class="form-group" style="margin-top: 12px;">
+                            <label class="form-label">Pricing Anchor (soft range for DMs)</label>
+                            <input type="text" id="icp_pricing_anchor" class="form-input"
+                                placeholder="e.g. most clients invest between $1-3k/month">
+                            <span class="form-hint">Used only when a lead asks about pricing. Never volunteered. Leave empty to skip pricing in DMs.</span>
+                        </div>
                     </div>
 
                     <div class="btn-row" style="margin-top: 20px;">
@@ -1454,6 +1460,7 @@
                 if (icp.service_description) document.getElementById('icp_service_description').value = icp.service_description;
                 if (icp.value_props && icp.value_props.length) document.getElementById('icp_value_props').value = icp.value_props.join('\n');
                 if (icp.proof_points && icp.proof_points.length) document.getElementById('icp_proof_points').value = icp.proof_points.join('\n');
+                if (icp.pricing_anchor) document.getElementById('icp_pricing_anchor').value = icp.pricing_anchor;
 
             } catch (e) {
                 console.error('Error loading DM config:', e);
@@ -1506,6 +1513,7 @@
             const serviceDesc = document.getElementById('icp_service_description').value.trim();
             const valuePropsStr = document.getElementById('icp_value_props').value.trim();
             const proofPointsStr = document.getElementById('icp_proof_points').value.trim();
+            const pricingAnchor = document.getElementById('icp_pricing_anchor').value.trim();
 
             const split = (s) => s.split(',').map(x => x.trim()).filter(x => x.length > 0);
             const splitLines = (s) => s.split('\n').map(x => x.trim()).filter(x => x.length > 0);
@@ -1518,7 +1526,8 @@
                 disqualifiers: split(disqStr),
                 service_description: serviceDesc,
                 value_props: splitLines(valuePropsStr),
-                proof_points: splitLines(proofPointsStr)
+                proof_points: splitLines(proofPointsStr),
+                pricing_anchor: pricingAnchor
             };
 
             btn.classList.add('loading');
