@@ -218,11 +218,15 @@
 
         @media (max-width: 1024px) {
             .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .stats-row {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .icp-card {
+                grid-column: span 1;
             }
         }
 
@@ -242,6 +246,16 @@
             border-radius: 12px;
             padding: 24px;
             transition: border-color 0.2s;
+        }
+
+        .icp-card {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 1024px) {
+            .icp-card {
+                grid-column: span 1;
+            }
         }
 
         .card:hover {
@@ -1061,11 +1075,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon instagram">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white"></path>
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white"></rect>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="3"></line>
-                        </svg>
+                        <img src="assets/instagram.webp" alt="Instagram" style="width: 22px; height: 22px; object-fit: contain;">
                     </div>
                     <div class="card-title-group">
                         <h3>Instagram</h3>
@@ -1089,11 +1099,8 @@
             <!-- Trigger Word Config -->
             <div class="card">
                 <div class="card-header">
-                    <div class="card-icon dm" style="background: linear-gradient(135deg, #FFD700, #FFA500);">
-                        <!-- Lightning Bolt Icon -->
-                        <svg viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0">
-                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
-                        </svg>
+                    <div class="card-icon dm" style="background: transparent;">
+                        <img src="assets/trigger-word.png" alt="Trigger Word" style="width: 22px; height: 22px; object-fit: contain;">
                     </div>
                     <div class="card-title-group">
                         <h3>Trigger Word</h3>
@@ -1115,18 +1122,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon calendly" style="background: white; border: 1px solid #e5e7eb;">
-                        <!-- Original Calendly 'C' Logo -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
-                                fill="#006bff" />
-                            <path
-                                d="M12 7C9.24 7 7 9.24 7 12C7 14.76 9.24 17 12 17C14.76 17 17 14.76 17 12C17 9.24 14.76 7 12 7ZM12 15C10.35 15 9 13.65 9 12C9 10.35 10.35 9 12 9C13.65 9 15 10.35 15 12C15 13.65 13.65 15 12 15Z"
-                                fill="#006bff" />
-                            <path
-                                d="M16.5 12C16.5 14.48 14.48 16.5 12 16.5C9.52 16.5 7.5 14.48 7.5 12C7.5 9.52 9.52 7.5 12 7.5C14.48 7.5 16.5 9.52 16.5 12Z"
-                                fill="#006bff" fill-opacity="0.2" />
-                        </svg>
+                        <img src="assets/Calendly_id6Wf82SOT_0.svg" alt="Calendly" style="width: 22px; height: 22px; object-fit: contain;">
                     </div>
                     <div class="card-title-group">
                         <h3>Calendly</h3>
@@ -1154,7 +1150,7 @@
             </div>
 
             <!-- ICP Config -->
-            <div class="card" style="grid-column: span 2;">
+            <div class="card icp-card">
                 <div class="card-header">
                     <div class="card-title-group">
                         <h3>Ideal Customer Profile (ICP)</h3>
@@ -1581,7 +1577,7 @@
                 connectedInfo.innerHTML =
                     `<div class="connected-info">` +
                     `<div class="connected-avatar" style="background:#0069ff; display:flex; align-items:center; justify-content:center;">` +
-                    `<img src="assets/calendly.svg" alt="Calendly" style="width:18px;height:18px;" />` +
+                    `<img src="assets/Calendly_id6Wf82SOT_0.svg" alt="Calendly" style="width:18px;height:18px;" />` +
                     `</div>` +
                     `<div style="flex: 1;">` +
                     `<div class="connected-name">Calendly Connected</div>` +
@@ -1660,5 +1656,9 @@
     </script>
 </body>
 
+</html>
+</html>
+</html>
+</html>
 </html>
 </html>
